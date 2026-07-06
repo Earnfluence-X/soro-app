@@ -1715,12 +1715,15 @@
                 document.getElementById('chat-context-menu').classList.remove('show');
             },
 
-            // ==================== TABS & FILTERING ====================
+            // ==================== TABS & FILTERING (FIXED) ====================
             filterChats(filter) {
                 this.chatFilter = filter;
                 document.querySelectorAll('.tab').forEach(tab => {
                     tab.classList.toggle('active', tab.dataset.tab === filter);
                 });
+                // Clear search when switching tabs
+                document.getElementById('search-input').value = '';
+                this.searchQuery = '';
                 this.renderFilteredChats();
             },
 
@@ -1737,31 +1740,47 @@
                 let unreadCount = 0, pinnedCount = 0, archivedCount = 0;
                 let filteredChats = [];
 
+                // First pass: count all
                 this.allChatsCache.forEach(chat => {
                     const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
                     const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
                     const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
 
-                    // Count
                     if (hasUnread && !isArchived) unreadCount++;
                     if (isPinned && !isArchived) pinnedCount++;
                     if (isArchived) archivedCount++;
+                });
 
-                    // Search filter
+                // Second pass: filter
+                this.allChatsCache.forEach(chat => {
+                    const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
+                    const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
+                    const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
+
+                    // Search filter (applies to all tabs)
                     if (this.searchQuery && !chat.displayName.toLowerCase().includes(this.searchQuery)) {
-                        return;
+                        return; // skip if doesn't match search
                     }
 
                     // Tab filter
-                    if (this.chatFilter === 'archived' && !isArchived) return;
-                    if (this.chatFilter === 'unread' && (!hasUnread || isArchived)) return;
-                    if (this.chatFilter === 'pinned' && (!isPinned || isArchived)) return;
-                    if (this.chatFilter === 'all' && isArchived) return;
+                    if (this.chatFilter === 'archived') {
+                        // ONLY show archived chats
+                        if (!isArchived) return;
+                    } else if (this.chatFilter === 'unread') {
+                        // ONLY show unread and NOT archived
+                        if (!hasUnread || isArchived) return;
+                    } else if (this.chatFilter === 'pinned') {
+                        // ONLY show pinned and NOT archived
+                        if (!isPinned || isArchived) return;
+                    } else if (this.chatFilter === 'all') {
+                        // Show everything EXCEPT archived
+                        if (isArchived) return;
+                    }
 
                     filteredChats.push(chat);
                 });
 
-                // Update counts
+                // Update counts in tabs
                 document.getElementById('unread-count').textContent = unreadCount;
                 document.getElementById('pinned-count').textContent = pinnedCount;
                 document.getElementById('archived-count').textContent = archivedCount;
@@ -1772,7 +1791,12 @@
                 });
 
                 if (filteredChats.length === 0) {
-                    chatList.innerHTML = `<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:40px;font-size:13px;">No chats found</p>`;
+                    let emptyMsg = 'No chats found';
+                    if (this.chatFilter === 'archived') emptyMsg = 'No archived chats';
+                    if (this.chatFilter === 'unread') emptyMsg = 'No unread chats';
+                    if (this.chatFilter === 'pinned') emptyMsg = 'No pinned chats';
+                    if (this.searchQuery) emptyMsg = 'No chats matching "' + this.searchQuery + '"';
+                    chatList.innerHTML = `<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:40px;font-size:13px;">${emptyMsg}</p>`;
                 }
             },
 
@@ -1855,6 +1879,13 @@
             onScreenChange(screenName) {
                 switch(screenName) {
                     case 'chats':
+                        // Reset to All tab when navigating to chats
+                        this.chatFilter = 'all';
+                        this.searchQuery = '';
+                        document.getElementById('search-input').value = '';
+                        document.querySelectorAll('.tab').forEach(tab => {
+                            tab.classList.toggle('active', tab.dataset.tab === 'all');
+                        });
                         this.loadChatList();
                         this.loadStories();
                         this.loadFriendRequests();
@@ -1992,7 +2023,7 @@
                 this.openChat(chatRef.id);
             },
 
-            // ==================== CHAT FUNCTIONS ====================
+            // ==================== CHAT LIST FUNCTIONS ====================
             loadChatList() {
                 if (!this.currentUser) return;
                 if (this.chatListListener) this.chatListListener();
@@ -2092,7 +2123,18 @@
                         U.showToast('This user is blocked');
                         return;
                     }
-                    this.openChat(chat.id);
+                    // If archived, unarchive first then open
+                    if (isArchived) {
+                        const updateUnarchive = {};
+                        updateUnarchive[`isArchived.${this.currentUser.uid}`] = false;
+                        updateDoc(doc(db, 'chats', chat.id), updateUnarchive).then(() => {
+                            U.showToast('Chat unarchived');
+                            this.loadChatList();
+                            setTimeout(() => this.openChat(chat.id), 300);
+                        });
+                    } else {
+                        this.openChat(chat.id);
+                    }
                 });
 
                 chatItem.addEventListener('contextmenu', (e) => {
@@ -2462,7 +2504,7 @@
                 modal.classList.add('open');
             },
 
-            // ==================== CHAT FUNCTIONS ====================
+            // ==================== CHAT OPEN FUNCTIONS ====================
             openChat(chatId) {
                 this.closeChat();
                 this.currentChatId = chatId;
@@ -2775,13 +2817,18 @@
                         </div>
                         <div style="display:flex;gap:8px;margin-bottom:12px;">
                             <input type="text" id="story-reply-input" class="input" placeholder="Reply to story..." style="flex:1;margin:0;">
-                            <button class="btn btn-primary" onclick="window.SoroApp.replyToStory('${story.userId}')">Reply</button>
+                            <button class="btn btn-primary" id="story-reply-btn">Reply</button>
                         </div>
                         <div class="modal-actions">
                             <button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button>
                         </div>
                     </div>
                 `;
+
+                // Add event listener for the reply button
+                document.getElementById('story-reply-btn').addEventListener('click', () => {
+                    this.replyToStory(story.userId);
+                });
 
                 modal.classList.add('open');
             },
