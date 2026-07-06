@@ -16,122 +16,350 @@
 </head>
 <body>
     <div id="app">
+        <!-- SVG Icons Sprite -->
+        <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </symbol>
+                <symbol id="icon-community" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </symbol>
+                <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </symbol>
+                <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </symbol>
+                <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"/>
+                    <polyline points="12 19 5 12 12 5"/>
+                </symbol>
+                <symbol id="icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </symbol>
+                <symbol id="icon-story" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                </symbol>
+                <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                </symbol>
+                <symbol id="icon-check-double" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 6 7 17 2 12"/>
+                    <polyline points="22 6 11 17 6 12"/>
+                </symbol>
+                <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </symbol>
+                <symbol id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </symbol>
+                <symbol id="icon-device" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="4" width="16" height="16" rx="2"/>
+                    <line x1="9" y1="20" x2="15" y2="20"/>
+                    <line x1="12" y1="16" x2="12" y2="20"/>
+                </symbol>
+            </defs>
+        </svg>
+
+        <!-- Loading Screen -->
         <div id="loading-screen" class="screen active">
             <div class="loading-container">
-                <svg class="loading-icon" viewBox="0 0 512 512" width="80" height="80">
-                    <path d="M256 125 C340 125 400 176 400 240 C400 304 340 355 256 355 C232 355 210 351 190 344 L140 380 L158 345 C125 320 112 282 112 240 C112 176 172 125 256 125Z" fill="none" stroke="#D47A3A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
-                        <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
-                    </path>
-                    <g transform="translate(256, 262)">
-                        <rect x="-40" y="-35" width="10" height="32" rx="5" fill="#D47A3A" opacity="0.45"><animate attributeName="opacity" values="0.45;0.7;0.45" dur="1.5s" repeatCount="indefinite"/></rect>
-                        <rect x="-22" y="-48" width="10" height="58" rx="5" fill="#D47A3A" opacity="0.7"><animate attributeName="opacity" values="0.7;1;0.7" dur="1.2s" repeatCount="indefinite"/></rect>
-                        <rect x="-4" y="-62" width="10" height="80" rx="5" fill="#E68A4A"><animate attributeName="opacity" values="0.8;1;0.8" dur="1s" repeatCount="indefinite"/></rect>
-                        <rect x="14" y="-48" width="10" height="58" rx="5" fill="#D47A3A" opacity="0.7"><animate attributeName="opacity" values="0.7;1;0.7" dur="1.2s" repeatCount="indefinite"/></rect>
-                        <rect x="32" y="-35" width="10" height="32" rx="5" fill="#D47A3A" opacity="0.45"><animate attributeName="opacity" values="0.45;0.7;0.45" dur="1.5s" repeatCount="indefinite"/></rect>
-                    </g>
-                </svg>
                 <div class="loading-text">SORO</div>
                 <div class="loading-spinner"></div>
             </div>
         </div>
-        <div id="screen-container"></div>
+
+        <!-- Login Screen -->
+        <div id="screen-login" class="screen">
+            <div class="auth-container">
+                <div class="auth-logo">S</div>
+                <div class="auth-title">SORO</div>
+                <div class="auth-subtitle">talk, simply.</div>
+                <input type="email" id="login-email" class="input" placeholder="Email">
+                <input type="password" id="login-password" class="input" placeholder="Password">
+                <button class="btn btn-primary btn-block" onclick="window.SoroAuth.login(document.getElementById('login-email').value, document.getElementById('login-password').value)">Sign In</button>
+                <span class="auth-link" onclick="document.getElementById('screen-login').style.display='none';document.getElementById('screen-signup').style.display='flex'">Create account</span>
+            </div>
+        </div>
+
+        <!-- Signup Screen -->
+        <div id="screen-signup" class="screen">
+            <div class="auth-container">
+                <div class="auth-logo">S</div>
+                <div class="auth-title">SORO</div>
+                <div class="auth-subtitle">Create your account</div>
+                <input type="text" id="signup-username" class="input" placeholder="Username">
+                <input type="email" id="signup-email" class="input" placeholder="Email">
+                <input type="password" id="signup-password" class="input" placeholder="Password (8+ chars, 1 number)">
+                <button class="btn btn-primary btn-block" onclick="window.SoroAuth.signup(document.getElementById('signup-email').value, document.getElementById('signup-username').value, document.getElementById('signup-password').value)">Sign Up</button>
+                <span class="auth-link" onclick="document.getElementById('screen-signup').style.display='none';document.getElementById('screen-login').style.display='flex'">Back to Sign In</span>
+            </div>
+        </div>
+
+        <!-- Chats Screen -->
+        <div id="screen-chats" class="screen">
+            <div class="header">
+                <div class="logo">SORO</div>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <button class="btn-icon" onclick="window.SoroStories.createStory()">
+                        <svg class="icon" viewBox="0 0 24 24"><use href="#icon-story"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="stories-row" class="stories-row">
+                <div class="story-item" onclick="window.SoroStories.createStory()">
+                    <div class="story-ring" style="border-color:var(--accent)">
+                        <div class="story-avatar" style="background:var(--accent);color:white;">
+                            <svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-plus"/></svg>
+                        </div>
+                    </div>
+                    <span class="story-name">Add Story</span>
+                </div>
+            </div>
+            <div id="chat-list" class="chat-list"></div>
+            <div class="bottom-nav">
+                <button class="nav-item active" onclick="window.SoroApp.showScreen('chats')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-chat"/></svg>
+                </button>
+                <button class="nav-item" onclick="window.SoroApp.showScreen('communities')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-community"/></svg>
+                </button>
+                <button class="nav-item" onclick="window.SoroApp.showScreen('settings')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-settings"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Screen -->
+        <div id="screen-chat" class="screen">
+            <div class="header">
+                <button class="btn-back" onclick="window.SoroApp.showScreen('chats')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg>
+                </button>
+                <span id="chat-title" class="header-title">Chat</span>
+                <button id="group-settings-btn" class="btn-icon" onclick="window.SoroGroups.openGroupSettings()" style="display:none">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-settings"/></svg>
+                </button>
+            </div>
+            <div id="messages-area" class="messages-area"></div>
+            <div id="typing-indicator" class="typing-indicator" style="display:none">Someone is typing...</div>
+            <div class="input-bar">
+                <textarea id="chat-input" class="input textarea" rows="1" placeholder="Message..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';window.SoroChat.setTyping()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();window.SoroChat.sendMessage()}"></textarea>
+                <button class="btn btn-primary" onclick="window.SoroChat.sendMessage()" style="border-radius:50%;padding:12px;height:44px;width:44px;">
+                    <svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-send"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Communities Screen -->
+        <div id="screen-communities" class="screen">
+            <div class="header">
+                <div class="logo">Communities</div>
+                <button class="btn-icon" onclick="window.SoroCommunities.createCommunity()">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
+                </button>
+            </div>
+            <div id="communities-list" class="chat-list"></div>
+            <div class="bottom-nav">
+                <button class="nav-item" onclick="window.SoroApp.showScreen('chats')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-chat"/></svg>
+                </button>
+                <button class="nav-item active" onclick="window.SoroApp.showScreen('communities')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-community"/></svg>
+                </button>
+                <button class="nav-item" onclick="window.SoroApp.showScreen('settings')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-settings"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="screen-settings" class="screen">
+            <div class="header"><div class="logo">Settings</div></div>
+            <div style="text-align:center;padding:16px">
+                <div id="settings-avatar" class="profile-avatar-lg" onclick="window.SoroSettings.changeProfilePhoto()">U</div>
+                <div id="settings-name" style="font-weight:700;color:var(--text-in)">User</div>
+                <div id="settings-username" style="font-size:12px;color:var(--terracotta)">@user</div>
+                <div class="progress-bar"><div id="profile-progress" class="progress-fill" style="width:0%"></div></div>
+                <div id="profile-progress-text" style="font-size:10px;opacity:0.5">Profile 0% complete</div>
+            </div>
+            <div class="settings-section">Profile</div>
+            <div class="settings-item" onclick="window.SoroSettings.editProfile('displayName')"><span>Display Name</span><span id="val-displayName" class="settings-value">Set name</span></div>
+            <div class="settings-item" onclick="window.SoroSettings.editProfile('username')"><span>Username</span><span id="val-username" class="settings-value">@user</span></div>
+            <div class="settings-item" onclick="window.SoroSettings.editProfile('bio')"><span>Bio</span><span id="val-bio" class="settings-value">Add bio</span></div>
+            <div class="settings-section">Account</div>
+            <div class="settings-item" onclick="window.SoroSettings.editProfile('email')"><span>Email</span><span id="val-email" class="settings-value"></span></div>
+            <div class="settings-item" onclick="window.SoroSettings.changePassword()"><span>Change Password</span></div>
+            <div class="settings-section">Privacy</div>
+            <div class="settings-item" onclick="window.SoroSettings.changeLastSeen()"><span>Last Seen</span><span id="val-lastSeen" class="settings-value">Contacts</span></div>
+            <div class="settings-item" onclick="window.SoroSettings.toggleReadReceipts()"><span>Read Receipts</span><div id="read-receipts-toggle" class="toggle on"></div></div>
+            <div class="settings-section">Appearance</div>
+            <div class="settings-item" onclick="window.SoroSettings.changeTheme()"><span>Theme</span><span id="val-theme" class="settings-value">Light</span></div>
+            <div class="settings-section">Data</div>
+            <div class="settings-item" onclick="window.SoroSettings.toggleDataSaver()"><span>Data Saver</span><div id="data-saver-toggle" class="toggle"></div></div>
+            <div class="settings-section">Danger</div>
+            <div class="settings-item danger-text" onclick="window.SoroSettings.deleteAccount()">Delete Account</div>
+            <div class="settings-item" onclick="window.SoroAuth.logout()" style="border-bottom:none;margin-bottom:20px"><span style="color:var(--rust)">Sign Out</span></div>
+            <div class="bottom-nav">
+                <button class="nav-item" onclick="window.SoroApp.showScreen('chats')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-chat"/></svg>
+                </button>
+                <button class="nav-item" onclick="window.SoroApp.showScreen('communities')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-community"/></svg>
+                </button>
+                <button class="nav-item active" onclick="window.SoroApp.showScreen('settings')">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-settings"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal-overlay" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+            <div class="modal">
+                <div id="modal-content"></div>
+            </div>
+        </div>
+
+        <!-- Toast -->
         <div id="toast" class="toast"></div>
-        <button id="install-btn" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;padding:12px 24px;background:#D47A3A;color:white;border:none;border-radius:24px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 16px rgba(212,122,58,0.4);">Install SORO</button>
     </div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail, updatePassword, updateEmail, deleteUser } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, orderBy, limit, onSnapshot, addDoc, serverTimestamp, arrayUnion, arrayRemove, increment, writeBatch, getDocs, runTransaction } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { getDatabase, ref as rtdbRef, set, onDisconnect, serverTimestamp as rtdbTimestamp, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+    <script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+            "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js",
+            "firebase/database": "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"
+        }
+    }
+    </script>
 
+    <script type="module">
+        // REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIG
         const firebaseConfig = {
-            apiKey: "{{FIREBASE_API_KEY}}",
-            authDomain: "{{FIREBASE_AUTH_DOMAIN}}",
-            projectId: "{{FIREBASE_PROJECT_ID}}",
-            storageBucket: "{{FIREBASE_STORAGE_BUCKET}}",
-            messagingSenderId: "{{FIREBASE_MESSAGING_SENDER_ID}}",
-            appId: "{{FIREBASE_APP_ID}}"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
+
+        import { initializeApp } from 'firebase/app';
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged,
+            sendPasswordResetEmail,
+            updatePassword,
+            updateEmail,
+            deleteUser
+        } from 'firebase/auth';
+        import { 
+            getFirestore, 
+            collection, 
+            doc, 
+            setDoc, 
+            getDoc, 
+            updateDoc, 
+            deleteDoc, 
+            query, 
+            where, 
+            orderBy, 
+            limit, 
+            onSnapshot, 
+            addDoc, 
+            serverTimestamp, 
+            arrayUnion, 
+            arrayRemove, 
+            increment, 
+            writeBatch, 
+            getDocs, 
+            runTransaction 
+        } from 'firebase/firestore';
+        import { 
+            getDatabase, 
+            ref as rtdbRef, 
+            set, 
+            onDisconnect, 
+            serverTimestamp as rtdbTimestamp, 
+            onValue 
+        } from 'firebase/database';
 
         const app = initializeApp(firebaseConfig);
         window.firebase = {
             auth: getAuth(app),
             db: getFirestore(app),
             rtdb: getDatabase(app),
-            serverTimestamp: serverTimestamp,
-            arrayUnion: arrayUnion,
-            arrayRemove: arrayRemove,
-            increment: increment,
-            signInWithEmailAndPassword: signInWithEmailAndPassword,
-            createUserWithEmailAndPassword: createUserWithEmailAndPassword,
-            signOut: signOut,
-            onAuthStateChanged: onAuthStateChanged,
-            sendPasswordResetEmail: sendPasswordResetEmail,
-            updatePassword: updatePassword,
-            updateEmail: updateEmail,
-            deleteUser: deleteUser,
-            collection: collection,
-            doc: doc,
-            setDoc: setDoc,
-            getDoc: getDoc,
-            updateDoc: updateDoc,
-            deleteDoc: deleteDoc,
-            query: query,
-            where: where,
-            orderBy: orderBy,
-            limit: limit,
-            onSnapshot: onSnapshot,
-            addDoc: addDoc,
-            writeBatch: writeBatch,
-            getDocs: getDocs,
-            runTransaction: runTransaction,
-            rtdbRef: rtdbRef,
-            set: set,
-            onDisconnect: onDisconnect,
-            rtdbTimestamp: rtdbTimestamp,
-            onValue: onValue
+            serverTimestamp,
+            arrayUnion,
+            arrayRemove,
+            increment,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged,
+            sendPasswordResetEmail,
+            updatePassword,
+            updateEmail,
+            deleteUser,
+            collection,
+            doc,
+            setDoc,
+            getDoc,
+            updateDoc,
+            deleteDoc,
+            query,
+            where,
+            orderBy,
+            limit,
+            onSnapshot,
+            addDoc,
+            writeBatch,
+            getDocs,
+            runTransaction,
+            rtdbRef,
+            set,
+            onDisconnect,
+            rtdbTimestamp,
+            onValue
         };
-    </script>
 
-    <script src="/js/utils.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/chat.js"></script>
-    <script src="/js/groups.js"></script>
-    <script src="/js/stories.js"></script>
-    <script src="/js/communities.js"></script>
-    <script src="/js/settings.js"></script>
-    <script src="/js/app.js"></script>
+        // Load the rest of the app
+        const scriptUrls = [
+            '/js/utils.js',
+            '/js/auth.js',
+            '/js/chat.js',
+            '/js/groups.js',
+            '/js/stories.js',
+            '/js/communities.js',
+            '/js/settings.js',
+            '/js/app.js'
+        ];
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').catch(function() {});
-            });
+        for (const url of scriptUrls) {
+            const script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+            await new Promise(r => script.onload = r);
         }
-
-        var deferredPrompt;
-        window.addEventListener('beforeinstallprompt', function(e) {
-            e.preventDefault();
-            deferredPrompt = e;
-            var installBtn = document.getElementById('install-btn');
-            if (installBtn) {
-                installBtn.style.display = 'block';
-                installBtn.addEventListener('click', function() {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then(function(result) {
-                        deferredPrompt = null;
-                        installBtn.style.display = 'none';
-                    });
-                });
-            }
-        });
-
-        window.addEventListener('appinstalled', function() {
-            var installBtn = document.getElementById('install-btn');
-            if (installBtn) installBtn.style.display = 'none';
-            deferredPrompt = null;
-        });
     </script>
 </body>
 </html>
