@@ -1,4 +1,4 @@
-// build.js - Injects Firebase config from environment variables
+// build.js - Updated with debug
 const fs = require('fs');
 const path = require('path');
 
@@ -6,6 +6,8 @@ console.log('🔧 Building SORO...');
 
 // Read the template file from the template folder
 const templatePath = path.join(__dirname, 'template', 'index.html');
+console.log('📄 Reading template from:', templatePath);
+
 let html = fs.readFileSync(templatePath, 'utf8');
 
 // Get config from environment variables (Vercel)
@@ -40,6 +42,9 @@ html = html.replace(/{{FIREBASE_MESSAGING_SENDER_ID}}/g, config.messagingSenderI
 html = html.replace(/{{FIREBASE_APP_ID}}/g, config.appId);
 
 // Write to index.html in the root
-fs.writeFileSync(path.join(__dirname, 'index.html'), html);
+const outputPath = path.join(__dirname, 'index.html');
+fs.writeFileSync(outputPath, html);
 
 console.log('✅ Built index.html with config injected!');
+console.log('📄 Output path:', outputPath);
+console.log('📄 File exists:', fs.existsSync(outputPath) ? '✅ Yes' : '❌ No');
