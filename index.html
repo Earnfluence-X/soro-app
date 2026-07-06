@@ -238,6 +238,12 @@
         <div id="toast" class="toast"></div>
     </div>
 
+    <script>
+        // Check if Firebase config is loaded
+        console.log('🔍 Loading SORO...');
+        console.log('📱 Environment:', window.location.hostname);
+    </script>
+
     <script type="importmap">
     {
         "imports": {
@@ -250,15 +256,35 @@
     </script>
 
     <script type="module">
-        // REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIG
+        // Firebase configuration from Vercel environment variables
+        // These will be replaced at build time or runtime by the serverless function
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "{{FIREBASE_API_KEY}}",
+            authDomain: "{{FIREBASE_AUTH_DOMAIN}}",
+            projectId: "{{FIREBASE_PROJECT_ID}}",
+            storageBucket: "{{FIREBASE_STORAGE_BUCKET}}",
+            messagingSenderId: "{{FIREBASE_MESSAGING_SENDER_ID}}",
+            appId: "{{FIREBASE_APP_ID}}"
         };
+
+        // Validate config
+        const isValidConfig = firebaseConfig.apiKey && 
+                             firebaseConfig.apiKey !== "{{FIREBASE_API_KEY}}" &&
+                             firebaseConfig.apiKey !== "YOUR_API_KEY";
+
+        if (!isValidConfig) {
+            console.error('❌ Firebase config not set! Check your Vercel environment variables.');
+            document.getElementById('loading-screen').innerHTML = `
+                <div class="loading-container">
+                    <div style="color:var(--rust);font-size:16px;text-align:center;padding:20px;">
+                        ⚠️ Configuration Error<br>
+                        <span style="font-size:12px;opacity:0.7;">Check Vercel environment variables</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            console.log('✅ Firebase config loaded successfully');
+        }
 
         import { initializeApp } from 'firebase/app';
         import { 
@@ -303,62 +329,74 @@
             onValue 
         } from 'firebase/database';
 
-        const app = initializeApp(firebaseConfig);
-        window.firebase = {
-            auth: getAuth(app),
-            db: getFirestore(app),
-            rtdb: getDatabase(app),
-            serverTimestamp,
-            arrayUnion,
-            arrayRemove,
-            increment,
-            signInWithEmailAndPassword,
-            createUserWithEmailAndPassword,
-            signOut,
-            onAuthStateChanged,
-            sendPasswordResetEmail,
-            updatePassword,
-            updateEmail,
-            deleteUser,
-            collection,
-            doc,
-            setDoc,
-            getDoc,
-            updateDoc,
-            deleteDoc,
-            query,
-            where,
-            orderBy,
-            limit,
-            onSnapshot,
-            addDoc,
-            writeBatch,
-            getDocs,
-            runTransaction,
-            rtdbRef,
-            set,
-            onDisconnect,
-            rtdbTimestamp,
-            onValue
-        };
+        try {
+            const app = initializeApp(firebaseConfig);
+            window.firebase = {
+                auth: getAuth(app),
+                db: getFirestore(app),
+                rtdb: getDatabase(app),
+                serverTimestamp,
+                arrayUnion,
+                arrayRemove,
+                increment,
+                signInWithEmailAndPassword,
+                createUserWithEmailAndPassword,
+                signOut,
+                onAuthStateChanged,
+                sendPasswordResetEmail,
+                updatePassword,
+                updateEmail,
+                deleteUser,
+                collection,
+                doc,
+                setDoc,
+                getDoc,
+                updateDoc,
+                deleteDoc,
+                query,
+                where,
+                orderBy,
+                limit,
+                onSnapshot,
+                addDoc,
+                writeBatch,
+                getDocs,
+                runTransaction,
+                rtdbRef,
+                set,
+                onDisconnect,
+                rtdbTimestamp,
+                onValue
+            };
 
-        // Load the rest of the app
-        const scriptUrls = [
-            '/js/utils.js',
-            '/js/auth.js',
-            '/js/chat.js',
-            '/js/groups.js',
-            '/js/stories.js',
-            '/js/communities.js',
-            '/js/settings.js',
-            '/js/app.js'
-        ];
+            // Load the rest of the app
+            const scriptUrls = [
+                '/js/utils.js',
+                '/js/auth.js',
+                '/js/chat.js',
+                '/js/groups.js',
+                '/js/stories.js',
+                '/js/communities.js',
+                '/js/settings.js',
+                '/js/app.js'
+            ];
 
-        for (const url of scriptUrls) {
-            const script = document.createElement('script');
-            script.src = url;
-            document.body.appendChild(script);
-            await new Promise(r => script.onload = r);
+            for (const url of scriptUrls) {
+                const script = document.createElement('script');
+                script.src = url;
+                document.body.appendChild(script);
+                await new Promise(r => script.onload = r);
+            }
+        } catch (error) {
+            console.error('❌ Failed to initialize Firebase:', error);
+            document.getElementById('loading-screen').innerHTML = `
+                <div class="loading-container">
+                    <div style="color:var(--rust);font-size:16px;text-align:center;padding:20px;">
+                        ⚠️ Failed to initialize<br>
+                        <span style="font-size:12px;opacity:0.7;">${error.message}</span>
+                    </div>
+                </div>
+            `;
         }
     </script>
 </body>
