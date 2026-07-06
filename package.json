@@ -1,10 +1,6 @@
 {
   "name": "soro-app",
   "version": "1.0.0",
-  "description": "SORO - talk, simply.",
-  "scripts": {
-    "build": "node build.js"
-  },
   "engines": {
     "node": "24.x"
   }
