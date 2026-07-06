@@ -15,9 +15,6 @@
     <title>SORO - talk, simply.</title>
     
     <style>
-        /* ============================================================
-           ALL STYLES INLINED HERE - No external CSS file needed!
-           ============================================================ */
         :root {
             --bg: #FDF8F0;
             --incoming: #EDE4D3;
@@ -51,11 +48,7 @@
             --mention-highlight: rgba(212, 122, 58, 0.3);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font);
@@ -96,21 +89,10 @@
             transition: background 0.3s ease;
         }
 
-        .screen.active {
-            display: flex;
-            z-index: 2;
-        }
+        .screen.active { display: flex; z-index: 2; }
+        .screen::-webkit-scrollbar { width: 3px; }
+        .screen::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        .screen::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .screen::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 10px;
-        }
-
-        /* Loading Screen */
         .loading-container {
             display: flex;
             flex-direction: column;
@@ -136,17 +118,13 @@
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Utility Classes */
         .icon { width: 20px; height: 20px; flex-shrink: 0; }
         .icon-sm { width: 16px; height: 16px; flex-shrink: 0; }
         .icon-lg { width: 24px; height: 24px; flex-shrink: 0; }
         .icon-xl { width: 32px; height: 32px; flex-shrink: 0; }
 
-        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -163,33 +141,12 @@
             text-decoration: none;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-glow);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background: var(--incoming);
-            color: var(--text-in);
-        }
-
-        .btn-danger {
-            background: var(--rust);
-            color: white;
-        }
-
-        .btn-block {
-            width: 100%;
-        }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: var(--accent-glow); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-secondary { background: var(--incoming); color: var(--text-in); }
+        .btn-danger { background: var(--rust); color: white; }
+        .btn-block { width: 100%; }
 
         .btn-icon {
             width: 38px;
@@ -206,10 +163,7 @@
             padding: 0;
         }
 
-        .btn-icon:hover {
-            background: var(--accent);
-            color: white;
-        }
+        .btn-icon:hover { background: var(--accent); color: white; }
 
         .btn-back {
             width: 34px;
@@ -225,7 +179,6 @@
             padding: 0;
         }
 
-        /* Input Fields */
         .input {
             width: 100%;
             padding: 13px 16px;
@@ -240,18 +193,9 @@
             margin-bottom: 10px;
         }
 
-        .input:focus {
-            border-color: var(--accent);
-        }
-
-        .input::placeholder {
-            color: var(--terracotta);
-            opacity: 0.5;
-        }
-
-        .input.error {
-            border-color: var(--rust);
-        }
+        .input:focus { border-color: var(--accent); }
+        .input::placeholder { color: var(--terracotta); opacity: 0.5; }
+        .input.error { border-color: var(--rust); }
 
         .textarea {
             resize: none;
@@ -260,19 +204,6 @@
             line-height: 1.4;
         }
 
-        .error-text {
-            font-size: 10px;
-            color: var(--rust);
-            margin-top: -6px;
-            margin-bottom: 8px;
-            display: none;
-        }
-
-        .error-text.visible {
-            display: block;
-        }
-
-        /* Toggle Switch */
         .toggle {
             width: 46px;
             height: 26px;
@@ -284,10 +215,7 @@
             flex-shrink: 0;
         }
 
-        .toggle.on {
-            background: var(--accent);
-        }
-
+        .toggle.on { background: var(--accent); }
         .toggle::after {
             content: '';
             width: 20px;
@@ -300,11 +228,8 @@
             transition: left 0.3s;
         }
 
-        .toggle.on::after {
-            left: 23px;
-        }
+        .toggle.on::after { left: 23px; }
 
-        /* Toast */
         .toast {
             position: absolute;
             bottom: 80px;
@@ -323,11 +248,8 @@
             white-space: nowrap;
         }
 
-        .toast.show {
-            opacity: 1;
-        }
+        .toast.show { opacity: 1; }
 
-        /* Messages */
         .messages-area {
             flex: 1;
             overflow-y: auto;
@@ -385,7 +307,6 @@
             border-radius: 3px;
         }
 
-        /* Chat List */
         .chat-list {
             flex: 1;
             overflow-y: auto;
@@ -403,13 +324,8 @@
             margin-bottom: 1px;
         }
 
-        .chat-item:hover {
-            background: var(--incoming);
-        }
-
-        .chat-item:active {
-            transform: scale(0.985);
-        }
+        .chat-item:hover { background: var(--incoming); }
+        .chat-item:active { transform: scale(0.985); }
 
         .avatar {
             width: 48px;
@@ -425,17 +341,8 @@
             position: relative;
         }
 
-        .avatar-sm {
-            width: 36px;
-            height: 36px;
-            font-size: 14px;
-        }
-
-        .avatar-lg {
-            width: 64px;
-            height: 64px;
-            font-size: 26px;
-        }
+        .avatar-sm { width: 36px; height: 36px; font-size: 14px; }
+        .avatar-lg { width: 64px; height: 64px; font-size: 26px; }
 
         .online-dot {
             width: 11px;
@@ -448,11 +355,7 @@
             right: 1px;
         }
 
-        .chat-info {
-            flex: 1;
-            min-width: 0;
-        }
-
+        .chat-info { flex: 1; min-width: 0; }
         .chat-name {
             font-weight: 600;
             font-size: 14px;
@@ -472,11 +375,7 @@
             text-overflow: ellipsis;
         }
 
-        .chat-meta {
-            text-align: right;
-            flex-shrink: 0;
-        }
-
+        .chat-meta { text-align: right; flex-shrink: 0; }
         .chat-time {
             font-size: 10px;
             color: var(--text-in);
@@ -515,7 +414,6 @@
             margin-left: 4px;
         }
 
-        /* Auth Screens */
         .auth-container {
             display: flex;
             flex-direction: column;
@@ -536,6 +434,8 @@
             justify-content: center;
             color: white;
             margin-bottom: 4px;
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .auth-title {
@@ -560,7 +460,6 @@
             opacity: 0.65;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -583,7 +482,6 @@
             color: var(--accent);
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             display: flex;
             justify-content: space-around;
@@ -634,7 +532,6 @@
             padding: 0 4px;
         }
 
-        /* Input Bar */
         .input-bar {
             display: flex;
             align-items: flex-end;
@@ -645,7 +542,6 @@
             background: var(--bg);
         }
 
-        /* Settings */
         .settings-section {
             padding: 8px 16px 4px;
             font-size: 10px;
@@ -670,38 +566,15 @@
             font-weight: 500;
         }
 
-        .settings-item:hover {
-            background: var(--incoming);
-        }
-
-        .settings-item-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .settings-icon-box {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--incoming);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-in);
-        }
-
+        .settings-item:hover { background: var(--incoming); }
         .settings-value {
             color: var(--terracotta);
             opacity: 0.7;
             font-size: 12px;
         }
 
-        .danger-text {
-            color: var(--rust) !important;
-        }
+        .danger-text { color: var(--rust) !important; }
 
-        /* Modal */
         .modal-overlay {
             position: absolute;
             top: 0;
@@ -715,9 +588,7 @@
             justify-content: center;
         }
 
-        .modal-overlay.open {
-            display: flex;
-        }
+        .modal-overlay.open { display: flex; }
 
         .modal {
             background: var(--bg);
@@ -742,7 +613,6 @@
             margin-top: 6px;
         }
 
-        /* Stories */
         .stories-row {
             padding: 4px 16px 6px;
             overflow-x: auto;
@@ -751,9 +621,7 @@
             flex-shrink: 0;
         }
 
-        .stories-row::-webkit-scrollbar {
-            display: none;
-        }
+        .stories-row::-webkit-scrollbar { display: none; }
 
         .story-item {
             display: inline-block;
@@ -771,9 +639,7 @@
             margin-bottom: 4px;
         }
 
-        .story-ring.viewed {
-            border-color: var(--border);
-        }
+        .story-ring.viewed { border-color: var(--border); }
 
         .story-avatar {
             width: 100%;
@@ -797,12 +663,10 @@
             text-overflow: ellipsis;
         }
 
-        /* Profile */
         .profile-avatar-lg {
             width: 68px;
             height: 68px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #D47A3A, #C26A4A);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -829,7 +693,20 @@
             transition: width 0.5s;
         }
 
-        /* Responsive */
+        .typing-indicator {
+            font-size: 11px;
+            color: var(--terracotta);
+            opacity: 0.7;
+            padding: 3px 14px;
+            font-style: italic;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
         @media (min-width: 431px) {
             #app {
                 border-left: 1px solid var(--border);
@@ -837,21 +714,13 @@
             }
         }
 
-        /* Safe area for notched phones */
         @supports (padding: env(safe-area-inset-bottom)) {
-            .bottom-nav {
-                padding-bottom: calc(16px + env(safe-area-inset-bottom));
-            }
-            .input-bar {
-                padding-bottom: calc(16px + env(safe-area-inset-bottom));
-            }
+            .bottom-nav { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+            .input-bar { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
 <body>
-    <!-- ============================================================
-         HTML CONTENT
-         ============================================================ -->
     <div id="app">
         <!-- SVG Icons Sprite -->
         <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
@@ -998,9 +867,6 @@
         <div id="toast" class="toast"></div>
     </div>
 
-    <!-- ============================================================
-         JAVASCRIPT
-         ============================================================ -->
     <script type="importmap">
     {
         "imports": {
@@ -1014,7 +880,7 @@
 
     <script type="module">
         // ============================================================
-        // 🔥 FIREBASE CONFIG - Replace placeholders or use env vars
+        // 🔥 FIREBASE CONFIG - Injected at build time
         // ============================================================
         const firebaseConfig = {
             apiKey: "{{FIREBASE_API_KEY}}",

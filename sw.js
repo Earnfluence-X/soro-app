@@ -1,21 +1,11 @@
-const CACHE_NAME = 'soro-v2.0.0';  // ⬅️ Changed version to force update
+const CACHE_NAME = 'soro-v2.0.0';
 const ASSETS_TO_CACHE = [
     '/',
-    // '/index.html',  // ⬅️ REMOVED - Don't cache index.html
-    // '/css/style.css',  // ⬅️ REMOVED - Not needed (CSS is inlined)
-    // '/js/utils.js',  // ⬅️ REMOVED - Not needed (JS is inlined)
-    // '/js/auth.js',
-    // '/js/chat.js',
-    // '/js/groups.js',
-    // '/js/stories.js',
-    // '/js/communities.js',
-    // '/js/settings.js',
-    // '/js/app.js',
     '/manifest.json',
     '/icons/icon.svg'
 ];
 
-// Install event - cache assets
+// Install event
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -29,7 +19,7 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Activate event - clean old caches and claim clients
+// Activate event
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -42,9 +32,8 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event - NETWORK FIRST for everything
+// Fetch event - network first
 self.addEventListener('fetch', (event) => {
-    // Only handle GET requests
     if (event.request.method !== 'GET') return;
 
     // Don't cache Firebase/Firestore API calls
@@ -58,10 +47,8 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         fetch(event.request)
             .then((networkResponse) => {
-                // Cache successful responses for assets (not HTML)
                 if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                     const url = new URL(event.request.url);
-                    // Only cache non-HTML files
                     if (!url.pathname.endsWith('.html') && url.pathname !== '/') {
                         const responseClone = networkResponse.clone();
                         caches.open(CACHE_NAME).then((cache) => {
@@ -72,7 +59,6 @@ self.addEventListener('fetch', (event) => {
                 return networkResponse;
             })
             .catch((error) => {
-                // Network failed, try cache
                 console.warn('Fetch failed, using cache:', error);
                 return caches.match(event.request).then((cachedResponse) => {
                     return cachedResponse || new Response('Offline - Resource not available', {
@@ -84,51 +70,29 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// Handle push notifications
+// Push notifications
 self.addEventListener('push', (event) => {
     if (!event.data) return;
-
     const data = event.data.json();
     const options = {
         body: data.body || 'New message',
         icon: '/icons/icon.svg',
         badge: '/icons/icon.svg',
         vibrate: [200, 100, 200],
-        data: {
-            chatId: data.chatId,
-            url: data.url || '/'
-        },
-        actions: [
-            {
-                action: 'open',
-                title: 'Open'
-            },
-            {
-                action: 'reply',
-                title: 'Reply'
-            }
-        ]
+        data: { chatId: data.chatId, url: data.url || '/' }
     };
-
     event.waitUntil(
         self.registration.showNotification(data.title || 'SORO', options)
     );
 });
 
-// Handle notification clicks
+// Notification clicks
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
-
-    if (event.action === 'reply') {
-        event.waitUntil(clients.openWindow('/'));
-    } else {
-        const chatId = event.notification.data?.chatId;
-        const url = chatId ? `/?chat=${chatId}` : '/';
-        event.waitUntil(clients.openWindow(url));
-    }
+    event.waitUntil(clients.openWindow('/'));
 });
 
-// Handle message from main thread
+// Skip waiting message
 self.addEventListener('message', (event) => {
     if (event.data === 'skipWaiting') {
         self.skipWaiting();

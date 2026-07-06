@@ -1,14 +1,14 @@
-// build.js
+// build.js - Injects Firebase config from environment variables
 const fs = require('fs');
 const path = require('path');
 
 console.log('🔧 Building SORO...');
 
-// Read the TEMPLATE file from the template folder
+// Read the template file from the template folder
 const templatePath = path.join(__dirname, 'template', 'index.html');
 let html = fs.readFileSync(templatePath, 'utf8');
 
-// Get config from environment
+// Get config from environment variables (Vercel)
 const config = {
     apiKey: process.env.FIREBASE_API_KEY || '',
     authDomain: process.env.FIREBASE_AUTH_DOMAIN || '',
@@ -26,13 +26,12 @@ if (!isValid) {
     process.exit(1);
 }
 
-console.log('📋 Config:', {
-    apiKey: config.apiKey ? '✅' : '❌',
-    projectId: config.projectId ? '✅' : '❌',
-    authDomain: config.authDomain ? '✅' : '❌'
-});
+console.log('📋 Config status:');
+console.log('  API Key:', config.apiKey ? '✅ Set' : '❌ Missing');
+console.log('  Project ID:', config.projectId ? '✅ Set' : '❌ Missing');
+console.log('  Auth Domain:', config.authDomain ? '✅ Set' : '❌ Missing');
 
-// Replace placeholders
+// Replace placeholders with actual values
 html = html.replace(/{{FIREBASE_API_KEY}}/g, config.apiKey);
 html = html.replace(/{{FIREBASE_AUTH_DOMAIN}}/g, config.authDomain);
 html = html.replace(/{{FIREBASE_PROJECT_ID}}/g, config.projectId);
