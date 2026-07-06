@@ -1087,22 +1087,57 @@
                     document.getElementById('screen-signup').style.display = 'flex';
                 });
 
-                // Signup
+                // 🔥 FIXED: Signup with proper flow
                 document.getElementById('signup-btn').addEventListener('click', async () => {
                     const email = document.getElementById('signup-email').value;
                     const username = document.getElementById('signup-username').value;
                     const password = document.getElementById('signup-password').value;
 
+                    // Validate inputs
+                    if (!email || !username || !password) {
+                        U.showToast('Please fill in all fields');
+                        return;
+                    }
+
+                    if (password.length < 8) {
+                        U.showToast('Password must be at least 8 characters');
+                        return;
+                    }
+
                     try {
+                        // First, check if username exists
                         const usernameQuery = query(collection(db, 'users'), where('username', '==', username));
                         const existingUsers = await getDocs(usernameQuery);
                         if (!existingUsers.empty) {
                             U.showToast('Username already taken');
                             return;
                         }
-                        await createUserWithEmailAndPassword(auth, email, password);
-                        U.showToast('Account created!');
+
+                        // Create the user in Firebase Auth
+                        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                        const user = userCredential.user;
+
+                        // Now that user is authenticated, create their profile in Firestore
+                        await setDoc(doc(db, 'users', user.uid), {
+                            uid: user.uid,
+                            email: email,
+                            username: username,
+                            displayName: username,
+                            bio: '',
+                            avatarURL: '',
+                            createdAt: serverTimestamp(),
+                            isOnline: true,
+                            lastSeen: serverTimestamp(),
+                            theme: 'light',
+                            readReceiptsOn: true,
+                            lastSeenPrivacy: 'contacts',
+                            dataSaverOn: false,
+                            hasSeenTutorial: false
+                        });
+
+                        U.showToast('Account created successfully! 🎉');
                     } catch (err) {
+                        console.error('Signup error:', err);
                         U.showToast('Signup failed: ' + err.message);
                     }
                 });
