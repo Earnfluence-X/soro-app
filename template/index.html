@@ -257,6 +257,7 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            position: relative;
         }
 
         .msg {
@@ -267,10 +268,15 @@
             line-height: 1.4;
             word-wrap: break-word;
             animation: fadeIn 0.2s ease;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
+        .msg:active { transform: scale(0.98); }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -299,6 +305,34 @@
             gap: 2px;
         }
 
+        .msg-context-menu {
+            position: absolute;
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            padding: 8px 0;
+            min-width: 160px;
+            z-index: 60;
+            display: none;
+            border: 1px solid var(--border);
+        }
+
+        .msg-context-menu.show { display: block; }
+        .msg-context-menu-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            color: var(--text-in);
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .msg-context-menu-item:hover { background: var(--incoming); }
+        .msg-context-menu-item.danger { color: var(--rust); }
+
         .mention {
             background: var(--mention-highlight);
             color: var(--accent);
@@ -322,10 +356,41 @@
             cursor: pointer;
             transition: all 0.12s;
             margin-bottom: 1px;
+            position: relative;
+            user-select: none;
         }
 
         .chat-item:hover { background: var(--incoming); }
-        .chat-item:active { transform: scale(0.985); }
+        .chat-item:active { transform: scale(0.98); }
+        .chat-item.selected { background: var(--mention-highlight); }
+
+        .chat-context-menu {
+            position: absolute;
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            padding: 8px 0;
+            min-width: 180px;
+            z-index: 60;
+            display: none;
+            border: 1px solid var(--border);
+        }
+
+        .chat-context-menu.show { display: block; }
+        .chat-context-menu-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            color: var(--text-in);
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-context-menu-item:hover { background: var(--incoming); }
+        .chat-context-menu-item.danger { color: var(--rust); }
 
         .avatar {
             width: 48px;
@@ -397,12 +462,8 @@
             padding: 0 5px;
         }
 
-        .pinned-badge {
-            font-size: 9px;
-            color: var(--accent);
-            font-weight: 600;
-            margin-right: 3px;
-        }
+        .pinned-badge { font-size: 9px; color: var(--accent); font-weight: 600; margin-right: 3px; }
+        .archived-badge { font-size: 9px; color: var(--terracotta); font-weight: 600; margin-right: 3px; opacity: 0.6; }
 
         .request-badge {
             font-size: 9px;
@@ -739,217 +800,6 @@
             font-family: var(--font);
         }
 
-        .search-result-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.15s;
-            margin-bottom: 4px;
-        }
-
-        .search-result-item:hover { background: var(--incoming); }
-        .no-results {
-            text-align: center;
-            padding: 20px;
-            color: var(--terracotta);
-            opacity: 0.7;
-            font-size: 13px;
-        }
-
-        .contact-check {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .contact-check:hover { background: var(--incoming); }
-        .contact-check input[type=checkbox] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent);
-            cursor: pointer;
-        }
-
-        .friend-request-item {
-            background: var(--request-bg);
-            border: 1px dashed var(--accent);
-            border-radius: var(--radius-md);
-            padding: 12px;
-            margin: 4px 12px 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .friend-request-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .friend-request-actions button {
-            padding: 6px 14px;
-            border-radius: var(--radius-sm);
-            border: none;
-            font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
-            font-family: var(--font);
-        }
-
-        .btn-accept { background: var(--online); color: white; }
-        .btn-decline { background: var(--incoming); color: var(--text-in); }
-
-        .reaction-bar {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-
-        .reaction-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            padding: 2px 8px;
-            border-radius: 12px;
-            background: var(--incoming);
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.15s;
-            color: var(--text-in);
-        }
-
-        .reaction-pill:hover { background: var(--border); }
-        .reaction-pill.mine { background: var(--mention-highlight); }
-
-        .msg-actions {
-            display: none;
-            position: absolute;
-            right: -40px;
-            top: 50%;
-            transform: translateY(-50%);
-            gap: 4px;
-            background: var(--bg);
-            border-radius: var(--radius-sm);
-            padding: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .msg:hover .msg-actions { display: flex; }
-
-        .msg-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            color: var(--text-in);
-            opacity: 0.5;
-            transition: all 0.2s;
-        }
-
-        .msg-actions button:hover { opacity: 1; }
-
-        .link-preview {
-            margin-top: 6px;
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            background: rgba(0,0,0,0.04);
-            border: 1px solid var(--border);
-            padding: 8px 10px;
-        }
-
-        .link-preview-title { font-weight: 600; font-size: 12px; color: var(--text-in); }
-        .link-preview-desc { font-size: 11px; opacity: 0.5; color: var(--text-in); }
-        .link-preview-url { font-size: 10px; opacity: 0.3; color: var(--text-in); }
-
-        .poll-card {
-            background: var(--incoming);
-            border-radius: var(--radius-md);
-            padding: 14px;
-            max-width: 85%;
-            align-self: flex-start;
-            border: 1px solid var(--border);
-        }
-
-        .poll-title { font-weight: 700; font-size: 14px; color: var(--text-in); margin-bottom: 10px; }
-        .poll-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            background: var(--bg);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-size: 13px;
-            color: var(--text-in);
-            border: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .poll-option:hover { border-color: var(--accent); }
-        .poll-option.voted { border-color: var(--accent); }
-        .poll-bar-bg { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-        .poll-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.5s; }
-        .poll-votes { font-size: 11px; font-weight: 600; color: var(--text-in); opacity: 0.7; min-width: 24px; text-align: right; }
-        .poll-footer { font-size: 10px; color: var(--terracotta); margin-top: 8px; opacity: 0.7; }
-
-        .file-attachment {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(0,0,0,0.04);
-            border-radius: var(--radius-sm);
-            margin-top: 6px;
-        }
-
-        .dark .file-attachment { background: rgba(255,255,255,0.05); }
-        .file-icon-box {
-            width: 40px; height: 40px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .file-icon-box.pdf { background: #FDE8E8; color: #C53030; }
-        .file-icon-box.doc { background: #E8F0FE; color: #2B6CB0; }
-        .file-icon-box.img { background: #E8F5E9; color: #2E7D32; }
-        .file-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .file-size { font-size: 10px; opacity: 0.5; }
-
-        .admin-broadcast {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: var(--admin-badge);
-            color: white;
-            font-size: 12px;
-            font-weight: 500;
-            margin: 4px 0;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-        }
-
-        .admin-badge-text {
-            display: inline-block;
-            font-size: 9px;
-            color: var(--admin-badge);
-            font-weight: 700;
-            margin-left: 4px;
-            text-transform: uppercase;
-        }
-
         .tabs {
             display: flex;
             padding: 0 16px 6px;
@@ -983,6 +833,90 @@
             border-radius: 8px;
             margin-left: 3px;
             font-weight: 700;
+        }
+
+        .reaction-bar {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .reaction-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: var(--incoming);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: var(--text-in);
+        }
+
+        .reaction-pill:hover { background: var(--border); }
+        .reaction-pill.mine { background: var(--mention-highlight); }
+
+        .friend-request-item {
+            background: var(--request-bg);
+            border: 1px dashed var(--accent);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin: 4px 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .friend-request-actions { display: flex; gap: 8px; }
+        .friend-request-actions button {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+
+        .btn-accept { background: var(--online); color: white; }
+        .btn-decline { background: var(--incoming); color: var(--text-in); }
+
+        .contact-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .contact-check:hover { background: var(--incoming); }
+        .contact-check input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .community-hero {
+            padding: 24px 20px;
+            text-align: center;
+            background: var(--incoming);
+        }
+
+        .community-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--admin-badge);
+            color: white;
         }
 
         @media (min-width: 431px) {
@@ -1024,11 +958,8 @@
                 <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
                 <symbol id="icon-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
                 <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
-                <symbol id="icon-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
-                <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
-                <symbol id="icon-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></symbol>
-                <symbol id="icon-bar-chart-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></symbol>
-                <symbol id="icon-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+                <symbol id="icon-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
+                <symbol id="icon-unblock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="8" y1="8" x2="16" y2="16"/></symbol>
             </defs>
         </svg>
 
@@ -1086,6 +1017,7 @@
                 <button class="tab active" data-tab="all" onclick="window.SoroApp.filterChats('all')">All</button>
                 <button class="tab" data-tab="unread" onclick="window.SoroApp.filterChats('unread')">Unread <span class="count" id="unread-count">0</span></button>
                 <button class="tab" data-tab="pinned" onclick="window.SoroApp.filterChats('pinned')">Pinned <span class="count" id="pinned-count">0</span></button>
+                <button class="tab" data-tab="archived" onclick="window.SoroApp.filterChats('archived')">Archived <span class="count" id="archived-count">0</span></button>
             </div>
             <div id="stories-row" class="stories-row">
                 <div class="story-item" id="add-story-item">
@@ -1114,8 +1046,6 @@
             <div id="messages-area" class="messages-area"></div>
             <div id="typing-indicator" class="typing-indicator" style="display:none">Someone is typing...</div>
             <div class="input-bar">
-                <button class="btn-icon" id="attach-btn" title="Attach"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-paperclip"/></svg></button>
-                <button class="btn-icon" id="poll-btn" title="Poll"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-bar-chart-2"/></svg></button>
                 <textarea id="chat-input" class="input textarea" rows="1" placeholder="Type a message... Use @ to mention"></textarea>
                 <button class="btn btn-primary" id="send-btn" style="border-radius:50%;padding:12px;height:44px;width:44px;"><svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-send"/></svg></button>
             </div>
@@ -1139,7 +1069,7 @@
         <div id="screen-settings" class="screen">
             <div class="header"><div class="logo">Settings</div></div>
             <div style="text-align:center;padding:16px">
-                <div id="settings-avatar" class="profile-avatar-lg" onclick="window.SoroSettings.changeProfilePhoto()">U</div>
+                <div id="settings-avatar" class="profile-avatar-lg" onclick="window.SoroApp.changeProfilePhoto()">U</div>
                 <div id="settings-name" style="font-weight:700;color:var(--text-in)">User</div>
                 <div id="settings-username" style="font-size:12px;color:var(--terracotta)">@user</div>
                 <div class="progress-bar"><div id="profile-progress" class="progress-fill" style="width:0%"></div></div>
@@ -1158,7 +1088,6 @@
             <div class="settings-item" id="blocked-users-btn"><span>Blocked Users</span><span class="settings-value">0</span></div>
             <div class="settings-section">Appearance</div>
             <div class="settings-item" id="change-theme-btn"><span>Theme</span><span id="val-theme" class="settings-value">Light</span></div>
-            <div class="settings-item" id="chat-bg-btn"><span>Chat Background</span><span class="settings-value">Default</span></div>
             <div class="settings-section">Data</div>
             <div class="settings-item" id="toggle-datasaver"><span>Data Saver</span><div id="data-saver-toggle" class="toggle"></div></div>
             <div class="settings-item" id="active-sessions-btn"><span>Active Sessions</span><span class="settings-value">1 device</span></div>
@@ -1201,37 +1130,25 @@
             </div>
         </div>
 
-        <!-- Poll Creation Modal -->
-        <div id="modal-poll" class="modal-overlay">
-            <div class="modal">
-                <h3>Create Poll</h3>
-                <input type="text" id="poll-question" class="input" placeholder="Poll question">
-                <div id="poll-options-container">
-                    <input type="text" class="input poll-option-input" placeholder="Option 1">
-                    <input type="text" class="input poll-option-input" placeholder="Option 2">
-                    <input type="text" class="input poll-option-input" placeholder="Option 3">
-                </div>
-                <button class="btn btn-secondary" id="add-poll-option" style="margin-bottom:12px;">+ Add Option</button>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;color:var(--text-in);font-size:13px;">
-                    <span>Multiple choice</span>
-                    <div class="toggle" id="poll-multiple-toggle" onclick="this.classList.toggle('on')"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;color:var(--text-in);font-size:13px;">
-                    <span>Anonymous voting</span>
-                    <div class="toggle" id="poll-anonymous-toggle" onclick="this.classList.toggle('on')"></div>
-                </div>
-                <select id="poll-duration" class="input">
-                    <option value="1">1 hour</option>
-                    <option value="6">6 hours</option>
-                    <option value="24" selected>24 hours</option>
-                    <option value="72">3 days</option>
-                    <option value="168">7 days</option>
-                </select>
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" id="poll-cancel">Cancel</button>
-                    <button class="btn btn-primary" id="poll-create-btn">Create Poll</button>
-                </div>
-            </div>
+        <!-- Message Context Menu -->
+        <div class="msg-context-menu" id="msg-context-menu">
+            <div class="msg-context-menu-item" data-action="reply">↩️ Reply</div>
+            <div class="msg-context-menu-item" data-action="copy">📋 Copy</div>
+            <div class="msg-context-menu-item" data-action="forward">➡️ Forward</div>
+            <div class="msg-context-menu-item" data-action="edit">✏️ Edit</div>
+            <div class="msg-context-menu-item" data-action="pin">📌 Pin</div>
+            <div class="msg-context-menu-item danger" data-action="delete">🗑️ Delete</div>
+        </div>
+
+        <!-- Chat Context Menu -->
+        <div class="chat-context-menu" id="chat-context-menu">
+            <div class="chat-context-menu-item" data-action="open">💬 Open</div>
+            <div class="chat-context-menu-item" data-action="pin">📌 Pin</div>
+            <div class="chat-context-menu-item" data-action="unpin">📌 Unpin</div>
+            <div class="chat-context-menu-item" data-action="archive">📦 Archive</div>
+            <div class="chat-context-menu-item" data-action="unarchive">📦 Unarchive</div>
+            <div class="chat-context-menu-item" data-action="block">🚫 Block</div>
+            <div class="chat-context-menu-item danger" data-action="delete">🗑️ Delete</div>
         </div>
 
         <!-- Modal -->
@@ -1333,7 +1250,7 @@
         const rtdb = getDatabase(app);
 
         // ============================================================
-        // ⚡ APP CODE - COMPLETE FEATURE LIST
+        // ⚡ APP CODE
         // ============================================================
 
         const U = {
@@ -1382,9 +1299,8 @@
             highlightMentions(text) {
                 return text.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
             },
-            detectLinks(text) {
-                const urlRegex = /(https?:\/\/[^\s]+)/g;
-                return text.replace(urlRegex, '<a href="$1" target="_blank" style="color:var(--accent);text-decoration:underline;">$1</a>');
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
             }
         };
         window.U = U;
@@ -1402,7 +1318,8 @@
             foundUser: null,
             chatFilter: 'all',
             searchQuery: '',
-            selectedMessages: [],
+            selectedChatId: null,
+            selectedMessageId: null,
             avatarColors: [
                 'linear-gradient(135deg, #D47A3A, #C26A4A)',
                 'linear-gradient(135deg, #4A6FA5, #3B5A8A)',
@@ -1452,12 +1369,9 @@
                                 lastSeenPrivacy: 'contacts',
                                 dataSaverOn: false,
                                 hasSeenTutorial: false,
-                                blockedUsers: [],
-                                pinnedChats: [],
-                                archivedChats: []
+                                blockedUsers: []
                             };
                             await setDoc(doc(db, 'users', user.uid), this.userData);
-                            // Show tutorial for first time
                             this.showTutorial();
                         }
 
@@ -1543,9 +1457,7 @@
                             lastSeenPrivacy: 'contacts',
                             dataSaverOn: false,
                             hasSeenTutorial: false,
-                            blockedUsers: [],
-                            pinnedChats: [],
-                            archivedChats: []
+                            blockedUsers: []
                         });
 
                         U.showToast('Account created successfully! 🎉');
@@ -1572,16 +1484,6 @@
                     }
                 });
 
-                // Attach button
-                document.getElementById('attach-btn').addEventListener('click', () => {
-                    this.showAttachOptions();
-                });
-
-                // Poll button
-                document.getElementById('poll-btn').addEventListener('click', () => {
-                    this.showPollModal();
-                });
-
                 // Stories
                 document.getElementById('add-story-item').addEventListener('click', () => {
                     this.createStory();
@@ -1595,7 +1497,6 @@
                     this.openNewChatModal();
                 });
 
-                // New Chat tabs
                 document.getElementById('new-chat-find').addEventListener('click', () => {
                     document.getElementById('new-chat-find').className = 'btn btn-primary';
                     document.getElementById('new-chat-group').className = 'btn btn-secondary';
@@ -1672,48 +1573,24 @@
                                 this.foundUser = null;
                                 return;
                             }
-                            // Check if already friends
-                            const isFriend = this.isUserFriend(user.uid);
                             userInfoDiv.style.display = 'block';
                             const avatarStyle = this.getAvatarStyle(user.displayName);
+                            const isBlocked = (this.userData.blockedUsers || []).includes(user.uid);
                             userInfoDiv.innerHTML = `
                                 <div style="display:flex;align-items:center;gap:10px;">
                                     <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
                                     <div>
                                         <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
                                         <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
-                                        ${isFriend ? '<span style="color:var(--online);font-size:10px;">✓ Friend</span>' : (user.isOnline ? '<span style="color:var(--online);font-size:10px;">● Online</span>' : '')}
+                                        ${isBlocked ? '<span style="color:var(--rust);font-size:10px;">🚫 Blocked</span>' : (user.isOnline ? '<span style="color:var(--online);font-size:10px;">● Online</span>' : '')}
                                     </div>
                                 </div>
                             `;
-                            this.foundUser = { uid: doc.id, ...user, isFriend };
+                            this.foundUser = { uid: doc.id, ...user, isBlocked };
                         });
                     } catch (err) {
                         console.error('Error searching user:', err);
                     }
-                });
-
-                // Poll modal
-                document.getElementById('poll-cancel').addEventListener('click', () => {
-                    document.getElementById('modal-poll').classList.remove('open');
-                });
-
-                document.getElementById('poll-create-btn').addEventListener('click', () => {
-                    this.createPoll();
-                });
-
-                document.getElementById('add-poll-option').addEventListener('click', () => {
-                    const container = document.getElementById('poll-options-container');
-                    const inputs = container.querySelectorAll('.poll-option-input');
-                    if (inputs.length >= 10) {
-                        U.showToast('Maximum 10 options');
-                        return;
-                    }
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.className = 'input poll-option-input';
-                    input.placeholder = `Option ${inputs.length + 1}`;
-                    container.appendChild(input);
                 });
 
                 // Communities
@@ -1764,13 +1641,13 @@
                     this.showActiveSessions();
                 });
 
-                document.getElementById('chat-bg-btn').addEventListener('click', () => {
-                    this.changeChatBackground();
-                });
+                // Context menus
+                this.setupContextMenus();
 
                 document.getElementById('modal-overlay').addEventListener('click', (e) => {
                     if (e.target === e.currentTarget) {
                         e.currentTarget.classList.remove('open');
+                        this.hideAllContextMenus();
                     }
                 });
 
@@ -1783,16 +1660,277 @@
                     }
                 });
 
-                document.getElementById('modal-poll').addEventListener('click', (e) => {
-                    if (e.target === e.currentTarget) {
-                        e.currentTarget.classList.remove('open');
-                    }
-                });
-
                 document.getElementById('loading-status').textContent = 'Ready!';
                 setTimeout(() => {
                     document.getElementById('loading-status').style.display = 'none';
                 }, 500);
+            },
+
+            // ==================== CONTEXT MENUS ====================
+            setupContextMenus() {
+                const msgMenu = document.getElementById('msg-context-menu');
+                const chatMenu = document.getElementById('chat-context-menu');
+
+                // Close menus on click outside
+                document.addEventListener('click', (e) => {
+                    if (!msgMenu.contains(e.target)) {
+                        msgMenu.classList.remove('show');
+                    }
+                    if (!chatMenu.contains(e.target)) {
+                        chatMenu.classList.remove('show');
+                    }
+                });
+
+                // Message menu items
+                msgMenu.querySelectorAll('.msg-context-menu-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const action = item.dataset.action;
+                        const msgId = this.selectedMessageId;
+                        const chatId = this.currentChatId;
+                        if (!msgId || !chatId) return;
+                        this.handleMessageAction(action, chatId, msgId);
+                        msgMenu.classList.remove('show');
+                    });
+                });
+
+                // Chat menu items
+                chatMenu.querySelectorAll('.chat-context-menu-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const action = item.dataset.action;
+                        const chatId = this.selectedChatId;
+                        if (!chatId) return;
+                        this.handleChatAction(action, chatId);
+                        chatMenu.classList.remove('show');
+                    });
+                });
+            },
+
+            hideAllContextMenus() {
+                document.getElementById('msg-context-menu').classList.remove('show');
+                document.getElementById('chat-context-menu').classList.remove('show');
+            },
+
+            // ==================== MESSAGE ACTIONS ====================
+            async handleMessageAction(action, chatId, msgId) {
+                const msgRef = doc(db, 'chats', chatId, 'messages', msgId);
+                const msgDoc = await getDoc(msgRef);
+                if (!msgDoc.exists()) return;
+                const msg = msgDoc.data();
+
+                switch(action) {
+                    case 'reply':
+                        document.getElementById('chat-input').value = `@${this.currentUser.displayName} (replying to "${msg.text.substring(0,30)}..."): `;
+                        document.getElementById('chat-input').focus();
+                        break;
+                    case 'copy':
+                        navigator.clipboard.writeText(msg.text);
+                        U.showToast('Copied to clipboard');
+                        break;
+                    case 'forward':
+                        const targetChatId = prompt('Enter chat ID to forward to:');
+                        if (targetChatId) {
+                            await addDoc(collection(db, 'chats', targetChatId, 'messages'), {
+                                senderId: this.currentUser.uid,
+                                type: 'text',
+                                text: '📤 Forwarded: ' + msg.text,
+                                timestamp: serverTimestamp(),
+                                readBy: [this.currentUser.uid],
+                                deliveredTo: [this.currentUser.uid],
+                                isEdited: false,
+                                isDeleted: false,
+                                isPinned: false,
+                                mentions: [],
+                                reactions: {}
+                            });
+                            U.showToast('Message forwarded');
+                        }
+                        break;
+                    case 'edit':
+                        const newText = prompt('Edit message:', msg.text);
+                        if (newText !== null && newText.trim()) {
+                            await updateDoc(msgRef, { text: newText.trim(), isEdited: true });
+                            U.showToast('Message edited');
+                        }
+                        break;
+                    case 'pin':
+                        await updateDoc(msgRef, { isPinned: true });
+                        U.showToast('Message pinned');
+                        break;
+                    case 'delete':
+                        if (confirm('Delete this message?')) {
+                            await updateDoc(msgRef, { text: '[deleted]', isDeleted: true });
+                            U.showToast('Message deleted');
+                        }
+                        break;
+                }
+            },
+
+            // ==================== CHAT ACTIONS ====================
+            async handleChatAction(action, chatId) {
+                const chatRef = doc(db, 'chats', chatId);
+                const chatDoc = await getDoc(chatRef);
+                if (!chatDoc.exists()) return;
+                const chat = chatDoc.data();
+
+                switch(action) {
+                    case 'open':
+                        this.openChat(chatId);
+                        break;
+                    case 'pin':
+                        const updatePin = {};
+                        updatePin[`isPinned.${this.currentUser.uid}`] = true;
+                        await updateDoc(chatRef, updatePin);
+                        U.showToast('Chat pinned');
+                        this.loadChatList();
+                        break;
+                    case 'unpin':
+                        const updateUnpin = {};
+                        updateUnpin[`isPinned.${this.currentUser.uid}`] = false;
+                        await updateDoc(chatRef, updateUnpin);
+                        U.showToast('Chat unpinned');
+                        this.loadChatList();
+                        break;
+                    case 'archive':
+                        const updateArchive = {};
+                        updateArchive[`isArchived.${this.currentUser.uid}`] = true;
+                        await updateDoc(chatRef, updateArchive);
+                        U.showToast('Chat archived');
+                        this.loadChatList();
+                        break;
+                    case 'unarchive':
+                        const updateUnarchive = {};
+                        updateUnarchive[`isArchived.${this.currentUser.uid}`] = false;
+                        await updateDoc(chatRef, updateUnarchive);
+                        U.showToast('Chat unarchived');
+                        this.loadChatList();
+                        break;
+                    case 'block':
+                        if (chat.type === 'direct') {
+                            const otherId = chat.participants.find(uid => uid !== this.currentUser.uid);
+                            if (otherId) {
+                                await this.blockUser(otherId);
+                            }
+                        }
+                        break;
+                    case 'delete':
+                        if (confirm('Delete this chat? This action cannot be undone.')) {
+                            await deleteDoc(chatRef);
+                            U.showToast('Chat deleted');
+                            this.loadChatList();
+                        }
+                        break;
+                }
+            },
+
+            showChatContextMenu(e, chatId) {
+                e.preventDefault();
+                this.selectedChatId = chatId;
+                const menu = document.getElementById('chat-context-menu');
+                const x = Math.min(e.clientX, window.innerWidth - 200);
+                const y = Math.min(e.clientY, window.innerHeight - 250);
+                menu.style.left = x + 'px';
+                menu.style.top = y + 'px';
+                
+                // Show/hide relevant options
+                menu.querySelector('[data-action="pin"]').style.display = 'block';
+                menu.querySelector('[data-action="unpin"]').style.display = 'none';
+                menu.querySelector('[data-action="archive"]').style.display = 'block';
+                menu.querySelector('[data-action="unarchive"]').style.display = 'none';
+                menu.querySelector('[data-action="block"]').style.display = 'block';
+                
+                // Check if already pinned/archived
+                getDoc(doc(db, 'chats', chatId)).then(chatDoc => {
+                    if (chatDoc.exists()) {
+                        const chat = chatDoc.data();
+                        const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
+                        const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
+                        if (isPinned) {
+                            menu.querySelector('[data-action="pin"]').style.display = 'none';
+                            menu.querySelector('[data-action="unpin"]').style.display = 'block';
+                        }
+                        if (isArchived) {
+                            menu.querySelector('[data-action="archive"]').style.display = 'none';
+                            menu.querySelector('[data-action="unarchive"]').style.display = 'block';
+                        }
+                        // Hide block for groups
+                        if (chat.type === 'group') {
+                            menu.querySelector('[data-action="block"]').style.display = 'none';
+                        }
+                    }
+                });
+
+                menu.classList.add('show');
+            },
+
+            showMessageContextMenu(e, msgId) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.selectedMessageId = msgId;
+                const menu = document.getElementById('msg-context-menu');
+                const x = Math.min(e.clientX, window.innerWidth - 200);
+                const y = Math.min(e.clientY, window.innerHeight - 250);
+                menu.style.left = x + 'px';
+                menu.style.top = y + 'px';
+                menu.classList.add('show');
+            },
+
+            // ==================== BLOCK USER ====================
+            async blockUser(uid) {
+                if (!confirm('Block this user? They will not be able to contact you.')) return;
+                const blockedUsers = this.userData.blockedUsers || [];
+                if (blockedUsers.includes(uid)) {
+                    U.showToast('User already blocked');
+                    return;
+                }
+                blockedUsers.push(uid);
+                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers });
+                this.userData.blockedUsers = blockedUsers;
+                U.showToast('User blocked');
+                this.loadChatList();
+            },
+
+            async unblockUser(uid) {
+                const blockedUsers = this.userData.blockedUsers || [];
+                const newBlocked = blockedUsers.filter(id => id !== uid);
+                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers: newBlocked });
+                this.userData.blockedUsers = newBlocked;
+                U.showToast('User unblocked');
+                this.showBlockedUsers();
+            },
+
+            showBlockedUsers() {
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+                const blocked = this.userData.blockedUsers || [];
+                if (blocked.length === 0) {
+                    content.innerHTML = `
+                        <h3>Blocked Users</h3>
+                        <p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:20px;">No blocked users</p>
+                        <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
+                    `;
+                    modal.classList.add('open');
+                    return;
+                }
+
+                let html = `<h3>Blocked Users</h3>`;
+                blocked.forEach(uid => {
+                    getDoc(doc(db, 'users', uid)).then(userDoc => {
+                        if (userDoc.exists()) {
+                            const user = userDoc.data();
+                            html += `
+                                <div class="settings-item">
+                                    <div class="settings-item-left">
+                                        <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                                        <span>${U.escapeHtml(user.displayName)}</span>
+                                    </div>
+                                    <span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);">Unblock</span>
+                                </div>
+                            `;
+                            content.innerHTML = html + `<div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>`;
+                        }
+                    });
+                });
+                modal.classList.add('open');
             },
 
             // ==================== TUTORIAL ====================
@@ -1800,17 +1938,15 @@
                 const overlay = document.createElement('div');
                 overlay.style.cssText = `
                     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                    background: rgba(0,0,0,0.8); z-index: 100; display: flex;
+                    background: rgba(0,0,0,0.85); z-index: 100; display: flex;
                     align-items: center; justify-content: center; flex-direction: column;
                     color: white; text-align: center; padding: 40px;
                 `;
                 overlay.innerHTML = `
-                    <div style="font-size: 48px; margin-bottom: 20px;">💬</div>
-                    <h2 style="margin-bottom: 12px;">Welcome to SORO</h2>
-                    <p style="opacity: 0.7; margin-bottom: 24px; line-height: 1.6;">Your chats live here. Tap to talk. Use @ to mention friends. Swipe to organize.</p>
-                    <div style="display:flex;gap:12px;">
-                        <button style="padding: 14px 40px; background: var(--accent); color: white; border: none; border-radius: 24px; font-size: 16px; font-weight: 600; cursor: pointer;">Get Started</button>
-                    </div>
+                    <div style="font-size: 56px; margin-bottom: 20px;">💬</div>
+                    <h2 style="margin-bottom: 12px; font-size: 24px;">Welcome to SORO</h2>
+                    <p style="opacity: 0.7; margin-bottom: 24px; line-height: 1.8; font-size: 15px;">Your chats live here.<br>Tap to talk. Use @ to mention friends.<br>Long press for more options.</p>
+                    <button style="padding: 14px 48px; background: var(--accent); color: white; border: none; border-radius: 24px; font-size: 16px; font-weight: 600; cursor: pointer;">Get Started</button>
                 `;
                 
                 document.getElementById('app').appendChild(overlay);
@@ -1832,17 +1968,6 @@
                 return this.avatarColors[Math.abs(hash) % this.avatarColors.length];
             },
 
-            isUserFriend(uid) {
-                // Check if there's a direct chat
-                let isFriend = false;
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', this.currentUser.uid)
-                );
-                // This is a sync check - we'll check asynchronously when needed
-                return false; // Will be checked properly in the flow
-            },
-
             setupPresence() {
                 if (!this.currentUser) return;
                 const presenceRef = rtdbRef(rtdb, `presence/${this.currentUser.uid}`);
@@ -1861,6 +1986,7 @@
                     document.querySelectorAll(`.nav-item[data-screen="${screenName}"]`).forEach(item => item.classList.add('active'));
                     this.onScreenChange(screenName);
                 }
+                this.hideAllContextMenus();
             },
 
             onScreenChange(screenName) {
@@ -1895,21 +2021,21 @@
             },
 
             updateTabCounts() {
-                // Update unread and pinned counts
                 const chatsQuery = query(
                     collection(db, 'chats'),
                     where('participants', 'array-contains', this.currentUser.uid)
                 );
                 getDocs(chatsQuery).then(snapshot => {
-                    let unread = 0;
-                    let pinned = 0;
+                    let unread = 0, pinned = 0, archived = 0;
                     snapshot.forEach(doc => {
                         const chat = doc.data();
                         if (chat.lastMessageSenderId !== this.currentUser.uid) unread++;
                         if (chat.isPinned && chat.isPinned[this.currentUser.uid]) pinned++;
+                        if (chat.isArchived && chat.isArchived[this.currentUser.uid]) archived++;
                     });
                     document.getElementById('unread-count').textContent = unread;
                     document.getElementById('pinned-count').textContent = pinned;
+                    document.getElementById('archived-count').textContent = archived;
                 });
             },
 
@@ -1917,7 +2043,6 @@
             async sendFriendRequest(toUserId) {
                 const userId = this.currentUser.uid;
 
-                // Check if request already exists
                 const existingQuery = query(
                     collection(db, 'friendRequests'),
                     where('from', '==', userId),
@@ -1929,7 +2054,6 @@
                     return;
                 }
 
-                // Check if already friends
                 const chatsQuery = query(
                     collection(db, 'chats'),
                     where('participants', 'array-contains', userId)
@@ -2056,52 +2180,36 @@
                     if (!chatList) return;
                     chatList.innerHTML = '';
 
-                    let unreadCount = 0;
-                    let pinnedCount = 0;
+                    let unreadCount = 0, pinnedCount = 0, archivedCount = 0;
 
                     snapshot.forEach((chatDoc) => {
                         const chat = chatDoc.data();
                         chat.id = chatDoc.id;
 
-                        // Apply filters
                         const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
                         const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
                         const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
 
-                        if (isArchived) return;
-                        if (this.chatFilter === 'unread' && !hasUnread) return;
-                        if (this.chatFilter === 'pinned' && !isPinned) return;
-
-                        // Search filter
-                        let displayName = 'Chat';
-                        const isGroup = chat.type === 'group';
-                        if (isGroup) {
-                            displayName = chat.groupName || 'Group';
-                        } else {
-                            const otherUid = chat.participants.find(uid => uid !== this.currentUser.uid);
-                            if (otherUid) {
-                                getDoc(doc(db, 'users', otherUid)).then((userDoc) => {
-                                    if (userDoc.exists()) {
-                                        displayName = userDoc.data().displayName || 'User';
-                                        if (this.searchQuery && !displayName.toLowerCase().includes(this.searchQuery)) {
-                                            return;
-                                        }
-                                    }
-                                });
-                            }
-                        }
+                        if (this.chatFilter === 'archived' && !isArchived) return;
+                        if (this.chatFilter === 'unread' && (!hasUnread || isArchived)) return;
+                        if (this.chatFilter === 'pinned' && (!isPinned || isArchived)) return;
+                        if (this.chatFilter === 'all' && isArchived) return;
 
                         if (hasUnread) unreadCount++;
                         if (isPinned) pinnedCount++;
+                        if (isArchived) archivedCount++;
 
-                        const isGroupChat = chat.type === 'group';
+                        const isGroup = chat.type === 'group';
+                        let displayName = 'Chat';
                         let initials = '?';
                         let avatarStyle = this.avatarColors[0];
                         let onlineDot = '';
 
-                        if (isGroupChat) {
-                            initials = (chat.groupName || 'G').charAt(0).toUpperCase();
+                        if (isGroup) {
+                            displayName = chat.groupName || 'Group';
+                            initials = displayName.charAt(0).toUpperCase();
                             avatarStyle = 'linear-gradient(135deg, #5A7A8A, #4A6A7A)';
+                            this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived);
                         } else {
                             const otherUid = chat.participants.find(uid => uid !== this.currentUser.uid);
                             if (otherUid) {
@@ -2112,24 +2220,30 @@
                                         initials = displayName.charAt(0).toUpperCase();
                                         avatarStyle = this.getAvatarStyle(displayName);
                                         if (userData.isOnline) onlineDot = '<span class="online-dot"></span>';
-                                        this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread);
+                                        this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived);
                                     }
                                 });
                                 return;
                             }
                         }
 
-                        this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread);
+                        this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived);
                     });
 
                     document.getElementById('unread-count').textContent = unreadCount;
                     document.getElementById('pinned-count').textContent = pinnedCount;
+                    document.getElementById('archived-count').textContent = archivedCount;
                 });
             },
 
-            renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread) {
+            renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived) {
                 const time = U.formatTime(chat.lastMessageTime);
                 const preview = chat.lastMessage || 'No messages yet';
+
+                // Check if blocked
+                const isBlocked = chat.type === 'direct' && 
+                    chat.participants.some(uid => uid !== this.currentUser.uid && 
+                    (this.userData.blockedUsers || []).includes(uid));
 
                 const chatItem = document.createElement('div');
                 chatItem.className = 'chat-item';
@@ -2140,9 +2254,11 @@
                     <div class="chat-info">
                         <div class="chat-name">
                             ${isPinned ? '<span class="pinned-badge">📌</span>' : ''}
+                            ${isArchived ? '<span class="archived-badge">📦</span>' : ''}
+                            ${isBlocked ? '🚫 ' : ''}
                             ${U.escapeHtml(displayName)}
                         </div>
-                        <div class="chat-preview">${U.highlightMentions(U.escapeHtml(preview))}</div>
+                        <div class="chat-preview">${isBlocked ? '🚫 Blocked' : U.highlightMentions(U.escapeHtml(preview))}</div>
                     </div>
                     <div class="chat-meta">
                         <div class="chat-time">${time}</div>
@@ -2150,23 +2266,32 @@
                     </div>
                 `;
 
-                chatItem.addEventListener('click', () => this.openChat(chat.id));
-                chatItem.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                    this.showChatActions(chat.id, chat);
+                chatItem.addEventListener('click', () => {
+                    if (isBlocked) {
+                        U.showToast('This user is blocked');
+                        return;
+                    }
+                    this.openChat(chat.id);
                 });
 
-                // Swipe to archive (simplified - long press)
-                let touchStartX = 0;
-                chatItem.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                });
-                chatItem.addEventListener('touchend', (e) => {
-                    const diff = touchStartX - e.changedTouches[0].clientX;
-                    if (diff > 80) {
-                        this.archiveChat(chat.id);
+                chatItem.addEventListener('contextmenu', (e) => {
+                    if (isBlocked) {
+                        U.showToast('This user is blocked');
+                        return;
                     }
+                    this.showChatContextMenu(e, chat.id);
                 });
+
+                // Touch long press for mobile
+                let longPressTimer;
+                chatItem.addEventListener('touchstart', (e) => {
+                    if (isBlocked) return;
+                    longPressTimer = setTimeout(() => {
+                        this.showChatContextMenu(e, chat.id);
+                    }, 600);
+                });
+                chatItem.addEventListener('touchend', () => clearTimeout(longPressTimer));
+                chatItem.addEventListener('touchmove', () => clearTimeout(longPressTimer));
 
                 chatList.appendChild(chatItem);
             },
@@ -2180,44 +2305,85 @@
                 document.getElementById('new-chat-username').focus();
             },
 
-            async createDirectChat(otherUserId) {
-                const userId = this.currentUser.uid;
+            async loadGroupMembers() {
+                const container = document.getElementById('group-member-list');
+                if (!container) return;
 
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', userId)
+                const usersQuery = query(
+                    collection(db, 'users'),
+                    where('uid', '!=', this.currentUser.uid)
                 );
-                const snapshot = await getDocs(chatsQuery);
-                
-                let existingChatId = null;
-                snapshot.forEach(doc => {
-                    const chat = doc.data();
-                    if (chat.type === 'direct' && chat.participants.includes(otherUserId)) {
-                        existingChatId = doc.id;
-                    }
-                });
+                const snapshot = await getDocs(usersQuery);
 
-                if (existingChatId) {
-                    U.showToast('Chat already exists');
-                    this.openChat(existingChatId);
+                container.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const user = doc.data();
+                    const isBlocked = (this.userData.blockedUsers || []).includes(doc.id);
+                    if (isBlocked) return;
+                    const avatarStyle = this.getAvatarStyle(user.displayName);
+
+                    const div = document.createElement('div');
+                    div.className = 'contact-check';
+                    div.innerHTML = `
+                        <input type="checkbox" value="${doc.id}">
+                        <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                        <span style="font-size:14px;color:var(--text-in);">${U.escapeHtml(user.displayName)}</span>
+                    `;
+                    container.appendChild(div);
+                });
+            },
+
+            async createGroup() {
+                const name = document.getElementById('group-name-input').value.trim();
+                if (!name) {
+                    U.showToast('Please enter a group name');
                     return;
                 }
 
-                const chatRef = await addDoc(collection(db, 'chats'), {
-                    type: 'direct',
-                    participants: [userId, otherUserId],
-                    lastMessage: 'Chat started! Say hello.',
+                const checked = document.querySelectorAll('#group-member-list input:checked');
+                const memberIds = Array.from(checked).map(cb => cb.value);
+
+                if (memberIds.length === 0) {
+                    U.showToast('Please select at least one member');
+                    return;
+                }
+
+                const userId = this.currentUser.uid;
+                const participants = [userId, ...memberIds];
+
+                const groupRef = await addDoc(collection(db, 'chats'), {
+                    type: 'group',
+                    participants: participants,
+                    groupName: name,
+                    groupDescription: document.getElementById('group-desc-input').value.trim() || '',
+                    groupPhotoURL: null,
+                    groupPrivacy: 'public',
+                    slowMode: 0,
+                    ownerUid: userId,
+                    adminUids: [userId],
+                    lastMessage: 'Group created',
                     lastMessageTime: serverTimestamp(),
                     lastMessageSenderId: userId,
                     createdAt: serverTimestamp(),
+                    communityId: null,
                     isArchived: {},
                     isPinned: {},
                     isMuted: {},
                     wallpaper: {}
                 });
 
-                U.showToast('Chat created!');
-                this.openChat(chatRef.id);
+                await addDoc(collection(db, 'chats', groupRef.id, 'messages'), {
+                    senderId: userId,
+                    type: 'system',
+                    text: this.userData.displayName + ' created the group',
+                    timestamp: serverTimestamp(),
+                    readBy: [userId]
+                });
+
+                U.showToast('Group created!');
+                document.getElementById('modal-new-chat').classList.remove('open');
+                this.loadChatList();
+                this.openChat(groupRef.id);
             },
 
             openChat(chatId) {
@@ -2288,41 +2454,21 @@
                 const isMine = msg.senderId === this.currentUser.uid;
                 const msgDiv = document.createElement('div');
                 msgDiv.className = 'msg ' + (isMine ? 'out' : 'in');
-                msgDiv.style.position = 'relative';
 
                 if (msg.type === 'system') {
                     msgDiv.className = 'time-divider';
                     msgDiv.textContent = msg.text;
-                } else if (msg.type === 'poll') {
-                    msgDiv.innerHTML = this.renderPollHTML(msg);
                 } else {
-                    let content = '';
-                    
-                    // Check for links
-                    if (msg.text && msg.text.match(/(https?:\/\/[^\s]+)/g)) {
-                        content = U.highlightMentions(U.escapeHtml(msg.text));
-                    } else {
-                        content = U.highlightMentions(U.escapeHtml(msg.text || ''));
-                    }
-
+                    const content = U.highlightMentions(U.escapeHtml(msg.text || ''));
                     const time = U.formatTime(msg.timestamp);
                     const fullTime = U.formatFullTime(msg.timestamp);
                     
                     msgDiv.innerHTML = `
                         <div>${content}</div>
-                        ${msg.replyTo ? `<div style="font-size:10px;opacity:0.5;margin-top:4px;border-left:2px solid var(--accent);padding-left:8px;">↩️ ${U.escapeHtml(msg.replyTo)}</div>` : ''}
                         <div class="msg-meta" title="${fullTime}">
                             ${time}
                             ${isMine ? '<svg class="icon" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg>' : ''}
                             ${msg.isEdited ? ' (edited)' : ''}
-                        </div>
-                        <div class="msg-actions">
-                            <button onclick="window.SoroApp.replyToMessage('${msg.id}', '${U.escapeHtml(msg.text || '').replace(/'/g, "\\'")}')" title="Reply"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-reply"/></svg></button>
-                            <button onclick="window.SoroApp.copyMessage('${U.escapeHtml(msg.text || '').replace(/'/g, "\\'")}')" title="Copy"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-copy"/></svg></button>
-                            ${isMine ? `<button onclick="window.SoroApp.editMessage('${msg.id}')" title="Edit"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-edit"/></svg></button>` : ''}
-                            ${isMine ? `<button onclick="window.SoroApp.deleteMessage('${msg.id}')" title="Delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg></button>` : ''}
-                            <button onclick="window.SoroApp.forwardMessage('${msg.id}')" title="Forward"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-forward"/></svg></button>
-                            <button onclick="window.SoroApp.addReaction('${msg.id}', '❤️')" title="React">❤️</button>
                         </div>
                         <div class="reaction-bar" id="reactions-${msg.id}">
                             ${msg.reactions ? Object.entries(msg.reactions).map(([emoji, users]) => 
@@ -2330,35 +2476,23 @@
                             ).join('') : ''}
                         </div>
                     `;
+
+                    // Long press for message context menu
+                    msgDiv.addEventListener('contextmenu', (e) => {
+                        this.showMessageContextMenu(e, msg.id);
+                    });
+
+                    let longPressTimer;
+                    msgDiv.addEventListener('touchstart', (e) => {
+                        longPressTimer = setTimeout(() => {
+                            this.showMessageContextMenu(e, msg.id);
+                        }, 600);
+                    });
+                    msgDiv.addEventListener('touchend', () => clearTimeout(longPressTimer));
+                    msgDiv.addEventListener('touchmove', () => clearTimeout(longPressTimer));
                 }
 
                 container.appendChild(msgDiv);
-            },
-
-            renderPollHTML(msg) {
-                const poll = msg.pollData;
-                let totalVotes = 0;
-                poll.options.forEach(opt => totalVotes += (opt.votes || 0));
-
-                let optionsHTML = poll.options.map((opt, i) => {
-                    const percentage = totalVotes > 0 ? ((opt.votes || 0) / totalVotes * 100) : 0;
-                    const isVoted = (opt.voters || []).indexOf(this.currentUser.uid) !== -1;
-                    return `
-                        <div class="poll-option ${isVoted ? 'voted' : ''}" onclick="window.SoroApp.votePoll('${msg.id}', ${i})">
-                            <span>${U.escapeHtml(opt.text)}</span>
-                            <div class="poll-bar-bg"><div class="poll-bar-fill" style="width:${percentage}%"></div></div>
-                            <span class="poll-votes">${opt.votes || 0}</span>
-                        </div>
-                    `;
-                }).join('');
-
-                return `
-                    <div class="poll-card">
-                        <div class="poll-title">${U.escapeHtml(poll.question)}</div>
-                        ${optionsHTML}
-                        <div class="poll-footer">${totalVotes} votes · Tap to vote</div>
-                    </div>
-                `;
             },
 
             sendMessage() {
@@ -2437,56 +2571,7 @@
                     this.messagesListener = null;
                 }
                 this.setTyping(false);
-            },
-
-            // ==================== MESSAGE ACTIONS ====================
-            replyToMessage(messageId, text) {
-                const input = document.getElementById('chat-input');
-                input.value = `@${this.currentUser.displayName} (replying to "${text.substring(0,30)}..."): `;
-                input.focus();
-            },
-
-            copyMessage(text) {
-                navigator.clipboard.writeText(text);
-                U.showToast('Copied to clipboard');
-            },
-
-            async editMessage(messageId) {
-                const newText = prompt('Edit message:');
-                if (newText === null || !newText.trim()) return;
-                const msgRef = doc(db, 'chats', this.currentChatId, 'messages', messageId);
-                await updateDoc(msgRef, { text: newText.trim(), isEdited: true });
-                U.showToast('Message edited');
-            },
-
-            async deleteMessage(messageId) {
-                if (!confirm('Delete this message?')) return;
-                const msgRef = doc(db, 'chats', this.currentChatId, 'messages', messageId);
-                await updateDoc(msgRef, { text: '[deleted]', isDeleted: true });
-                U.showToast('Message deleted');
-            },
-
-            async forwardMessage(messageId) {
-                const msgDoc = await getDoc(doc(db, 'chats', this.currentChatId, 'messages', messageId));
-                if (!msgDoc.exists()) return;
-                const msg = msgDoc.data();
-                const chatId = prompt('Enter chat ID to forward to:');
-                if (chatId) {
-                    await addDoc(collection(db, 'chats', chatId, 'messages'), {
-                        senderId: this.currentUser.uid,
-                        type: 'text',
-                        text: '📤 Forwarded: ' + msg.text,
-                        timestamp: serverTimestamp(),
-                        readBy: [this.currentUser.uid],
-                        deliveredTo: [this.currentUser.uid],
-                        isEdited: false,
-                        isDeleted: false,
-                        isPinned: false,
-                        mentions: [],
-                        reactions: {}
-                    });
-                    U.showToast('Message forwarded');
-                }
+                this.hideAllContextMenus();
             },
 
             async addReaction(messageId, emoji) {
@@ -2506,95 +2591,6 @@
                     reactions[emoji] = [this.currentUser.uid];
                 }
                 await updateDoc(msgRef, { reactions });
-            },
-
-            // ==================== POLLS ====================
-            showPollModal() {
-                if (!this.currentChatId) {
-                    U.showToast('Open a chat first');
-                    return;
-                }
-                document.getElementById('modal-poll').classList.add('open');
-                document.getElementById('poll-options-container').innerHTML = `
-                    <input type="text" class="input poll-option-input" placeholder="Option 1">
-                    <input type="text" class="input poll-option-input" placeholder="Option 2">
-                    <input type="text" class="input poll-option-input" placeholder="Option 3">
-                `;
-                document.getElementById('poll-question').value = '';
-                document.getElementById('poll-multiple-toggle').className = 'toggle';
-                document.getElementById('poll-anonymous-toggle').className = 'toggle';
-            },
-
-            async createPoll() {
-                const question = document.getElementById('poll-question').value.trim();
-                const optionInputs = document.querySelectorAll('.poll-option-input');
-                const options = Array.from(optionInputs).map(inp => inp.value.trim()).filter(v => v);
-                const multiple = document.getElementById('poll-multiple-toggle').classList.contains('on');
-                const anonymous = document.getElementById('poll-anonymous-toggle').classList.contains('on');
-                const duration = parseInt(document.getElementById('poll-duration').value) || 24;
-
-                if (!question || options.length < 2) {
-                    U.showToast('Please enter a question and at least 2 options');
-                    return;
-                }
-
-                const pollData = {
-                    question: question,
-                    options: options.map(text => ({ text, votes: 0, voters: [] })),
-                    multipleChoice: multiple,
-                    anonymous: anonymous,
-                    duration: duration,
-                    closesAt: new Date(Date.now() + duration * 3600000)
-                };
-
-                const messageData = {
-                    senderId: this.currentUser.uid,
-                    type: 'poll',
-                    text: `Poll: ${question}`,
-                    pollData: pollData,
-                    timestamp: serverTimestamp(),
-                    readBy: [this.currentUser.uid],
-                    deliveredTo: [this.currentUser.uid],
-                    isEdited: false,
-                    isDeleted: false,
-                    isPinned: false,
-                    mentions: [],
-                    reactions: {}
-                };
-
-                await addDoc(collection(db, 'chats', this.currentChatId, 'messages'), messageData);
-                await updateDoc(doc(db, 'chats', this.currentChatId), {
-                    lastMessage: `📊 Poll: ${question}`,
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: this.currentUser.uid
-                });
-
-                document.getElementById('modal-poll').classList.remove('open');
-                U.showToast('Poll created!');
-            },
-
-            async votePoll(messageId, optionIndex) {
-                const msgRef = doc(db, 'chats', this.currentChatId, 'messages', messageId);
-                const msgDoc = await getDoc(msgRef);
-                if (!msgDoc.exists()) return;
-                const poll = msgDoc.data().pollData;
-                
-                // Check if user already voted
-                const alreadyVoted = poll.options.some(opt => 
-                    (opt.voters || []).includes(this.currentUser.uid)
-                );
-                
-                if (alreadyVoted && !poll.multipleChoice) {
-                    U.showToast('You already voted');
-                    return;
-                }
-
-                if (!poll.options[optionIndex].voters) poll.options[optionIndex].voters = [];
-                poll.options[optionIndex].votes = (poll.options[optionIndex].votes || 0) + 1;
-                poll.options[optionIndex].voters.push(this.currentUser.uid);
-                
-                await updateDoc(msgRef, { pollData: poll });
-                U.showToast('Vote recorded!');
             },
 
             // ==================== STORIES ====================
@@ -2625,6 +2621,7 @@
                 storiesRow.innerHTML = '';
                 if (addStoryItem) storiesRow.appendChild(addStoryItem);
 
+                // Get friends (users with direct chats)
                 const friendsQuery = query(
                     collection(db, 'chats'),
                     where('participants', 'array-contains', this.currentUser.uid),
@@ -2632,12 +2629,15 @@
                 );
 
                 getDocs(friendsQuery).then((snapshot) => {
-                    const friendIds = [this.currentUser.uid];
+                    const friendIds = [];
                     snapshot.forEach(doc => {
                         const chat = doc.data();
                         const otherId = chat.participants.find(uid => uid !== this.currentUser.uid);
                         if (otherId) friendIds.push(otherId);
                     });
+
+                    // Add current user
+                    friendIds.push(this.currentUser.uid);
 
                     if (friendIds.length === 0) return;
 
@@ -2699,11 +2699,11 @@
                             <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-eye"/></svg>
                             Seen by ${story.viewCount || 0} people
                         </div>
-                        <div style="display:flex;gap:8px">
+                        <div style="display:flex;gap:8px;margin-bottom:12px;">
                             <input type="text" id="story-reply-input" class="input" placeholder="Reply to story..." style="flex:1;margin:0;">
-                            <button class="btn btn-primary" onclick="window.SoroApp.replyToStory('${story.userId}', document.getElementById('story-reply-input').value)">Reply</button>
+                            <button class="btn btn-primary" onclick="window.SoroApp.replyToStory('${story.userId}')">Reply</button>
                         </div>
-                        <div class="modal-actions" style="margin-top:12px;">
+                        <div class="modal-actions">
                             <button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button>
                         </div>
                     </div>
@@ -2712,8 +2712,11 @@
                 modal.classList.add('open');
             },
 
-            async replyToStory(userId, text) {
-                if (!text || !text.trim()) {
+            async replyToStory(userId) {
+                const replyInput = document.getElementById('story-reply-input');
+                if (!replyInput) return;
+                const text = replyInput.value.trim();
+                if (!text) {
                     U.showToast('Please enter a reply');
                     return;
                 }
@@ -2771,86 +2774,6 @@
 
                 document.getElementById('modal-overlay').classList.remove('open');
                 U.showToast('Reply sent!');
-            },
-
-            // ==================== GROUP CHAT ====================
-            async loadGroupMembers() {
-                const container = document.getElementById('group-member-list');
-                if (!container) return;
-
-                const usersQuery = query(
-                    collection(db, 'users'),
-                    where('uid', '!=', this.currentUser.uid)
-                );
-                const snapshot = await getDocs(usersQuery);
-
-                container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const user = doc.data();
-                    const avatarStyle = this.getAvatarStyle(user.displayName);
-
-                    const div = document.createElement('div');
-                    div.className = 'contact-check';
-                    div.innerHTML = `
-                        <input type="checkbox" value="${doc.id}">
-                        <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                        <span style="font-size:14px;color:var(--text-in);">${U.escapeHtml(user.displayName)}</span>
-                    `;
-                    container.appendChild(div);
-                });
-            },
-
-            async createGroup() {
-                const name = document.getElementById('group-name-input').value.trim();
-                if (!name) {
-                    U.showToast('Please enter a group name');
-                    return;
-                }
-
-                const checked = document.querySelectorAll('#group-member-list input:checked');
-                const memberIds = Array.from(checked).map(cb => cb.value);
-
-                if (memberIds.length === 0) {
-                    U.showToast('Please select at least one member');
-                    return;
-                }
-
-                const userId = this.currentUser.uid;
-                const participants = [userId, ...memberIds];
-
-                const groupRef = await addDoc(collection(db, 'chats'), {
-                    type: 'group',
-                    participants: participants,
-                    groupName: name,
-                    groupDescription: document.getElementById('group-desc-input').value.trim() || '',
-                    groupPhotoURL: null,
-                    groupPrivacy: 'public',
-                    slowMode: 0,
-                    ownerUid: userId,
-                    adminUids: [userId],
-                    lastMessage: 'Group created',
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: userId,
-                    createdAt: serverTimestamp(),
-                    communityId: null,
-                    isArchived: {},
-                    isPinned: {},
-                    isMuted: {},
-                    wallpaper: {}
-                });
-
-                await addDoc(collection(db, 'chats', groupRef.id, 'messages'), {
-                    senderId: userId,
-                    type: 'system',
-                    text: this.userData.displayName + ' created the group',
-                    timestamp: serverTimestamp(),
-                    readBy: [userId]
-                });
-
-                U.showToast('Group created!');
-                document.getElementById('modal-new-chat').classList.remove('open');
-                this.loadChatList();
-                this.openChat(groupRef.id);
             },
 
             // ==================== GROUP SETTINGS ====================
@@ -3024,6 +2947,8 @@
                 snapshot.forEach(doc => {
                     const user = doc.data();
                     if (this.currentChatData.participants.includes(doc.id)) return;
+                    const isBlocked = (this.userData.blockedUsers || []).includes(doc.id);
+                    if (isBlocked) return;
                     userListHTML += `
                         <div class="contact-check" onclick="this.classList.toggle('selected'); this.querySelector('input').checked = !this.querySelector('input').checked">
                             <input type="checkbox" value="${doc.id}">
@@ -3091,64 +3016,6 @@
                 U.showToast('You left the group');
             },
 
-            // ==================== CHAT ACTIONS (Swipe/Pin/Archive) ====================
-            async archiveChat(chatId) {
-                const updateData = {};
-                updateData[`isArchived.${this.currentUser.uid}`] = true;
-                await updateDoc(doc(db, 'chats', chatId), updateData);
-                U.showToast('Chat archived');
-                this.loadChatList();
-            },
-
-            async pinChat(chatId) {
-                const updateData = {};
-                updateData[`isPinned.${this.currentUser.uid}`] = true;
-                await updateDoc(doc(db, 'chats', chatId), updateData);
-                U.showToast('Chat pinned');
-                this.loadChatList();
-            },
-
-            async unpinChat(chatId) {
-                const updateData = {};
-                updateData[`isPinned.${this.currentUser.uid}`] = false;
-                await updateDoc(doc(db, 'chats', chatId), updateData);
-                U.showToast('Chat unpinned');
-                this.loadChatList();
-            },
-
-            showChatActions(chatId, chat) {
-                const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Chat Options</h3>
-                    <div class="settings-item" onclick="window.SoroApp.openChat('${chatId}'); document.getElementById('modal-overlay').classList.remove('open')"><span>Open Chat</span></div>
-                    ${isPinned ? 
-                        `<div class="settings-item" onclick="window.SoroApp.unpinChat('${chatId}'); document.getElementById('modal-overlay').classList.remove('open')"><span>Unpin Chat</span></div>` :
-                        `<div class="settings-item" onclick="window.SoroApp.pinChat('${chatId}'); document.getElementById('modal-overlay').classList.remove('open')"><span>Pin Chat</span></div>`
-                    }
-                    <div class="settings-item" onclick="window.SoroApp.archiveChat('${chatId}'); document.getElementById('modal-overlay').classList.remove('open')"><span>Archive Chat</span></div>
-                    <div class="settings-item" onclick="document.getElementById('modal-overlay').classList.remove('open')"><span>Mark as Unread</span></div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                `;
-                modal.classList.add('open');
-            },
-
-            // ==================== ATTACHMENTS ====================
-            showAttachOptions() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Attach</h3>
-                    <div class="settings-item" onclick="alert('Camera functionality would open'); document.getElementById('modal-overlay').classList.remove('open')"><span>📷 Camera</span></div>
-                    <div class="settings-item" onclick="alert('Gallery functionality would open'); document.getElementById('modal-overlay').classList.remove('open')"><span>🖼️ Photo & Video</span></div>
-                    <div class="settings-item" onclick="alert('Document functionality would open'); document.getElementById('modal-overlay').classList.remove('open')"><span>📄 Document</span></div>
-                    <div class="settings-item" onclick="alert('Location functionality would open'); document.getElementById('modal-overlay').classList.remove('open')"><span>📍 Location</span></div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Cancel</button></div>
-                `;
-                modal.classList.add('open');
-            },
-
             // ==================== COMMUNITIES ====================
             async createCommunity() {
                 const name = prompt('Community name:');
@@ -3212,12 +3079,13 @@
             openCommunity(communityId, community) {
                 const modal = document.getElementById('modal-overlay');
                 const content = document.getElementById('modal-content');
+
                 content.innerHTML = `
-                    <div style="text-align:center;padding:16px;">
-                        <div class="avatar" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED);width:56px;height:56px;margin:0 auto;font-size:24px;">
-                            <svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-users"/></svg>
+                    <div class="community-hero">
+                        <div class="community-avatar">
+                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
                         </div>
-                        <div style="font-weight:700;font-size:18px;color:var(--text-in);margin-top:8px;">${U.escapeHtml(community.name)}</div>
+                        <div class="community-hero-name" style="font-weight:700;font-size:20px;color:var(--text-in);">${U.escapeHtml(community.name)}</div>
                         <div style="font-size:13px;color:var(--terracotta);opacity:0.7;">${U.escapeHtml(community.description || '')}</div>
                         <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
                     </div>
@@ -3226,6 +3094,7 @@
                     <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')"><span>Leave Community</span></div>
                     <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
                 `;
+
                 modal.classList.add('open');
             },
 
@@ -3305,7 +3174,20 @@
                     avatarEl.innerHTML = `<span style="font-size:28px;font-weight:700;">${initials}</span>`;
                 }
 
+                const blockedCount = (user.blockedUsers || []).length;
+                document.querySelector('#blocked-users-btn .settings-value').textContent = blockedCount;
+
                 this.updateProfileProgress();
+            },
+
+            changeProfilePhoto() {
+                const colors = this.avatarColors;
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                const avatarEl = document.getElementById('settings-avatar');
+                if (avatarEl) {
+                    avatarEl.style.background = randomColor;
+                }
+                U.showToast('Avatar color updated');
             },
 
             updateProfileProgress() {
@@ -3394,42 +3276,6 @@
                 updateDoc(doc(db, 'users', this.currentUser.uid), { dataSaverOn: newValue });
                 this.userData.dataSaverOn = newValue;
                 U.showToast('Data saver ' + (newValue ? 'on' : 'off'));
-            },
-
-            changeChatBackground() {
-                const colors = ['Default', 'Light', 'Dark', 'Warm', 'Cool'];
-                const current = this.userData.chatBackground || 'Default';
-                const nextIndex = (colors.indexOf(current) + 1) % colors.length;
-                const nextColor = colors[nextIndex];
-                
-                updateDoc(doc(db, 'users', this.currentUser.uid), { chatBackground: nextColor }).then(() => {
-                    this.userData.chatBackground = nextColor;
-                    document.getElementById('chat-bg-btn').querySelector('.settings-value').textContent = nextColor;
-                    U.showToast('Chat background: ' + nextColor);
-                });
-            },
-
-            showBlockedUsers() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                const blocked = this.userData.blockedUsers || [];
-                content.innerHTML = `
-                    <h3>Blocked Users</h3>
-                    ${blocked.length === 0 ? '<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:20px;">No blocked users</p>' : 
-                        blocked.map(uid => `<div class="settings-item"><span>User ${uid.substring(0, 8)}</span><span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')">Unblock</span></div>`).join('')
-                    }
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                `;
-                modal.classList.add('open');
-            },
-
-            async unblockUser(uid) {
-                const blocked = this.userData.blockedUsers || [];
-                const newBlocked = blocked.filter(id => id !== uid);
-                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers: newBlocked });
-                this.userData.blockedUsers = newBlocked;
-                U.showToast('User unblocked');
-                this.showBlockedUsers();
             },
 
             showActiveSessions() {
