@@ -804,13 +804,14 @@
             display: flex;
             padding: 0 16px 6px;
             flex-shrink: 0;
+            gap: 4px;
         }
 
         .tab {
             flex: 1;
             text-align: center;
-            padding: 8px 0;
-            font-size: 13px;
+            padding: 8px 4px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-in);
             opacity: 0.5;
@@ -822,6 +823,7 @@
             border-left: none;
             border-right: none;
             font-family: var(--font);
+            white-space: nowrap;
         }
 
         .tab.active { opacity: 1; color: var(--accent); border-bottom-color: var(--accent); }
@@ -960,6 +962,9 @@
                 <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
                 <symbol id="icon-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
                 <symbol id="icon-unblock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="8" y1="8" x2="16" y2="16"/></symbol>
+                <symbol id="icon-device" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></symbol>
+                <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
+                <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
             </defs>
         </svg>
 
@@ -1132,23 +1137,23 @@
 
         <!-- Message Context Menu -->
         <div class="msg-context-menu" id="msg-context-menu">
-            <div class="msg-context-menu-item" data-action="reply">↩️ Reply</div>
-            <div class="msg-context-menu-item" data-action="copy">📋 Copy</div>
-            <div class="msg-context-menu-item" data-action="forward">➡️ Forward</div>
-            <div class="msg-context-menu-item" data-action="edit">✏️ Edit</div>
-            <div class="msg-context-menu-item" data-action="pin">📌 Pin</div>
-            <div class="msg-context-menu-item danger" data-action="delete">🗑️ Delete</div>
+            <div class="msg-context-menu-item" data-action="reply"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-reply"/></svg> Reply</div>
+            <div class="msg-context-menu-item" data-action="copy"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-copy"/></svg> Copy</div>
+            <div class="msg-context-menu-item" data-action="forward"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-forward"/></svg> Forward</div>
+            <div class="msg-context-menu-item" data-action="edit"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-edit"/></svg> Edit</div>
+            <div class="msg-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin</div>
+            <div class="msg-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
         </div>
 
         <!-- Chat Context Menu -->
         <div class="chat-context-menu" id="chat-context-menu">
-            <div class="chat-context-menu-item" data-action="open">💬 Open</div>
-            <div class="chat-context-menu-item" data-action="pin">📌 Pin</div>
-            <div class="chat-context-menu-item" data-action="unpin">📌 Unpin</div>
-            <div class="chat-context-menu-item" data-action="archive">📦 Archive</div>
-            <div class="chat-context-menu-item" data-action="unarchive">📦 Unarchive</div>
-            <div class="chat-context-menu-item" data-action="block">🚫 Block</div>
-            <div class="chat-context-menu-item danger" data-action="delete">🗑️ Delete</div>
+            <div class="chat-context-menu-item" data-action="open"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-chat"/></svg> Open</div>
+            <div class="chat-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin</div>
+            <div class="chat-context-menu-item" data-action="unpin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Unpin</div>
+            <div class="chat-context-menu-item" data-action="archive"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-archive"/></svg> Archive</div>
+            <div class="chat-context-menu-item" data-action="unarchive"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-archive"/></svg> Unarchive</div>
+            <div class="chat-context-menu-item" data-action="block"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-block"/></svg> Block</div>
+            <div class="chat-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
         </div>
 
         <!-- Modal -->
@@ -1671,17 +1676,11 @@
                 const msgMenu = document.getElementById('msg-context-menu');
                 const chatMenu = document.getElementById('chat-context-menu');
 
-                // Close menus on click outside
                 document.addEventListener('click', (e) => {
-                    if (!msgMenu.contains(e.target)) {
-                        msgMenu.classList.remove('show');
-                    }
-                    if (!chatMenu.contains(e.target)) {
-                        chatMenu.classList.remove('show');
-                    }
+                    if (!msgMenu.contains(e.target)) msgMenu.classList.remove('show');
+                    if (!chatMenu.contains(e.target)) chatMenu.classList.remove('show');
                 });
 
-                // Message menu items
                 msgMenu.querySelectorAll('.msg-context-menu-item').forEach(item => {
                     item.addEventListener('click', () => {
                         const action = item.dataset.action;
@@ -1693,7 +1692,6 @@
                     });
                 });
 
-                // Chat menu items
                 chatMenu.querySelectorAll('.chat-context-menu-item').forEach(item => {
                     item.addEventListener('click', () => {
                         const action = item.dataset.action;
@@ -1710,227 +1708,37 @@
                 document.getElementById('chat-context-menu').classList.remove('show');
             },
 
-            // ==================== MESSAGE ACTIONS ====================
-            async handleMessageAction(action, chatId, msgId) {
-                const msgRef = doc(db, 'chats', chatId, 'messages', msgId);
-                const msgDoc = await getDoc(msgRef);
-                if (!msgDoc.exists()) return;
-                const msg = msgDoc.data();
-
-                switch(action) {
-                    case 'reply':
-                        document.getElementById('chat-input').value = `@${this.currentUser.displayName} (replying to "${msg.text.substring(0,30)}..."): `;
-                        document.getElementById('chat-input').focus();
-                        break;
-                    case 'copy':
-                        navigator.clipboard.writeText(msg.text);
-                        U.showToast('Copied to clipboard');
-                        break;
-                    case 'forward':
-                        const targetChatId = prompt('Enter chat ID to forward to:');
-                        if (targetChatId) {
-                            await addDoc(collection(db, 'chats', targetChatId, 'messages'), {
-                                senderId: this.currentUser.uid,
-                                type: 'text',
-                                text: '📤 Forwarded: ' + msg.text,
-                                timestamp: serverTimestamp(),
-                                readBy: [this.currentUser.uid],
-                                deliveredTo: [this.currentUser.uid],
-                                isEdited: false,
-                                isDeleted: false,
-                                isPinned: false,
-                                mentions: [],
-                                reactions: {}
-                            });
-                            U.showToast('Message forwarded');
-                        }
-                        break;
-                    case 'edit':
-                        const newText = prompt('Edit message:', msg.text);
-                        if (newText !== null && newText.trim()) {
-                            await updateDoc(msgRef, { text: newText.trim(), isEdited: true });
-                            U.showToast('Message edited');
-                        }
-                        break;
-                    case 'pin':
-                        await updateDoc(msgRef, { isPinned: true });
-                        U.showToast('Message pinned');
-                        break;
-                    case 'delete':
-                        if (confirm('Delete this message?')) {
-                            await updateDoc(msgRef, { text: '[deleted]', isDeleted: true });
-                            U.showToast('Message deleted');
-                        }
-                        break;
-                }
-            },
-
-            // ==================== CHAT ACTIONS ====================
-            async handleChatAction(action, chatId) {
-                const chatRef = doc(db, 'chats', chatId);
-                const chatDoc = await getDoc(chatRef);
-                if (!chatDoc.exists()) return;
-                const chat = chatDoc.data();
-
-                switch(action) {
-                    case 'open':
-                        this.openChat(chatId);
-                        break;
-                    case 'pin':
-                        const updatePin = {};
-                        updatePin[`isPinned.${this.currentUser.uid}`] = true;
-                        await updateDoc(chatRef, updatePin);
-                        U.showToast('Chat pinned');
-                        this.loadChatList();
-                        break;
-                    case 'unpin':
-                        const updateUnpin = {};
-                        updateUnpin[`isPinned.${this.currentUser.uid}`] = false;
-                        await updateDoc(chatRef, updateUnpin);
-                        U.showToast('Chat unpinned');
-                        this.loadChatList();
-                        break;
-                    case 'archive':
-                        const updateArchive = {};
-                        updateArchive[`isArchived.${this.currentUser.uid}`] = true;
-                        await updateDoc(chatRef, updateArchive);
-                        U.showToast('Chat archived');
-                        this.loadChatList();
-                        break;
-                    case 'unarchive':
-                        const updateUnarchive = {};
-                        updateUnarchive[`isArchived.${this.currentUser.uid}`] = false;
-                        await updateDoc(chatRef, updateUnarchive);
-                        U.showToast('Chat unarchived');
-                        this.loadChatList();
-                        break;
-                    case 'block':
-                        if (chat.type === 'direct') {
-                            const otherId = chat.participants.find(uid => uid !== this.currentUser.uid);
-                            if (otherId) {
-                                await this.blockUser(otherId);
-                            }
-                        }
-                        break;
-                    case 'delete':
-                        if (confirm('Delete this chat? This action cannot be undone.')) {
-                            await deleteDoc(chatRef);
-                            U.showToast('Chat deleted');
-                            this.loadChatList();
-                        }
-                        break;
-                }
-            },
-
-            showChatContextMenu(e, chatId) {
-                e.preventDefault();
-                this.selectedChatId = chatId;
-                const menu = document.getElementById('chat-context-menu');
-                const x = Math.min(e.clientX, window.innerWidth - 200);
-                const y = Math.min(e.clientY, window.innerHeight - 250);
-                menu.style.left = x + 'px';
-                menu.style.top = y + 'px';
-                
-                // Show/hide relevant options
-                menu.querySelector('[data-action="pin"]').style.display = 'block';
-                menu.querySelector('[data-action="unpin"]').style.display = 'none';
-                menu.querySelector('[data-action="archive"]').style.display = 'block';
-                menu.querySelector('[data-action="unarchive"]').style.display = 'none';
-                menu.querySelector('[data-action="block"]').style.display = 'block';
-                
-                // Check if already pinned/archived
-                getDoc(doc(db, 'chats', chatId)).then(chatDoc => {
-                    if (chatDoc.exists()) {
-                        const chat = chatDoc.data();
-                        const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                        const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                        if (isPinned) {
-                            menu.querySelector('[data-action="pin"]').style.display = 'none';
-                            menu.querySelector('[data-action="unpin"]').style.display = 'block';
-                        }
-                        if (isArchived) {
-                            menu.querySelector('[data-action="archive"]').style.display = 'none';
-                            menu.querySelector('[data-action="unarchive"]').style.display = 'block';
-                        }
-                        // Hide block for groups
-                        if (chat.type === 'group') {
-                            menu.querySelector('[data-action="block"]').style.display = 'none';
-                        }
-                    }
+            // ==================== TABS ====================
+            filterChats(filter) {
+                this.chatFilter = filter;
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.tab === filter);
                 });
-
-                menu.classList.add('show');
-            },
-
-            showMessageContextMenu(e, msgId) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.selectedMessageId = msgId;
-                const menu = document.getElementById('msg-context-menu');
-                const x = Math.min(e.clientX, window.innerWidth - 200);
-                const y = Math.min(e.clientY, window.innerHeight - 250);
-                menu.style.left = x + 'px';
-                menu.style.top = y + 'px';
-                menu.classList.add('show');
-            },
-
-            // ==================== BLOCK USER ====================
-            async blockUser(uid) {
-                if (!confirm('Block this user? They will not be able to contact you.')) return;
-                const blockedUsers = this.userData.blockedUsers || [];
-                if (blockedUsers.includes(uid)) {
-                    U.showToast('User already blocked');
-                    return;
-                }
-                blockedUsers.push(uid);
-                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers });
-                this.userData.blockedUsers = blockedUsers;
-                U.showToast('User blocked');
                 this.loadChatList();
             },
 
-            async unblockUser(uid) {
-                const blockedUsers = this.userData.blockedUsers || [];
-                const newBlocked = blockedUsers.filter(id => id !== uid);
-                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers: newBlocked });
-                this.userData.blockedUsers = newBlocked;
-                U.showToast('User unblocked');
-                this.showBlockedUsers();
+            searchChats(query) {
+                this.searchQuery = query.toLowerCase().trim();
+                this.loadChatList();
             },
 
-            showBlockedUsers() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                const blocked = this.userData.blockedUsers || [];
-                if (blocked.length === 0) {
-                    content.innerHTML = `
-                        <h3>Blocked Users</h3>
-                        <p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:20px;">No blocked users</p>
-                        <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                    `;
-                    modal.classList.add('open');
-                    return;
-                }
-
-                let html = `<h3>Blocked Users</h3>`;
-                blocked.forEach(uid => {
-                    getDoc(doc(db, 'users', uid)).then(userDoc => {
-                        if (userDoc.exists()) {
-                            const user = userDoc.data();
-                            html += `
-                                <div class="settings-item">
-                                    <div class="settings-item-left">
-                                        <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                        <span>${U.escapeHtml(user.displayName)}</span>
-                                    </div>
-                                    <span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);">Unblock</span>
-                                </div>
-                            `;
-                            content.innerHTML = html + `<div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>`;
-                        }
+            updateTabCounts() {
+                const chatsQuery = query(
+                    collection(db, 'chats'),
+                    where('participants', 'array-contains', this.currentUser.uid)
+                );
+                getDocs(chatsQuery).then(snapshot => {
+                    let unread = 0, pinned = 0, archived = 0;
+                    snapshot.forEach(doc => {
+                        const chat = doc.data();
+                        if (chat.lastMessageSenderId !== this.currentUser.uid) unread++;
+                        if (chat.isPinned && chat.isPinned[this.currentUser.uid]) pinned++;
+                        if (chat.isArchived && chat.isArchived[this.currentUser.uid]) archived++;
                     });
+                    document.getElementById('unread-count').textContent = unread;
+                    document.getElementById('pinned-count').textContent = pinned;
+                    document.getElementById('archived-count').textContent = archived;
                 });
-                modal.classList.add('open');
             },
 
             // ==================== TUTORIAL ====================
@@ -2004,39 +1812,6 @@
                         this.loadSettings();
                         break;
                 }
-            },
-
-            // ==================== TAB FILTERS & SEARCH ====================
-            filterChats(filter) {
-                this.chatFilter = filter;
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.tab === filter);
-                });
-                this.loadChatList();
-            },
-
-            searchChats(query) {
-                this.searchQuery = query.toLowerCase().trim();
-                this.loadChatList();
-            },
-
-            updateTabCounts() {
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', this.currentUser.uid)
-                );
-                getDocs(chatsQuery).then(snapshot => {
-                    let unread = 0, pinned = 0, archived = 0;
-                    snapshot.forEach(doc => {
-                        const chat = doc.data();
-                        if (chat.lastMessageSenderId !== this.currentUser.uid) unread++;
-                        if (chat.isPinned && chat.isPinned[this.currentUser.uid]) pinned++;
-                        if (chat.isArchived && chat.isArchived[this.currentUser.uid]) archived++;
-                    });
-                    document.getElementById('unread-count').textContent = unread;
-                    document.getElementById('pinned-count').textContent = pinned;
-                    document.getElementById('archived-count').textContent = archived;
-                });
             },
 
             // ==================== FRIEND SYSTEM ====================
@@ -2190,6 +1965,7 @@
                         const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
                         const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
 
+                        // Filter logic
                         if (this.chatFilter === 'archived' && !isArchived) return;
                         if (this.chatFilter === 'unread' && (!hasUnread || isArchived)) return;
                         if (this.chatFilter === 'pinned' && (!isPinned || isArchived)) return;
@@ -2240,7 +2016,6 @@
                 const time = U.formatTime(chat.lastMessageTime);
                 const preview = chat.lastMessage || 'No messages yet';
 
-                // Check if blocked
                 const isBlocked = chat.type === 'direct' && 
                     chat.participants.some(uid => uid !== this.currentUser.uid && 
                     (this.userData.blockedUsers || []).includes(uid));
@@ -2282,7 +2057,6 @@
                     this.showChatContextMenu(e, chat.id);
                 });
 
-                // Touch long press for mobile
                 let longPressTimer;
                 chatItem.addEventListener('touchstart', (e) => {
                     if (isBlocked) return;
@@ -2351,6 +2125,27 @@
                 const userId = this.currentUser.uid;
                 const participants = [userId, ...memberIds];
 
+                // Check if group already exists with same name and members
+                const existingGroups = await getDocs(query(
+                    collection(db, 'chats'),
+                    where('type', '==', 'group'),
+                    where('groupName', '==', name)
+                ));
+                
+                let groupExists = false;
+                existingGroups.forEach(doc => {
+                    const chat = doc.data();
+                    if (chat.participants && chat.participants.length === participants.length &&
+                        chat.participants.every(p => participants.includes(p))) {
+                        groupExists = true;
+                    }
+                });
+
+                if (groupExists) {
+                    U.showToast('Group already exists');
+                    return;
+                }
+
                 const groupRef = await addDoc(collection(db, 'chats'), {
                     type: 'group',
                     participants: participants,
@@ -2386,6 +2181,242 @@
                 this.openChat(groupRef.id);
             },
 
+            showChatContextMenu(e, chatId) {
+                e.preventDefault();
+                this.selectedChatId = chatId;
+                const menu = document.getElementById('chat-context-menu');
+                const x = Math.min(e.clientX, window.innerWidth - 200);
+                const y = Math.min(e.clientY, window.innerHeight - 250);
+                menu.style.left = x + 'px';
+                menu.style.top = y + 'px';
+                
+                menu.querySelector('[data-action="pin"]').style.display = 'block';
+                menu.querySelector('[data-action="unpin"]').style.display = 'none';
+                menu.querySelector('[data-action="archive"]').style.display = 'block';
+                menu.querySelector('[data-action="unarchive"]').style.display = 'none';
+                menu.querySelector('[data-action="block"]').style.display = 'block';
+                
+                getDoc(doc(db, 'chats', chatId)).then(chatDoc => {
+                    if (chatDoc.exists()) {
+                        const chat = chatDoc.data();
+                        const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
+                        const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
+                        if (isPinned) {
+                            menu.querySelector('[data-action="pin"]').style.display = 'none';
+                            menu.querySelector('[data-action="unpin"]').style.display = 'block';
+                        }
+                        if (isArchived) {
+                            menu.querySelector('[data-action="archive"]').style.display = 'none';
+                            menu.querySelector('[data-action="unarchive"]').style.display = 'block';
+                        }
+                        if (chat.type === 'group') {
+                            menu.querySelector('[data-action="block"]').style.display = 'none';
+                        }
+                    }
+                });
+
+                menu.classList.add('show');
+            },
+
+            showMessageContextMenu(e, msgId) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.selectedMessageId = msgId;
+                const menu = document.getElementById('msg-context-menu');
+                const x = Math.min(e.clientX, window.innerWidth - 200);
+                const y = Math.min(e.clientY, window.innerHeight - 250);
+                menu.style.left = x + 'px';
+                menu.style.top = y + 'px';
+                menu.classList.add('show');
+            },
+
+            handleChatAction(action, chatId) {
+                const chatRef = doc(db, 'chats', chatId);
+                switch(action) {
+                    case 'open':
+                        this.openChat(chatId);
+                        break;
+                    case 'pin':
+                        const updatePin = {};
+                        updatePin[`isPinned.${this.currentUser.uid}`] = true;
+                        updateDoc(chatRef, updatePin).then(() => {
+                            U.showToast('Chat pinned');
+                            this.loadChatList();
+                        });
+                        break;
+                    case 'unpin':
+                        const updateUnpin = {};
+                        updateUnpin[`isPinned.${this.currentUser.uid}`] = false;
+                        updateDoc(chatRef, updateUnpin).then(() => {
+                            U.showToast('Chat unpinned');
+                            this.loadChatList();
+                        });
+                        break;
+                    case 'archive':
+                        const updateArchive = {};
+                        updateArchive[`isArchived.${this.currentUser.uid}`] = true;
+                        updateDoc(chatRef, updateArchive).then(() => {
+                            U.showToast('Chat archived');
+                            this.loadChatList();
+                        });
+                        break;
+                    case 'unarchive':
+                        const updateUnarchive = {};
+                        updateUnarchive[`isArchived.${this.currentUser.uid}`] = false;
+                        updateDoc(chatRef, updateUnarchive).then(() => {
+                            U.showToast('Chat unarchived');
+                            this.loadChatList();
+                        });
+                        break;
+                    case 'block':
+                        getDoc(chatRef).then(chatDoc => {
+                            if (chatDoc.exists() && chatDoc.data().type === 'direct') {
+                                const otherId = chatDoc.data().participants.find(uid => uid !== this.currentUser.uid);
+                                if (otherId) this.blockUser(otherId);
+                            }
+                        });
+                        break;
+                    case 'delete':
+                        if (confirm('Delete this chat?')) {
+                            deleteDoc(chatRef).then(() => {
+                                U.showToast('Chat deleted');
+                                this.loadChatList();
+                            });
+                        }
+                        break;
+                }
+            },
+
+            handleMessageAction(action, chatId, msgId) {
+                const msgRef = doc(db, 'chats', chatId, 'messages', msgId);
+                switch(action) {
+                    case 'reply':
+                        getDoc(msgRef).then(msgDoc => {
+                            if (msgDoc.exists()) {
+                                const msg = msgDoc.data();
+                                document.getElementById('chat-input').value = `@${this.currentUser.displayName} (replying to "${msg.text.substring(0,30)}..."): `;
+                                document.getElementById('chat-input').focus();
+                            }
+                        });
+                        break;
+                    case 'copy':
+                        getDoc(msgRef).then(msgDoc => {
+                            if (msgDoc.exists()) {
+                                navigator.clipboard.writeText(msgDoc.data().text);
+                                U.showToast('Copied to clipboard');
+                            }
+                        });
+                        break;
+                    case 'forward':
+                        const targetChatId = prompt('Enter chat ID to forward to:');
+                        if (targetChatId) {
+                            getDoc(msgRef).then(msgDoc => {
+                                if (msgDoc.exists()) {
+                                    addDoc(collection(db, 'chats', targetChatId, 'messages'), {
+                                        senderId: this.currentUser.uid,
+                                        type: 'text',
+                                        text: '📤 Forwarded: ' + msgDoc.data().text,
+                                        timestamp: serverTimestamp(),
+                                        readBy: [this.currentUser.uid],
+                                        deliveredTo: [this.currentUser.uid],
+                                        isEdited: false,
+                                        isDeleted: false,
+                                        isPinned: false,
+                                        mentions: [],
+                                        reactions: {}
+                                    }).then(() => U.showToast('Message forwarded'));
+                                }
+                            });
+                        }
+                        break;
+                    case 'edit':
+                        getDoc(msgRef).then(msgDoc => {
+                            if (msgDoc.exists()) {
+                                const newText = prompt('Edit message:', msgDoc.data().text);
+                                if (newText !== null && newText.trim()) {
+                                    updateDoc(msgRef, { text: newText.trim(), isEdited: true }).then(() => {
+                                        U.showToast('Message edited');
+                                    });
+                                }
+                            }
+                        });
+                        break;
+                    case 'pin':
+                        updateDoc(msgRef, { isPinned: true }).then(() => U.showToast('Message pinned'));
+                        break;
+                    case 'delete':
+                        if (confirm('Delete this message?')) {
+                            updateDoc(msgRef, { text: '[deleted]', isDeleted: true }).then(() => {
+                                U.showToast('Message deleted');
+                            });
+                        }
+                        break;
+                }
+            },
+
+            async blockUser(uid) {
+                if (!confirm('Block this user?')) return;
+                const blockedUsers = this.userData.blockedUsers || [];
+                if (blockedUsers.includes(uid)) {
+                    U.showToast('User already blocked');
+                    return;
+                }
+                blockedUsers.push(uid);
+                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers });
+                this.userData.blockedUsers = blockedUsers;
+                U.showToast('User blocked');
+                this.loadChatList();
+            },
+
+            async unblockUser(uid) {
+                const blockedUsers = this.userData.blockedUsers || [];
+                const newBlocked = blockedUsers.filter(id => id !== uid);
+                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers: newBlocked });
+                this.userData.blockedUsers = newBlocked;
+                U.showToast('User unblocked');
+                this.showBlockedUsers();
+            },
+
+            showBlockedUsers() {
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+                const blocked = this.userData.blockedUsers || [];
+                if (blocked.length === 0) {
+                    content.innerHTML = `
+                        <h3>Blocked Users</h3>
+                        <p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:20px;">No blocked users</p>
+                        <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
+                    `;
+                    modal.classList.add('open');
+                    return;
+                }
+
+                let html = `<h3>Blocked Users</h3>`;
+                const promises = blocked.map(uid => {
+                    return getDoc(doc(db, 'users', uid)).then(userDoc => {
+                        if (userDoc.exists()) {
+                            const user = userDoc.data();
+                            const avatarStyle = this.getAvatarStyle(user.displayName);
+                            html += `
+                                <div class="settings-item">
+                                    <div class="settings-item-left">
+                                        <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                                        <span>${U.escapeHtml(user.displayName)}</span>
+                                    </div>
+                                    <span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);">Unblock</span>
+                                </div>
+                            `;
+                        }
+                    });
+                });
+
+                Promise.all(promises).then(() => {
+                    content.innerHTML = html + `<div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>`;
+                });
+                modal.classList.add('open');
+            },
+
+            // ==================== CHAT FUNCTIONS ====================
             openChat(chatId) {
                 this.closeChat();
                 this.currentChatId = chatId;
@@ -2477,7 +2508,6 @@
                         </div>
                     `;
 
-                    // Long press for message context menu
                     msgDiv.addEventListener('contextmenu', (e) => {
                         this.showMessageContextMenu(e, msg.id);
                     });
@@ -2621,7 +2651,6 @@
                 storiesRow.innerHTML = '';
                 if (addStoryItem) storiesRow.appendChild(addStoryItem);
 
-                // Get friends (users with direct chats)
                 const friendsQuery = query(
                     collection(db, 'chats'),
                     where('participants', 'array-contains', this.currentUser.uid),
@@ -2636,7 +2665,6 @@
                         if (otherId) friendIds.push(otherId);
                     });
 
-                    // Add current user
                     friendIds.push(this.currentUser.uid);
 
                     if (friendIds.length === 0) return;
@@ -2721,7 +2749,6 @@
                     return;
                 }
 
-                // Find or create chat with the user
                 const chatsQuery = query(
                     collection(db, 'chats'),
                     where('participants', 'array-contains', this.currentUser.uid)
@@ -2774,6 +2801,142 @@
 
                 document.getElementById('modal-overlay').classList.remove('open');
                 U.showToast('Reply sent!');
+            },
+
+            // ==================== COMMUNITIES ====================
+            async createCommunity() {
+                const name = prompt('Community name:');
+                if (!name || !name.trim()) return;
+                const description = prompt('Description (optional):') || '';
+
+                await addDoc(collection(db, 'communities'), {
+                    name: name.trim(),
+                    description: description.trim(),
+                    photoURL: null,
+                    ownerUid: this.currentUser.uid,
+                    adminUids: [this.currentUser.uid],
+                    memberUids: [this.currentUser.uid],
+                    channelIds: [],
+                    privacy: 'public',
+                    createdAt: serverTimestamp()
+                });
+
+                U.showToast('Community created!');
+                this.loadCommunities();
+            },
+
+            async loadCommunities() {
+                const container = document.getElementById('communities-list');
+                if (!container) return;
+
+                const communitiesQuery = query(
+                    collection(db, 'communities'),
+                    where('memberUids', 'array-contains', this.currentUser.uid)
+                );
+
+                const snapshot = await getDocs(communitiesQuery);
+
+                if (snapshot.empty) {
+                    container.innerHTML = '<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:30px;font-size:13px">No communities yet</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const community = { id: doc.id, ...doc.data() };
+                    const item = document.createElement('div');
+                    item.className = 'chat-item';
+                    item.innerHTML = `
+                        <div class="avatar" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);width:44px;height:44px;font-size:16px;">
+                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
+                        </div>
+                        <div class="chat-info">
+                            <div class="chat-name">${U.escapeHtml(community.name)}</div>
+                            <div class="chat-preview">${U.escapeHtml(community.description || '')}</div>
+                        </div>
+                        <div class="chat-meta">
+                            <div class="chat-time">${community.channelIds?.length || 0} channels</div>
+                        </div>
+                    `;
+                    item.addEventListener('click', () => this.openCommunity(community.id, community));
+                    container.appendChild(item);
+                });
+            },
+
+            openCommunity(communityId, community) {
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+
+                content.innerHTML = `
+                    <div class="community-hero">
+                        <div class="community-avatar">
+                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
+                        </div>
+                        <div style="font-weight:700;font-size:20px;color:var(--text-in);">${U.escapeHtml(community.name)}</div>
+                        <div style="font-size:13px;color:var(--terracotta);opacity:0.7;">${U.escapeHtml(community.description || '')}</div>
+                        <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
+                    </div>
+                    <div class="settings-section">Actions</div>
+                    <div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')"><span>+ Add Channel</span></div>
+                    <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')"><span>Leave Community</span></div>
+                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
+                `;
+
+                modal.classList.add('open');
+            },
+
+            async addChannelToCommunity(communityId) {
+                // Get all groups where user is admin
+                const groupsQuery = query(
+                    collection(db, 'chats'),
+                    where('type', '==', 'group'),
+                    where('adminUids', 'array-contains', this.currentUser.uid)
+                );
+                const snapshot = await getDocs(groupsQuery);
+
+                if (snapshot.empty) {
+                    U.showToast('You are not an admin of any group');
+                    return;
+                }
+
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+
+                let html = `<h3>Add Channel to Community</h3><div style="max-height:300px;overflow-y:auto;">`;
+                snapshot.forEach(doc => {
+                    const group = doc.data();
+                    html += `
+                        <div class="settings-item" onclick="window.SoroApp.addChannelConfirm('${communityId}', '${doc.id}')">
+                            <span>${U.escapeHtml(group.groupName || 'Group')}</span>
+                            <span class="settings-value">Add</span>
+                        </div>
+                    `;
+                });
+                html += `</div><div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openCommunity('${communityId}', window.SoroApp.communityData)">Back</button></div>`;
+
+                content.innerHTML = html;
+            },
+
+            async addChannelConfirm(communityId, channelId) {
+                await updateDoc(doc(db, 'communities', communityId), {
+                    channelIds: arrayUnion(channelId)
+                });
+                await updateDoc(doc(db, 'chats', channelId), {
+                    communityId: communityId
+                });
+                U.showToast('Channel added to community!');
+                document.getElementById('modal-overlay').classList.remove('open');
+                this.loadCommunities();
+            },
+
+            async leaveCommunity(communityId) {
+                if (!confirm('Leave this community?')) return;
+                await updateDoc(doc(db, 'communities', communityId), {
+                    memberUids: arrayRemove(this.currentUser.uid)
+                });
+                document.getElementById('modal-overlay').classList.remove('open');
+                U.showToast('Left community');
+                this.loadCommunities();
             },
 
             // ==================== GROUP SETTINGS ====================
@@ -3014,132 +3177,6 @@
                 this.closeChat();
                 this.showScreen('chats');
                 U.showToast('You left the group');
-            },
-
-            // ==================== COMMUNITIES ====================
-            async createCommunity() {
-                const name = prompt('Community name:');
-                if (!name || !name.trim()) return;
-                const description = prompt('Description (optional):') || '';
-
-                await addDoc(collection(db, 'communities'), {
-                    name: name.trim(),
-                    description: description.trim(),
-                    photoURL: null,
-                    ownerUid: this.currentUser.uid,
-                    adminUids: [this.currentUser.uid],
-                    memberUids: [this.currentUser.uid],
-                    channelIds: [],
-                    privacy: 'public',
-                    createdAt: serverTimestamp()
-                });
-
-                U.showToast('Community created!');
-                this.loadCommunities();
-            },
-
-            async loadCommunities() {
-                const container = document.getElementById('communities-list');
-                if (!container) return;
-
-                const communitiesQuery = query(
-                    collection(db, 'communities'),
-                    where('memberUids', 'array-contains', this.currentUser.uid)
-                );
-
-                const snapshot = await getDocs(communitiesQuery);
-
-                if (snapshot.empty) {
-                    container.innerHTML = '<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:30px;font-size:13px">No communities yet</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const community = { id: doc.id, ...doc.data() };
-                    const item = document.createElement('div');
-                    item.className = 'chat-item';
-                    item.innerHTML = `
-                        <div class="avatar" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);width:44px;height:44px;font-size:16px;">
-                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
-                        </div>
-                        <div class="chat-info">
-                            <div class="chat-name">${U.escapeHtml(community.name)}</div>
-                            <div class="chat-preview">${U.escapeHtml(community.description || '')}</div>
-                        </div>
-                        <div class="chat-meta">
-                            <div class="chat-time">${community.channelIds?.length || 0} channels</div>
-                        </div>
-                    `;
-                    item.addEventListener('click', () => this.openCommunity(community.id, community));
-                    container.appendChild(item);
-                });
-            },
-
-            openCommunity(communityId, community) {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-
-                content.innerHTML = `
-                    <div class="community-hero">
-                        <div class="community-avatar">
-                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
-                        </div>
-                        <div class="community-hero-name" style="font-weight:700;font-size:20px;color:var(--text-in);">${U.escapeHtml(community.name)}</div>
-                        <div style="font-size:13px;color:var(--terracotta);opacity:0.7;">${U.escapeHtml(community.description || '')}</div>
-                        <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
-                    </div>
-                    <div class="settings-section">Actions</div>
-                    <div class="settings-item" onclick="window.SoroApp.addChannel('${communityId}')"><span>+ Add Channel</span></div>
-                    <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')"><span>Leave Community</span></div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                `;
-
-                modal.classList.add('open');
-            },
-
-            async addChannel(communityId) {
-                const name = prompt('Channel name:');
-                if (!name || !name.trim()) return;
-
-                const channelRef = await addDoc(collection(db, 'chats'), {
-                    type: 'group',
-                    participants: [this.currentUser.uid],
-                    groupName: name.trim(),
-                    groupDescription: '',
-                    groupPhotoURL: null,
-                    groupPrivacy: 'public',
-                    slowMode: 0,
-                    ownerUid: this.currentUser.uid,
-                    adminUids: [this.currentUser.uid],
-                    lastMessage: 'Channel created',
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: this.currentUser.uid,
-                    createdAt: serverTimestamp(),
-                    communityId: communityId,
-                    isArchived: {},
-                    isPinned: {},
-                    isMuted: {},
-                    wallpaper: {}
-                });
-
-                await updateDoc(doc(db, 'communities', communityId), {
-                    channelIds: arrayUnion(channelRef.id)
-                });
-
-                U.showToast('Channel added!');
-                document.getElementById('modal-overlay').classList.remove('open');
-                this.loadCommunities();
-            },
-
-            async leaveCommunity(communityId) {
-                if (!confirm('Leave this community?')) return;
-                await updateDoc(doc(db, 'communities', communityId), {
-                    memberUids: arrayRemove(this.currentUser.uid)
-                });
-                document.getElementById('modal-overlay').classList.remove('open');
-                U.showToast('Left community');
-                this.loadCommunities();
             },
 
             // ==================== SETTINGS ====================
