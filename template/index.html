@@ -707,6 +707,46 @@
             50% { opacity: 0.8; }
         }
 
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 12px;
+            background: var(--incoming);
+            border-radius: var(--radius-lg);
+            margin: 0 16px 8px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            color: var(--text-in);
+            outline: none;
+            font-family: var(--font);
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-bottom: 4px;
+        }
+
+        .search-result-item:hover { background: var(--incoming); }
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: var(--terracotta);
+            opacity: 0.7;
+            font-size: 13px;
+        }
+
         @media (min-width: 431px) {
             #app {
                 border-left: 1px solid var(--border);
@@ -734,6 +774,10 @@
                 <symbol id="icon-story" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
                 <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
                 <symbol id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+                <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+                <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+                <symbol id="icon-check-double" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 6 7 17 2 12"/><polyline points="22 6 11 17 6 12"/></symbol>
+                <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
             </defs>
         </svg>
 
@@ -773,7 +817,7 @@
             </div>
         </div>
 
-        <!-- Chats Screen with New Chat Button -->
+        <!-- Chats Screen -->
         <div id="screen-chats" class="screen">
             <div class="header">
                 <div class="logo">SORO</div>
@@ -786,6 +830,12 @@
                     </button>
                 </div>
             </div>
+            <div class="search-container" style="padding:0 16px 8px;">
+                <div class="search-bar">
+                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+                    <input type="text" id="search-input" placeholder="Search chats and friends...">
+                </div>
+            </div>
             <div id="stories-row" class="stories-row">
                 <div class="story-item" id="add-story-item">
                     <div class="story-ring" style="border-color:var(--accent)">
@@ -795,6 +845,10 @@
                 </div>
             </div>
             <div id="chat-list" class="chat-list"></div>
+            <button class="btn btn-primary btn-block" id="new-chat-btn" style="margin:8px 16px 12px;padding:12px;border-radius:var(--radius-lg);font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
+                New Chat
+            </button>
             <div class="bottom-nav">
                 <button class="nav-item active" data-screen="chats"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-chat"/></svg></button>
                 <button class="nav-item" data-screen="communities"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-community"/></svg></button>
@@ -812,7 +866,7 @@
             <div id="messages-area" class="messages-area"></div>
             <div id="typing-indicator" class="typing-indicator" style="display:none">Someone is typing...</div>
             <div class="input-bar">
-                <textarea id="chat-input" class="input textarea" rows="1" placeholder="Message..."></textarea>
+                <textarea id="chat-input" class="input textarea" rows="1" placeholder="Type a message... Use @ to mention"></textarea>
                 <button class="btn btn-primary" id="send-btn" style="border-radius:50%;padding:12px;height:44px;width:44px;"><svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-send"/></svg></button>
             </div>
         </div>
@@ -865,6 +919,20 @@
             </div>
         </div>
 
+        <!-- New Chat Modal -->
+        <div id="modal-new-chat" class="modal-overlay">
+            <div class="modal">
+                <h3>New Chat</h3>
+                <p style="color:var(--text-in);opacity:0.6;font-size:13px;margin-bottom:12px;">Enter a username to start a chat</p>
+                <input type="text" id="new-chat-username" class="input" placeholder="Username" style="margin-bottom:12px;">
+                <div id="new-chat-user-info" style="display:none;padding:10px;background:var(--incoming);border-radius:var(--radius-sm);margin-bottom:12px;"></div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="new-chat-cancel">Cancel</button>
+                    <button class="btn btn-primary" id="start-chat-btn">Start Chat</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal -->
         <div id="modal-overlay" class="modal-overlay">
             <div class="modal"><div id="modal-content"></div></div>
@@ -898,8 +966,6 @@
             appId: "{{FIREBASE_APP_ID}}"
         };
 
-        // 🔥 FIXED: Check if config is valid
-        // A real Firebase API key starts with "AIza" and is at least 30 characters
         const isValid = firebaseConfig.apiKey && 
                        firebaseConfig.apiKey.length > 10 &&
                        firebaseConfig.apiKey.startsWith('AIza');
@@ -908,10 +974,8 @@
             document.getElementById('loading-status').textContent = '⚠️ Firebase config missing. Check Vercel env vars.';
             document.getElementById('loading-status').style.color = 'var(--rust)';
             console.error('❌ Firebase config not set!');
-            console.log('🔍 API Key value:', firebaseConfig.apiKey);
         } else {
             console.log('✅ Firebase config loaded');
-            console.log('🔑 API Key:', firebaseConfig.apiKey.substring(0, 10) + '...');
             document.getElementById('loading-status').textContent = '✅ Config loaded!';
         }
 
@@ -1019,6 +1083,7 @@
             currentChatData: null,
             messagesListener: null,
             chatListListener: null,
+            foundUser: null,
             avatarColors: [
                 'linear-gradient(135deg, #D47A3A, #C26A4A)',
                 'linear-gradient(135deg, #4A6FA5, #3B5A8A)',
@@ -1035,6 +1100,7 @@
                     this.screens[screen.id] = screen;
                 });
 
+                // Navigation
                 document.querySelectorAll('.nav-item').forEach(item => {
                     item.addEventListener('click', () => {
                         const screen = item.dataset.screen;
@@ -1042,6 +1108,7 @@
                     });
                 });
 
+                // Auth state
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         this.currentUser = user;
@@ -1094,13 +1161,12 @@
                     document.getElementById('screen-signup').style.display = 'flex';
                 });
 
-                // 🔥 FIXED: Signup with proper flow
+                // Signup
                 document.getElementById('signup-btn').addEventListener('click', async () => {
                     const email = document.getElementById('signup-email').value;
                     const username = document.getElementById('signup-username').value;
                     const password = document.getElementById('signup-password').value;
 
-                    // Validate inputs
                     if (!email || !username || !password) {
                         U.showToast('Please fill in all fields');
                         return;
@@ -1112,7 +1178,6 @@
                     }
 
                     try {
-                        // First, check if username exists
                         const usernameQuery = query(collection(db, 'users'), where('username', '==', username));
                         const existingUsers = await getDocs(usernameQuery);
                         if (!existingUsers.empty) {
@@ -1120,11 +1185,9 @@
                             return;
                         }
 
-                        // Create the user in Firebase Auth
                         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                         const user = userCredential.user;
 
-                        // Now that user is authenticated, create their profile in Firestore
                         await setDoc(doc(db, 'users', user.uid), {
                             uid: user.uid,
                             email: email,
@@ -1179,9 +1242,84 @@
                     this.createStory();
                 });
 
-                // 🔥 NEW: New Chat / Add Contact button
+                // New Chat Button
                 document.getElementById('add-chat-btn').addEventListener('click', () => {
-                    this.showNewChatModal();
+                    this.openNewChatModal();
+                });
+                document.getElementById('new-chat-btn').addEventListener('click', () => {
+                    this.openNewChatModal();
+                });
+                document.getElementById('new-chat-cancel').addEventListener('click', () => {
+                    document.getElementById('modal-new-chat').classList.remove('open');
+                });
+
+                // Start Chat from modal
+                document.getElementById('start-chat-btn').addEventListener('click', async () => {
+                    if (!this.foundUser) {
+                        U.showToast('Please enter a valid username');
+                        return;
+                    }
+                    if (this.foundUser.uid === this.currentUser.uid) {
+                        U.showToast('You cannot chat with yourself');
+                        return;
+                    }
+                    await this.createDirectChat(this.foundUser.uid);
+                    document.getElementById('modal-new-chat').classList.remove('open');
+                    this.foundUser = null;
+                    document.getElementById('new-chat-user-info').style.display = 'none';
+                    document.getElementById('new-chat-username').value = '';
+                });
+
+                // Search user in new chat modal
+                document.getElementById('new-chat-username').addEventListener('input', async (e) => {
+                    const username = e.target.value.trim();
+                    const userInfoDiv = document.getElementById('new-chat-user-info');
+                    
+                    if (!username || username.length < 2) {
+                        userInfoDiv.style.display = 'none';
+                        this.foundUser = null;
+                        return;
+                    }
+
+                    try {
+                        const usersQuery = query(
+                            collection(db, 'users'),
+                            where('username', '==', username)
+                        );
+                        const snapshot = await getDocs(usersQuery);
+                        
+                        if (snapshot.empty) {
+                            userInfoDiv.style.display = 'block';
+                            userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ User not found</span>`;
+                            this.foundUser = null;
+                            return;
+                        }
+
+                        snapshot.forEach(doc => {
+                            const user = doc.data();
+                            if (user.uid === this.currentUser.uid) {
+                                userInfoDiv.style.display = 'block';
+                                userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ That's you!</span>`;
+                                this.foundUser = null;
+                                return;
+                            }
+                            userInfoDiv.style.display = 'block';
+                            const avatarStyle = this.getAvatarStyle(user.displayName);
+                            userInfoDiv.innerHTML = `
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                                    <div>
+                                        <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
+                                        <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
+                                    </div>
+                                    ${user.isOnline ? '<span style="color:var(--online);font-size:10px;">● Online</span>' : ''}
+                                </div>
+                            `;
+                            this.foundUser = { uid: doc.id, ...user };
+                        });
+                    } catch (err) {
+                        console.error('Error searching user:', err);
+                    }
                 });
 
                 // Communities
@@ -1227,6 +1365,16 @@
                 document.getElementById('modal-overlay').addEventListener('click', (e) => {
                     if (e.target === e.currentTarget) {
                         e.currentTarget.classList.remove('open');
+                    }
+                });
+
+                // Close new chat modal on overlay click
+                document.getElementById('modal-new-chat').addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) {
+                        e.currentTarget.classList.remove('open');
+                        this.foundUser = null;
+                        document.getElementById('new-chat-user-info').style.display = 'none';
+                        document.getElementById('new-chat-username').value = '';
                     }
                 });
 
@@ -1277,6 +1425,11 @@
                         this.loadSettings();
                         break;
                 }
+            },
+
+            openNewChatModal() {
+                document.getElementById('modal-new-chat').classList.add('open');
+                document.getElementById('new-chat-username').focus();
             },
 
             // Chat Functions
@@ -1361,6 +1514,48 @@
                 chatList.appendChild(chatItem);
             },
 
+            async createDirectChat(otherUserId) {
+                const userId = this.currentUser.uid;
+
+                // Check if chat already exists
+                const chatsQuery = query(
+                    collection(db, 'chats'),
+                    where('participants', 'array-contains', userId)
+                );
+                const snapshot = await getDocs(chatsQuery);
+                
+                let existingChatId = null;
+                snapshot.forEach(doc => {
+                    const chat = doc.data();
+                    if (chat.type === 'direct' && chat.participants.includes(otherUserId)) {
+                        existingChatId = doc.id;
+                    }
+                });
+
+                if (existingChatId) {
+                    U.showToast('Chat already exists');
+                    this.openChat(existingChatId);
+                    return;
+                }
+
+                // Create new chat
+                const chatRef = await addDoc(collection(db, 'chats'), {
+                    type: 'direct',
+                    participants: [userId, otherUserId],
+                    lastMessage: 'Chat started! Say hello.',
+                    lastMessageTime: serverTimestamp(),
+                    lastMessageSenderId: userId,
+                    createdAt: serverTimestamp(),
+                    isArchived: {},
+                    isPinned: {},
+                    isMuted: {},
+                    wallpaper: {}
+                });
+
+                U.showToast('Chat created!');
+                this.openChat(chatRef.id);
+            },
+
             openChat(chatId) {
                 this.closeChat();
                 this.currentChatId = chatId;
@@ -1421,7 +1616,7 @@
                     const time = U.formatTime(msg.timestamp);
                     msgDiv.innerHTML = `
                         ${U.highlightMentions(U.escapeHtml(msg.text || ''))}
-                        <div class="msg-meta">${time}</div>
+                        <div class="msg-meta">${time} ${isMine ? '<svg class="icon" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg>' : ''}</div>
                     `;
                 }
 
@@ -1496,137 +1691,6 @@
                     this.messagesListener();
                     this.messagesListener = null;
                 }
-            },
-
-            // ==================== NEW CHAT / ADD CONTACT ====================
-            showNewChatModal() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-
-                content.innerHTML = `
-                    <h3>New Chat</h3>
-                    <p style="color:var(--text-in);opacity:0.6;font-size:13px;margin-bottom:12px;">Enter a username to start a chat</p>
-                    <input type="text" id="new-chat-username" class="input" placeholder="Username" style="margin-bottom:12px;">
-                    <div id="new-chat-user-info" style="display:none;padding:10px;background:var(--incoming);border-radius:var(--radius-sm);margin-bottom:12px;"></div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Cancel</button>
-                        <button class="btn btn-primary" id="start-chat-btn">Start Chat</button>
-                    </div>
-                `;
-
-                modal.classList.add('open');
-
-                // Search for user as they type
-                const usernameInput = document.getElementById('new-chat-username');
-                const userInfoDiv = document.getElementById('new-chat-user-info');
-                const startChatBtn = document.getElementById('start-chat-btn');
-                let foundUser = null;
-
-                usernameInput.addEventListener('input', async () => {
-                    const username = usernameInput.value.trim();
-                    if (!username || username.length < 2) {
-                        userInfoDiv.style.display = 'none';
-                        foundUser = null;
-                        return;
-                    }
-
-                    try {
-                        const usersQuery = query(
-                            collection(db, 'users'),
-                            where('username', '==', username)
-                        );
-                        const snapshot = await getDocs(usersQuery);
-                        
-                        if (snapshot.empty) {
-                            userInfoDiv.style.display = 'block';
-                            userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ User not found</span>`;
-                            foundUser = null;
-                            return;
-                        }
-
-                        snapshot.forEach(doc => {
-                            const user = doc.data();
-                            if (user.uid === this.currentUser.uid) {
-                                userInfoDiv.style.display = 'block';
-                                userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ That's you!</span>`;
-                                foundUser = null;
-                                return;
-                            }
-                            userInfoDiv.style.display = 'block';
-                            const avatarStyle = this.getAvatarStyle(user.displayName);
-                            userInfoDiv.innerHTML = `
-                                <div style="display:flex;align-items:center;gap:10px;">
-                                    <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                    <div>
-                                        <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
-                                        <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
-                                    </div>
-                                    ${user.isOnline ? '<span style="color:var(--online);font-size:10px;">● Online</span>' : ''}
-                                </div>
-                            `;
-                            foundUser = { uid: doc.id, ...user };
-                        });
-                    } catch (err) {
-                        console.error('Error searching user:', err);
-                    }
-                });
-
-                startChatBtn.addEventListener('click', async () => {
-                    if (!foundUser) {
-                        U.showToast('Please enter a valid username');
-                        return;
-                    }
-
-                    if (foundUser.uid === this.currentUser.uid) {
-                        U.showToast('You cannot chat with yourself');
-                        return;
-                    }
-
-                    await this.createDirectChat(foundUser.uid);
-                    document.getElementById('modal-overlay').classList.remove('open');
-                });
-            },
-
-            async createDirectChat(otherUserId) {
-                const userId = this.currentUser.uid;
-
-                // Check if chat already exists
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', userId)
-                );
-                const snapshot = await getDocs(chatsQuery);
-                
-                let existingChatId = null;
-                snapshot.forEach(doc => {
-                    const chat = doc.data();
-                    if (chat.type === 'direct' && chat.participants.includes(otherUserId)) {
-                        existingChatId = doc.id;
-                    }
-                });
-
-                if (existingChatId) {
-                    U.showToast('Chat already exists');
-                    this.openChat(existingChatId);
-                    return;
-                }
-
-                // Create new chat
-                const chatRef = await addDoc(collection(db, 'chats'), {
-                    type: 'direct',
-                    participants: [userId, otherUserId],
-                    lastMessage: 'Chat started! Say hello.',
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: userId,
-                    createdAt: serverTimestamp(),
-                    isArchived: {},
-                    isPinned: {},
-                    isMuted: {},
-                    wallpaper: {}
-                });
-
-                U.showToast('Chat created!');
-                this.openChat(chatRef.id);
             },
 
             // Stories
