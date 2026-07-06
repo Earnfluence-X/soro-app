@@ -891,17 +891,20 @@
             appId: "{{FIREBASE_APP_ID}}"
         };
 
-        // Check if config is valid
+        // 🔥 FIXED: Check if config is valid
+        // A real Firebase API key starts with "AIza" and is at least 30 characters
         const isValid = firebaseConfig.apiKey && 
-                       firebaseConfig.apiKey !== "{{FIREBASE_API_KEY}}" &&
-                       firebaseConfig.apiKey !== "";
+                       firebaseConfig.apiKey.length > 10 &&
+                       firebaseConfig.apiKey.startsWith('AIza');
 
         if (!isValid) {
             document.getElementById('loading-status').textContent = '⚠️ Firebase config missing. Check Vercel env vars.';
             document.getElementById('loading-status').style.color = 'var(--rust)';
             console.error('❌ Firebase config not set!');
+            console.log('🔍 API Key value:', firebaseConfig.apiKey);
         } else {
             console.log('✅ Firebase config loaded');
+            console.log('🔑 API Key:', firebaseConfig.apiKey.substring(0, 10) + '...');
             document.getElementById('loading-status').textContent = '✅ Config loaded!';
         }
 
