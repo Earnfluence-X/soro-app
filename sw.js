@@ -1,28 +1,27 @@
-const CACHE_NAME = 'soro-v1.0.0';
+const CACHE_NAME = 'soro-v2.0.0';  // ⬅️ Changed version to force update
 const ASSETS_TO_CACHE = [
     '/',
-    '/index.html',
-    '/css/style.css',
-    '/js/utils.js',
-    '/js/auth.js',
-    '/js/chat.js',
-    '/js/groups.js',
-    '/js/stories.js',
-    '/js/communities.js',
-    '/js/settings.js',
-    '/js/app.js',
+    // '/index.html',  // ⬅️ REMOVED - Don't cache index.html
+    // '/css/style.css',  // ⬅️ REMOVED - Not needed (CSS is inlined)
+    // '/js/utils.js',  // ⬅️ REMOVED - Not needed (JS is inlined)
+    // '/js/auth.js',
+    // '/js/chat.js',
+    // '/js/groups.js',
+    // '/js/stories.js',
+    // '/js/communities.js',
+    // '/js/settings.js',
+    // '/js/app.js',
     '/manifest.json',
     '/icons/icon.svg'
 ];
 
-// Install event - cache all core assets
+// Install event - cache assets
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
                 return cache.addAll(ASSETS_TO_CACHE).catch((error) => {
                     console.warn('Failed to cache some assets:', error);
-                    // Continue even if some assets fail to cache
                     return Promise.resolve();
                 });
             })
@@ -30,7 +29,7 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Activate event - clean old caches
+// Activate event - clean old caches and claim clients
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -43,7 +42,7 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event - network first, fallback to cache
+// Fetch event - NETWORK FIRST for everything
 self.addEventListener('fetch', (event) => {
     // Only handle GET requests
     if (event.request.method !== 'GET') return;
@@ -57,35 +56,35 @@ self.addEventListener('fetch', (event) => {
     }
 
     event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            // Return cached response immediately if available
-            const fetchPromise = fetch(event.request)
-                .then((networkResponse) => {
-                    // Cache successful responses
-                    if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+        fetch(event.request)
+            .then((networkResponse) => {
+                // Cache successful responses for assets (not HTML)
+                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                    const url = new URL(event.request.url);
+                    // Only cache non-HTML files
+                    if (!url.pathname.endsWith('.html') && url.pathname !== '/') {
                         const responseClone = networkResponse.clone();
                         caches.open(CACHE_NAME).then((cache) => {
                             cache.put(event.request, responseClone);
                         });
                     }
-                    return networkResponse;
-                })
-                .catch((error) => {
-                    // Network failed, return cached version if available
-                    console.warn('Fetch failed, using cache:', error);
+                }
+                return networkResponse;
+            })
+            .catch((error) => {
+                // Network failed, try cache
+                console.warn('Fetch failed, using cache:', error);
+                return caches.match(event.request).then((cachedResponse) => {
                     return cachedResponse || new Response('Offline - Resource not available', {
                         status: 503,
                         statusText: 'Service Unavailable'
                     });
                 });
-
-            // Return cached version first if it exists, otherwise wait for network
-            return cachedResponse || fetchPromise;
-        })
+            })
     );
 });
 
-// Handle push notifications (future use)
+// Handle push notifications
 self.addEventListener('push', (event) => {
     if (!event.data) return;
 
@@ -121,17 +120,11 @@ self.addEventListener('notificationclick', (event) => {
     event.notification.close();
 
     if (event.action === 'reply') {
-        // Open the app to reply
-        event.waitUntil(
-            clients.openWindow('/')
-        );
+        event.waitUntil(clients.openWindow('/'));
     } else {
-        // Open the specific chat
         const chatId = event.notification.data?.chatId;
         const url = chatId ? `/?chat=${chatId}` : '/';
-        event.waitUntil(
-            clients.openWindow(url)
-        );
+        event.waitUntil(clients.openWindow(url));
     }
 });
 
