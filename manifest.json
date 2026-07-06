@@ -4,9 +4,13 @@
   "description": "A warm, human messaging app. The name means talk in Yoruba.",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#FDF8F0",
   "theme_color": "#D47A3A",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["social", "messaging", "communication"],
   "icons": [
     {
       "src": "/icons/icon.svg",
@@ -14,5 +18,34 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "New Chat",
+      "short_name": "Chat",
+      "description": "Start a conversation",
+      "url": "/?action=new-chat",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "512x512" }]
+    },
+    {
+      "name": "New Group",
+      "short_name": "Group", 
+      "description": "Create a group",
+      "url": "/?action=new-group",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "512x512" }]
+    }
+  ],
+  "share_target": {
+    "action": "/?action=share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred"
 }

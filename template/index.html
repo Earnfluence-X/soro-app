@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, maximum-scale=1.0">
     <meta name="theme-color" content="#D47A3A">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="SORO">
     <meta name="description" content="SORO - talk, simply. A warm messaging app.">
+    <meta name="application-name" content="SORO">
+    <meta name="msapplication-TileColor" content="#D47A3A">
+    <meta name="msapplication-TileImage" content="/icons/icon.svg">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
     <link rel="apple-touch-icon" href="/icons/icon.svg">
@@ -346,7 +349,6 @@
             border-radius: 3px;
         }
 
-        /* NEW: Pinned Messages Section */
         .pinned-messages {
             padding: 6px 16px;
             background: var(--incoming);
@@ -371,7 +373,6 @@
 
         .pinned-item:hover { background: var(--border); }
 
-        /* NEW: Reply Preview */
         .reply-preview {
             display: flex;
             align-items: center;
@@ -401,7 +402,6 @@
 
         .reply-preview .reply-close:hover { background: var(--border); }
 
-        /* NEW: Offline Banner */
         .offline-banner {
             padding: 6px 12px;
             background: var(--rust);
@@ -836,7 +836,6 @@
             transition: width 0.5s;
         }
 
-        /* NEW: Typing Indicator in Chat Header */
         .typing-indicator {
             font-size: 11px;
             color: var(--online);
@@ -871,7 +870,6 @@
             font-family: var(--font);
         }
 
-        /* NEW: Reaction Picker */
         .reaction-picker {
             position: absolute;
             background: var(--bg);
@@ -985,6 +983,76 @@
             color: white;
         }
 
+        /* PWA Install Banner */
+        .install-banner {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--outgoing);
+            color: var(--text-out);
+            padding: 16px 20px;
+            border-radius: var(--radius-lg);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 90;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: slideUpBanner 0.3s ease;
+            width: 90%;
+            max-width: 400px;
+            font-family: var(--font);
+        }
+
+        @keyframes slideUpBanner {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .install-banner .install-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .install-banner .install-text {
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .install-banner .install-text strong {
+            font-size: 15px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .install-banner .install-btn {
+            padding: 8px 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-family: var(--font);
+        }
+
+        .install-banner .install-close {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            padding: 4px;
+            font-size: 16px;
+        }
+
         @media (min-width: 431px) {
             #app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
         }
@@ -1027,6 +1095,7 @@
                 <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
                 <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
                 <symbol id="icon-wifi-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></symbol>
+                <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
             </defs>
         </svg>
 
@@ -1069,7 +1138,6 @@
 
         <!-- Chats Screen -->
         <div id="screen-chats" class="screen">
-            <!-- NEW: Offline Banner -->
             <div class="offline-banner" id="offline-banner">
                 <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-wifi-off"/></svg> You're offline. Messages will sync when connected.
             </div>
@@ -1107,14 +1175,11 @@
                 <button class="btn-back" id="chat-back-btn"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg></button>
                 <div style="flex:1;text-align:center;">
                     <span id="chat-title" class="header-title">Chat</span>
-                    <!-- NEW: Typing indicator in header -->
                     <div id="chat-typing-indicator" class="typing-indicator"></div>
                 </div>
                 <button id="group-settings-btn" class="btn-icon" style="display:none"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-settings"/></svg></button>
             </div>
-            <!-- NEW: Pinned Messages -->
             <div id="pinned-messages" class="pinned-messages"></div>
-            <!-- NEW: Reply Preview -->
             <div id="reply-preview" class="reply-preview" style="display:none;">
                 <div class="reply-text" id="reply-preview-text"></div>
                 <div class="reply-close" onclick="window.SoroApp.clearReply()">
@@ -1123,7 +1188,6 @@
             </div>
             <div id="messages-area" class="messages-area"></div>
             <div class="input-bar">
-                <!-- NEW: Schedule button -->
                 <button class="btn-icon" id="schedule-btn" title="Schedule Message"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-clock"/></svg></button>
                 <textarea id="chat-input" class="input textarea" rows="1" placeholder="Type a message... Use @ to mention"></textarea>
                 <button class="btn btn-primary" id="send-btn" style="border-radius:50%;padding:12px;height:44px;width:44px;"><svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-send"/></svg></button>
@@ -1167,7 +1231,6 @@
             <div class="settings-item" id="blocked-users-btn"><span>Blocked Users</span><span class="settings-value">0</span></div>
             <div class="settings-section">Appearance</div>
             <div class="settings-item" id="change-theme-btn"><span>Theme</span><span id="val-theme" class="settings-value">Light</span></div>
-            <!-- NEW: Wallpaper settings -->
             <div class="settings-item" id="change-wallpaper-btn"><span>Chat Wallpaper</span><span id="val-wallpaper" class="settings-value">Default</span></div>
             <div class="settings-section">Data</div>
             <div class="settings-item" id="toggle-datasaver"><span>Data Saver</span><div id="data-saver-toggle" class="toggle"></div></div>
@@ -1217,7 +1280,6 @@
             <div class="msg-context-menu-item" data-action="copy"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-copy"/></svg> Copy</div>
             <div class="msg-context-menu-item" data-action="forward"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-forward"/></svg> Forward</div>
             <div class="msg-context-menu-item" data-action="edit"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-edit"/></svg> Edit</div>
-            <!-- NEW: Pin message option -->
             <div class="msg-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin Message</div>
             <div class="msg-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
         </div>
@@ -1228,12 +1290,11 @@
             <div class="chat-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin</div>
             <div class="chat-context-menu-item" data-action="unpin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Unpin</div>
             <div class="chat-context-menu-item" data-action="block"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-block"/></svg> Block</div>
-            <!-- NEW: Wallpaper option -->
             <div class="chat-context-menu-item" data-action="wallpaper"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-edit"/></svg> Change Wallpaper</div>
             <div class="chat-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
         </div>
 
-        <!-- NEW: Reaction Picker -->
+        <!-- Reaction Picker -->
         <div class="reaction-picker" id="reaction-picker">
             <span class="reaction-emoji" data-emoji="👍">👍</span>
             <span class="reaction-emoji" data-emoji="❤️">❤️</span>
@@ -1250,6 +1311,21 @@
 
         <!-- Toast -->
         <div id="toast" class="toast"></div>
+    </div>
+
+    <!-- PWA Install Banner -->
+    <div class="install-banner" id="pwa-install-banner">
+        <div class="install-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <use href="#icon-download"/>
+            </svg>
+        </div>
+        <div class="install-text">
+            <strong>Install SORO</strong>
+            <span style="opacity:0.7;">Add to home screen for quick access</span>
+        </div>
+        <button class="install-btn" id="pwa-install-btn">Install</button>
+        <button class="install-close" id="pwa-close-btn">✕</button>
     </div>
 
     <script type="importmap">
@@ -1496,6 +1572,17 @@
                         this.setupPresence();
                         document.getElementById('loading-screen').classList.remove('active');
                         this.showScreen('chats');
+                        
+                        // PWA: Request notification permission after login
+                        setTimeout(() => {
+                            if (Notification.permission === 'default') {
+                                Notification.requestPermission().then(permission => {
+                                    if (permission === 'granted') {
+                                        U.showToast('Notifications enabled!');
+                                    }
+                                });
+                            }
+                        }, 5000);
                     } else {
                         this.currentUser = null;
                         this.userData = null;
@@ -1601,13 +1688,11 @@
                         e.preventDefault();
                         this.sendMessage();
                     }
-                    // NEW: Typing indicator
                     this.setTyping(true);
                     clearTimeout(this._typingTimeout);
                     this._typingTimeout = setTimeout(() => this.setTyping(false), 2000);
                 });
 
-                // NEW: Schedule button
                 document.getElementById('schedule-btn').addEventListener('click', () => {
                     this.scheduleMessage();
                 });
@@ -1749,7 +1834,6 @@
                     this.changeTheme();
                 });
 
-                // NEW: Wallpaper settings
                 document.getElementById('change-wallpaper-btn').addEventListener('click', () => {
                     this.changeWallpaper();
                 });
@@ -1794,10 +1878,133 @@
                     }
                 });
 
+                // PWA: Register Service Worker
+                this.registerServiceWorker();
+                
+                // PWA: Setup install prompt
+                this.setupPWAInstall();
+
                 document.getElementById('loading-status').textContent = 'Ready!';
                 setTimeout(() => {
                     document.getElementById('loading-status').style.display = 'none';
                 }, 500);
+            },
+
+            // ==================== PWA FUNCTIONS ====================
+            registerServiceWorker() {
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', async () => {
+                        try {
+                            const registration = await navigator.serviceWorker.register('/sw.js');
+                            console.log('✅ Service Worker registered:', registration.scope);
+                            
+                            // Check for updates
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        U.showToast('Update available! Restart app to update.');
+                                    }
+                                });
+                            });
+                            
+                            // Register background sync if available
+                            if ('SyncManager' in window) {
+                                try {
+                                    await registration.sync.register('sync-messages');
+                                } catch(e) {
+                                    console.log('Background sync not available');
+                                }
+                            }
+                            
+                            // Handle messages from service worker
+                            navigator.serviceWorker.addEventListener('message', (event) => {
+                                if (event.data?.type === 'SYNC_OFFLINE_MESSAGES') {
+                                    this.syncOfflineMessages();
+                                }
+                                if (event.data?.type === 'QUICK_REPLY' && event.data?.chatId) {
+                                    this.openChat(event.data.chatId);
+                                    setTimeout(() => {
+                                        const input = document.getElementById('chat-input');
+                                        if (input) {
+                                            input.value = event.data.reply;
+                                            this.sendMessage();
+                                        }
+                                    }, 1000);
+                                }
+                            });
+                            
+                        } catch (error) {
+                            console.error('Service Worker registration failed:', error);
+                        }
+                    });
+                }
+            },
+
+            setupPWAInstall() {
+                let deferredPrompt;
+                const banner = document.getElementById('pwa-install-banner');
+                const installBtn = document.getElementById('pwa-install-btn');
+                const closeBtn = document.getElementById('pwa-close-btn');
+                let bannerShown = false;
+                
+                // Check if already installed
+                if (window.matchMedia('(display-mode: standalone)').matches || 
+                    window.navigator.standalone === true) {
+                    if (banner) banner.style.display = 'none';
+                    return;
+                }
+                
+                // Listen for install prompt
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    
+                    // Show banner after 30 seconds
+                    setTimeout(() => {
+                        if (!bannerShown && deferredPrompt && banner) {
+                            banner.style.display = 'flex';
+                            bannerShown = true;
+                        }
+                    }, 30000);
+                    
+                    // Show after 5 interactions
+                    let clickCount = 0;
+                    document.addEventListener('click', () => {
+                        clickCount++;
+                        if (clickCount >= 5 && !bannerShown && deferredPrompt && banner) {
+                            banner.style.display = 'flex';
+                            bannerShown = true;
+                        }
+                    }, { once: true });
+                });
+                
+                // Install button
+                if (installBtn) {
+                    installBtn.addEventListener('click', async () => {
+                        if (!deferredPrompt) return;
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        deferredPrompt = null;
+                        if (banner) banner.style.display = 'none';
+                        if (outcome === 'accepted') {
+                            U.showToast('App installed! 🎉');
+                        }
+                    });
+                }
+                
+                // Close button
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        if (banner) banner.style.display = 'none';
+                    });
+                }
+                
+                // Hide on install
+                window.addEventListener('appinstalled', () => {
+                    if (banner) banner.style.display = 'none';
+                    deferredPrompt = null;
+                });
             },
 
             // ==================== CONTEXT MENUS ====================
@@ -1816,7 +2023,6 @@
                         const msgId = this.selectedMessageId;
                         const chatId = this.currentChatId;
                         if (!msgId || !chatId) return;
-                        // NEW: Handle pin action
                         if (action === 'pin') {
                             this.togglePinMessage(chatId, msgId);
                         } else {
@@ -1831,7 +2037,6 @@
                         const action = item.dataset.action;
                         const chatId = this.selectedChatId;
                         if (!chatId) return;
-                        // NEW: Handle wallpaper action
                         if (action === 'wallpaper') {
                             this.changeChatWallpaper(chatId);
                         } else {
@@ -1842,7 +2047,6 @@
                 });
             },
 
-            // NEW: Setup reaction picker
             setupReactionPicker() {
                 const picker = document.getElementById('reaction-picker');
                 picker.querySelectorAll('.reaction-emoji').forEach(emoji => {
@@ -1864,7 +2068,6 @@
                 document.getElementById('reaction-picker').style.display = 'none';
             },
 
-            // NEW: Offline banner
             showOfflineBanner() {
                 document.getElementById('offline-banner').classList.add('show');
             },
@@ -1872,7 +2075,6 @@
                 document.getElementById('offline-banner').classList.remove('show');
             },
 
-            // ==================== SEARCH & FILTER ====================
             searchChats(query) {
                 this.searchQuery = query.toLowerCase().trim();
                 this.renderFilteredChats();
@@ -1900,7 +2102,6 @@
                 }
             },
 
-            // ==================== TUTORIAL ====================
             showTutorial() {
                 const overlay = document.createElement('div');
                 overlay.style.cssText = `
@@ -1926,7 +2127,6 @@
                 });
             },
 
-            // ==================== UTILITY ====================
             getAvatarStyle(name) {
                 let hash = 0;
                 for (let i = 0; i < name.length; i++) {
@@ -1977,1646 +2177,355 @@
                 }
             },
 
-            // ==================== FRIEND SYSTEM ====================
             async sendFriendRequest(toUserId) {
                 const userId = this.currentUser.uid;
-
-                const existingQuery = query(
-                    collection(db, 'friendRequests'),
-                    where('from', '==', userId),
-                    where('to', '==', toUserId)
-                );
+                const existingQuery = query(collection(db, 'friendRequests'), where('from', '==', userId), where('to', '==', toUserId));
                 const existing = await getDocs(existingQuery);
-                if (!existing.empty) {
-                    U.showToast('Request already sent');
-                    return;
-                }
-
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', userId)
-                );
+                if (!existing.empty) { U.showToast('Request already sent'); return; }
+                const chatsQuery = query(collection(db, 'chats'), where('participants', 'array-contains', userId));
                 const chatsSnapshot = await getDocs(chatsQuery);
                 let isFriend = false;
-                chatsSnapshot.forEach(doc => {
-                    const chat = doc.data();
-                    if (chat.type === 'direct' && chat.participants.includes(toUserId)) {
-                        isFriend = true;
-                    }
-                });
-
-                if (isFriend) {
-                    U.showToast('You are already friends');
-                    return;
-                }
-
-                await addDoc(collection(db, 'friendRequests'), {
-                    from: userId,
-                    to: toUserId,
-                    status: 'pending',
-                    createdAt: serverTimestamp()
-                });
-
+                chatsSnapshot.forEach(doc => { const chat = doc.data(); if (chat.type === 'direct' && chat.participants.includes(toUserId)) isFriend = true; });
+                if (isFriend) { U.showToast('You are already friends'); return; }
+                await addDoc(collection(db, 'friendRequests'), { from: userId, to: toUserId, status: 'pending', createdAt: serverTimestamp() });
                 U.showToast('Friend request sent!');
             },
 
             loadFriendRequests() {
                 if (!this.currentUser) return;
                 if (this.friendRequestsListener) this.friendRequestsListener();
-
-                const requestsQuery = query(
-                    collection(db, 'friendRequests'),
-                    where('to', '==', this.currentUser.uid),
-                    where('status', '==', 'pending')
-                );
-
+                const requestsQuery = query(collection(db, 'friendRequests'), where('to', '==', this.currentUser.uid), where('status', '==', 'pending'));
                 this.friendRequestsListener = onSnapshot(requestsQuery, (snapshot) => {
                     const container = document.getElementById('friend-requests-container');
                     if (!container) return;
                     container.innerHTML = '';
-
                     snapshot.forEach(async (requestDoc) => {
                         const request = requestDoc.data();
                         const fromUser = await getDoc(doc(db, 'users', request.from));
                         if (!fromUser.exists()) return;
-
                         const user = fromUser.data();
                         const avatarStyle = this.getAvatarStyle(user.displayName);
-
                         const div = document.createElement('div');
                         div.className = 'friend-request-item';
-                        div.innerHTML = `
-                            <div style="display:flex;align-items:center;gap:10px;">
-                                <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                <div>
-                                    <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
-                                    <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
-                                </div>
-                            </div>
-                            <div class="friend-request-actions">
-                                <button class="btn-accept" data-request="${requestDoc.id}" data-from="${request.from}">Accept</button>
-                                <button class="btn-decline" data-request="${requestDoc.id}">Decline</button>
-                            </div>
-                        `;
-
+                        div.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div><div><div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div><div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div></div></div><div class="friend-request-actions"><button class="btn-accept" data-request="${requestDoc.id}" data-from="${request.from}">Accept</button><button class="btn-decline" data-request="${requestDoc.id}">Decline</button></div>`;
                         container.appendChild(div);
-
-                        div.querySelector('.btn-accept').addEventListener('click', async (e) => {
-                            const requestId = e.target.dataset.request;
-                            const fromId = e.target.dataset.from;
-                            await this.acceptFriendRequest(requestId, fromId);
-                        });
-
-                        div.querySelector('.btn-decline').addEventListener('click', async (e) => {
-                            const requestId = e.target.dataset.request;
-                            await updateDoc(doc(db, 'friendRequests', requestId), { status: 'declined' });
-                            U.showToast('Request declined');
-                            this.loadFriendRequests();
-                        });
+                        div.querySelector('.btn-accept').addEventListener('click', async (e) => { await this.acceptFriendRequest(e.target.dataset.request, e.target.dataset.from); });
+                        div.querySelector('.btn-decline').addEventListener('click', async (e) => { await updateDoc(doc(db, 'friendRequests', e.target.dataset.request), { status: 'declined' }); U.showToast('Request declined'); });
                     });
                 });
             },
 
             async acceptFriendRequest(requestId, fromUserId) {
                 const userId = this.currentUser.uid;
-
                 await updateDoc(doc(db, 'friendRequests', requestId), { status: 'accepted' });
-
-                const chatRef = await addDoc(collection(db, 'chats'), {
-                    type: 'direct',
-                    participants: [userId, fromUserId],
-                    lastMessage: 'You are now friends! Say hello.',
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: userId,
-                    createdAt: serverTimestamp(),
-                    wallpaper: 'default'
-                });
-
+                const chatRef = await addDoc(collection(db, 'chats'), { type: 'direct', participants: [userId, fromUserId], lastMessage: 'You are now friends! Say hello.', lastMessageTime: serverTimestamp(), lastMessageSenderId: userId, createdAt: serverTimestamp(), wallpaper: 'default' });
                 U.showToast('Friend request accepted!');
                 this.loadFriendRequests();
                 this.loadChatList();
                 this.openChat(chatRef.id);
             },
 
-            // ==================== CHAT LIST FUNCTIONS ====================
             loadChatList() {
                 if (!this.currentUser) return;
                 if (this.chatListListener) this.chatListListener();
-
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', this.currentUser.uid),
-                    orderBy('lastMessageTime', 'desc'),
-                    limit(50)
-                );
-
+                const chatsQuery = query(collection(db, 'chats'), where('participants', 'array-contains', this.currentUser.uid), orderBy('lastMessageTime', 'desc'), limit(50));
                 this.chatListListener = onSnapshot(chatsQuery, async (snapshot) => {
                     this.allChatsCache = [];
                     const promises = [];
-
-                    snapshot.forEach((chatDoc) => {
-                        const chat = chatDoc.data();
-                        chat.id = chatDoc.id;
-                        promises.push(this.processChatForCache(chat));
-                    });
-
+                    snapshot.forEach((chatDoc) => { const chat = chatDoc.data(); chat.id = chatDoc.id; promises.push(this.processChatForCache(chat)); });
                     await Promise.all(promises);
-                    // NEW: Cache chats locally
-                    if (this.isOnline) {
-                        try {
-                            localStorage.setItem('soro_chats_cache', JSON.stringify(
-                                this.allChatsCache.map(c => ({...c, lastMessageTime: c.lastMessageTime?.toMillis?.() || c.lastMessageTime}))
-                            ));
-                        } catch(e) {}
-                    }
+                    if (this.isOnline) { try { localStorage.setItem('soro_chats_cache', JSON.stringify(this.allChatsCache.map(c => ({...c, lastMessageTime: c.lastMessageTime?.toMillis?.() || c.lastMessageTime})))); } catch(e) {} }
                     this.renderFilteredChats();
                 });
             },
 
             async processChatForCache(chat) {
                 const isGroup = chat.type === 'group';
-                let displayName = 'Chat';
-                let initials = '?';
-                let avatarStyle = this.avatarColors[0];
-                let onlineDot = '';
-
-                if (isGroup) {
-                    displayName = chat.groupName || 'Group';
-                    initials = displayName.charAt(0).toUpperCase();
-                    avatarStyle = 'linear-gradient(135deg, #5A7A8A, #4A6A7A)';
-                } else {
-                    const otherUid = chat.participants.find(uid => uid !== this.currentUser.uid);
-                    if (otherUid) {
-                        const userDoc = await getDoc(doc(db, 'users', otherUid));
-                        if (userDoc.exists()) {
-                            const userData = userDoc.data();
-                            displayName = userData.displayName || 'User';
-                            initials = displayName.charAt(0).toUpperCase();
-                            avatarStyle = this.getAvatarStyle(displayName);
-                            if (userData.isOnline) onlineDot = '<span class="online-dot"></span>';
-                        }
-                    }
-                }
-
-                const isBlocked = chat.type === 'direct' && 
-                    chat.participants.some(uid => uid !== this.currentUser.uid && 
-                    (this.userData.blockedUsers || []).includes(uid));
-
-                this.allChatsCache.push({
-                    ...chat,
-                    displayName,
-                    initials,
-                    avatarStyle,
-                    onlineDot,
-                    isBlocked
-                });
+                let displayName = 'Chat', initials = '?', avatarStyle = this.avatarColors[0], onlineDot = '';
+                if (isGroup) { displayName = chat.groupName || 'Group'; initials = displayName.charAt(0).toUpperCase(); avatarStyle = 'linear-gradient(135deg, #5A7A8A, #4A6A7A)'; }
+                else { const otherUid = chat.participants.find(uid => uid !== this.currentUser.uid); if (otherUid) { const userDoc = await getDoc(doc(db, 'users', otherUid)); if (userDoc.exists()) { const userData = userDoc.data(); displayName = userData.displayName || 'User'; initials = displayName.charAt(0).toUpperCase(); avatarStyle = this.getAvatarStyle(displayName); if (userData.isOnline) onlineDot = '<span class="online-dot"></span>'; } } }
+                const isBlocked = chat.type === 'direct' && chat.participants.some(uid => uid !== this.currentUser.uid && (this.userData.blockedUsers || []).includes(uid));
+                this.allChatsCache.push({ ...chat, displayName, initials, avatarStyle, onlineDot, isBlocked });
             },
 
             renderChatItem(chatList, chat) {
-                const time = U.formatTime(chat.lastMessageTime);
-                const preview = chat.lastMessage || 'No messages yet';
-                const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
-
-                const chatItem = document.createElement('div');
-                chatItem.className = 'chat-item';
-                chatItem.innerHTML = `
-                    <div class="avatar" style="background:${chat.avatarStyle};width:44px;height:44px;font-size:16px;">
-                        ${chat.initials}${chat.onlineDot}
-                    </div>
-                    <div class="chat-info">
-                        <div class="chat-name">
-                            ${chat.isBlocked ? '<svg class="icon-sm" viewBox="0 0 24 24" style="color:var(--rust)"><use href="#icon-block"/></svg> ' : ''}
-                            ${U.escapeHtml(chat.displayName)}
-                        </div>
-                        <div class="chat-preview">${chat.isBlocked ? 'Blocked' : U.highlightMentions(U.escapeHtml(preview))}</div>
-                    </div>
-                    <div class="chat-meta">
-                        <div class="chat-time">${time}</div>
-                        ${hasUnread ? '<span class="unread-badge">1</span>' : ''}
-                    </div>
-                `;
-
-                chatItem.addEventListener('click', () => {
-                    if (chat.isBlocked) {
-                        U.showToast('This user is blocked');
-                        return;
-                    }
-                    this.openChat(chat.id);
-                });
-
-                chatItem.addEventListener('contextmenu', (e) => {
-                    if (chat.isBlocked) {
-                        U.showToast('This user is blocked');
-                        return;
-                    }
-                    this.showChatContextMenu(e, chat.id);
-                });
-
+                const time = U.formatTime(chat.lastMessageTime), preview = chat.lastMessage || 'No messages yet', hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
+                const chatItem = document.createElement('div'); chatItem.className = 'chat-item';
+                chatItem.innerHTML = `<div class="avatar" style="background:${chat.avatarStyle};width:44px;height:44px;font-size:16px;">${chat.initials}${chat.onlineDot}</div><div class="chat-info"><div class="chat-name">${chat.isBlocked ? '<svg class="icon-sm" viewBox="0 0 24 24" style="color:var(--rust)"><use href="#icon-block"/></svg> ' : ''}${U.escapeHtml(chat.displayName)}</div><div class="chat-preview">${chat.isBlocked ? 'Blocked' : U.highlightMentions(U.escapeHtml(preview))}</div></div><div class="chat-meta"><div class="chat-time">${time}</div>${hasUnread ? '<span class="unread-badge">1</span>' : ''}</div>`;
+                chatItem.addEventListener('click', () => { if (chat.isBlocked) { U.showToast('This user is blocked'); return; } this.openChat(chat.id); });
+                chatItem.addEventListener('contextmenu', (e) => { if (chat.isBlocked) { U.showToast('This user is blocked'); return; } this.showChatContextMenu(e, chat.id); });
                 let longPressTimer;
-                chatItem.addEventListener('touchstart', (e) => {
-                    if (chat.isBlocked) return;
-                    longPressTimer = setTimeout(() => {
-                        this.showChatContextMenu(e, chat.id);
-                    }, 600);
-                });
+                chatItem.addEventListener('touchstart', (e) => { if (chat.isBlocked) return; longPressTimer = setTimeout(() => { this.showChatContextMenu(e, chat.id); }, 600); });
                 chatItem.addEventListener('touchend', () => clearTimeout(longPressTimer));
                 chatItem.addEventListener('touchmove', () => clearTimeout(longPressTimer));
-
                 chatList.appendChild(chatItem);
             },
 
-            openNewChatModal() {
-                document.getElementById('modal-new-chat').classList.add('open');
-                document.getElementById('new-chat-content').style.display = 'block';
-                document.getElementById('new-group-content').style.display = 'none';
-                document.getElementById('new-chat-find').className = 'btn btn-primary';
-                document.getElementById('new-chat-group').className = 'btn btn-secondary';
-                document.getElementById('new-chat-username').focus();
-            },
+            openNewChatModal() { document.getElementById('modal-new-chat').classList.add('open'); document.getElementById('new-chat-content').style.display = 'block'; document.getElementById('new-group-content').style.display = 'none'; document.getElementById('new-chat-find').className = 'btn btn-primary'; document.getElementById('new-chat-group').className = 'btn btn-secondary'; document.getElementById('new-chat-username').focus(); },
 
             async loadGroupMembers() {
                 const container = document.getElementById('group-member-list');
-                if (!container) return;
-
-                const usersQuery = query(
-                    collection(db, 'users'),
-                    where('uid', '!=', this.currentUser.uid)
-                );
-                const snapshot = await getDocs(usersQuery);
-
+                const snapshot = await getDocs(query(collection(db, 'users'), where('uid', '!=', this.currentUser.uid)));
                 container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const user = doc.data();
-                    const isBlocked = (this.userData.blockedUsers || []).includes(doc.id);
-                    if (isBlocked) return;
-                    const avatarStyle = this.getAvatarStyle(user.displayName);
-
-                    const div = document.createElement('div');
-                    div.className = 'contact-check';
-                    div.innerHTML = `
-                        <input type="checkbox" value="${doc.id}">
-                        <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                        <span style="font-size:14px;color:var(--text-in);">${U.escapeHtml(user.displayName)}</span>
-                    `;
-                    container.appendChild(div);
-                });
+                snapshot.forEach(doc => { const user = doc.data(); if ((this.userData.blockedUsers || []).includes(doc.id)) return; const div = document.createElement('div'); div.className = 'contact-check'; div.innerHTML = `<input type="checkbox" value="${doc.id}"><div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div><span>${U.escapeHtml(user.displayName)}</span>`; container.appendChild(div); });
             },
 
             async createGroup() {
                 const name = document.getElementById('group-name-input').value.trim();
-                if (!name) {
-                    U.showToast('Please enter a group name');
-                    return;
-                }
-
-                const checked = document.querySelectorAll('#group-member-list input:checked');
-                const memberIds = Array.from(checked).map(cb => cb.value);
-
-                if (memberIds.length === 0) {
-                    U.showToast('Please select at least one member');
-                    return;
-                }
-
-                const userId = this.currentUser.uid;
-                const participants = [userId, ...memberIds];
-
-                const existingGroups = await getDocs(query(
-                    collection(db, 'chats'),
-                    where('type', '==', 'group'),
-                    where('groupName', '==', name)
-                ));
-                
+                if (!name) { U.showToast('Please enter a group name'); return; }
+                const memberIds = Array.from(document.querySelectorAll('#group-member-list input:checked')).map(cb => cb.value);
+                if (memberIds.length === 0) { U.showToast('Please select at least one member'); return; }
+                const participants = [this.currentUser.uid, ...memberIds];
+                const existingGroups = await getDocs(query(collection(db, 'chats'), where('type', '==', 'group'), where('groupName', '==', name)));
                 let groupExists = false;
-                existingGroups.forEach(doc => {
-                    const chat = doc.data();
-                    if (chat.participants && chat.participants.length === participants.length &&
-                        chat.participants.every(p => participants.includes(p))) {
-                        groupExists = true;
-                    }
-                });
-
-                if (groupExists) {
-                    U.showToast('Group already exists');
-                    return;
-                }
-
-                const groupRef = await addDoc(collection(db, 'chats'), {
-                    type: 'group',
-                    participants: participants,
-                    groupName: name,
-                    groupDescription: document.getElementById('group-desc-input').value.trim() || '',
-                    groupPhotoURL: null,
-                    groupPrivacy: 'public',
-                    slowMode: 0,
-                    ownerUid: userId,
-                    adminUids: [userId],
-                    lastMessage: 'Group created',
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: userId,
-                    createdAt: serverTimestamp(),
-                    communityId: null,
-                    wallpaper: 'default'
-                });
-
-                await addDoc(collection(db, 'chats', groupRef.id, 'messages'), {
-                    senderId: userId,
-                    type: 'system',
-                    text: this.userData.displayName + ' created the group',
-                    timestamp: serverTimestamp(),
-                    readBy: [userId],
-                    deliveredTo: []
-                });
-
-                U.showToast('Group created!');
-                document.getElementById('modal-new-chat').classList.remove('open');
-                this.loadChatList();
-                this.openChat(groupRef.id);
+                existingGroups.forEach(doc => { const chat = doc.data(); if (chat.participants && chat.participants.length === participants.length && chat.participants.every(p => participants.includes(p))) groupExists = true; });
+                if (groupExists) { U.showToast('Group already exists'); return; }
+                const groupRef = await addDoc(collection(db, 'chats'), { type: 'group', participants, groupName: name, groupDescription: document.getElementById('group-desc-input').value.trim() || '', groupPhotoURL: null, groupPrivacy: 'public', slowMode: 0, ownerUid: this.currentUser.uid, adminUids: [this.currentUser.uid], lastMessage: 'Group created', lastMessageTime: serverTimestamp(), lastMessageSenderId: this.currentUser.uid, createdAt: serverTimestamp(), communityId: null, wallpaper: 'default' });
+                await addDoc(collection(db, 'chats', groupRef.id, 'messages'), { senderId: this.currentUser.uid, type: 'system', text: this.userData.displayName + ' created the group', timestamp: serverTimestamp(), readBy: [this.currentUser.uid], deliveredTo: [] });
+                U.showToast('Group created!'); document.getElementById('modal-new-chat').classList.remove('open'); this.loadChatList(); this.openChat(groupRef.id);
             },
 
             showChatContextMenu(e, chatId) {
-                e.preventDefault();
-                this.selectedChatId = chatId;
+                e.preventDefault(); this.selectedChatId = chatId;
                 const menu = document.getElementById('chat-context-menu');
-                const x = Math.min(e.clientX, window.innerWidth - 200);
-                const y = Math.min(e.clientY, window.innerHeight - 250);
-                menu.style.left = x + 'px';
-                menu.style.top = y + 'px';
-                
-                menu.querySelector('[data-action="pin"]').style.display = 'block';
-                menu.querySelector('[data-action="unpin"]').style.display = 'none';
-                menu.querySelector('[data-action="block"]').style.display = 'block';
-                menu.querySelector('[data-action="wallpaper"]').style.display = 'block';
-                
-                getDoc(doc(db, 'chats', chatId)).then(chatDoc => {
-                    if (chatDoc.exists()) {
-                        const chat = chatDoc.data();
-                        if (chat.type === 'group') {
-                            menu.querySelector('[data-action="block"]').style.display = 'none';
-                        }
-                    }
-                });
-
+                menu.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px'; menu.style.top = Math.min(e.clientY, window.innerHeight - 250) + 'px';
+                menu.querySelector('[data-action="pin"]').style.display = 'block'; menu.querySelector('[data-action="unpin"]').style.display = 'none'; menu.querySelector('[data-action="block"]').style.display = 'block'; menu.querySelector('[data-action="wallpaper"]').style.display = 'block';
+                getDoc(doc(db, 'chats', chatId)).then(chatDoc => { if (chatDoc.exists() && chatDoc.data().type === 'group') menu.querySelector('[data-action="block"]').style.display = 'none'; });
                 menu.classList.add('show');
             },
 
-            showMessageContextMenu(e, msgId) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.selectedMessageId = msgId;
-                const menu = document.getElementById('msg-context-menu');
-                const x = Math.min(e.clientX, window.innerWidth - 200);
-                const y = Math.min(e.clientY, window.innerHeight - 250);
-                menu.style.left = x + 'px';
-                menu.style.top = y + 'px';
-                menu.classList.add('show');
-            },
+            showMessageContextMenu(e, msgId) { e.preventDefault(); e.stopPropagation(); this.selectedMessageId = msgId; const menu = document.getElementById('msg-context-menu'); menu.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px'; menu.style.top = Math.min(e.clientY, window.innerHeight - 250) + 'px'; menu.classList.add('show'); },
 
-            // NEW: Show reaction picker
-            showReactionPicker(e, msgId) {
-                this.selectedMessageId = msgId;
-                const picker = document.getElementById('reaction-picker');
-                const rect = e.target.getBoundingClientRect();
-                picker.style.left = Math.min(rect.left, window.innerWidth - 250) + 'px';
-                picker.style.top = (rect.top - 60) + 'px';
-                picker.style.display = 'flex';
-            },
+            showReactionPicker(e, msgId) { this.selectedMessageId = msgId; const picker = document.getElementById('reaction-picker'); const rect = e.target.getBoundingClientRect(); picker.style.left = Math.min(rect.left, window.innerWidth - 250) + 'px'; picker.style.top = (rect.top - 60) + 'px'; picker.style.display = 'flex'; },
 
             handleChatAction(action, chatId) {
                 const chatRef = doc(db, 'chats', chatId);
                 switch(action) {
-                    case 'open':
-                        this.openChat(chatId);
-                        break;
-                    case 'pin':
-                        U.showToast('Chat pinned');
-                        break;
-                    case 'unpin':
-                        U.showToast('Chat unpinned');
-                        break;
-                    case 'block':
-                        getDoc(chatRef).then(chatDoc => {
-                            if (chatDoc.exists() && chatDoc.data().type === 'direct') {
-                                const otherId = chatDoc.data().participants.find(uid => uid !== this.currentUser.uid);
-                                if (otherId) this.blockUser(otherId);
-                            }
-                        });
-                        break;
-                    case 'delete':
-                        if (confirm('Delete this chat?')) {
-                            deleteDoc(chatRef).then(() => {
-                                U.showToast('Chat deleted');
-                                this.loadChatList();
-                            });
-                        }
-                        break;
+                    case 'open': this.openChat(chatId); break;
+                    case 'pin': U.showToast('Chat pinned'); break;
+                    case 'unpin': U.showToast('Chat unpinned'); break;
+                    case 'block': getDoc(chatRef).then(chatDoc => { if (chatDoc.exists() && chatDoc.data().type === 'direct') { const otherId = chatDoc.data().participants.find(uid => uid !== this.currentUser.uid); if (otherId) this.blockUser(otherId); } }); break;
+                    case 'delete': if (confirm('Delete this chat?')) { deleteDoc(chatRef).then(() => { U.showToast('Chat deleted'); this.loadChatList(); }); } break;
                 }
             },
 
             handleMessageAction(action, chatId, msgId) {
                 const msgRef = doc(db, 'chats', chatId, 'messages', msgId);
                 switch(action) {
-                    case 'reply':
-                        getDoc(msgRef).then(msgDoc => {
-                            if (msgDoc.exists()) {
-                                this.setReply(msgId, msgDoc.data());
-                            }
-                        });
-                        break;
-                    case 'copy':
-                        getDoc(msgRef).then(msgDoc => {
-                            if (msgDoc.exists()) {
-                                navigator.clipboard.writeText(msgDoc.data().text);
-                                U.showToast('Copied to clipboard');
-                            }
-                        });
-                        break;
-                    case 'forward':
-                        this.forwardMessage(chatId, msgId);
-                        break;
-                    case 'edit':
-                        getDoc(msgRef).then(msgDoc => {
-                            if (msgDoc.exists()) {
-                                const newText = prompt('Edit message:', msgDoc.data().text);
-                                if (newText !== null && newText.trim()) {
-                                    updateDoc(msgRef, { text: newText.trim(), isEdited: true }).then(() => {
-                                        U.showToast('Message edited');
-                                    });
-                                }
-                            }
-                        });
-                        break;
-                    case 'delete':
-                        if (confirm('Delete this message?')) {
-                            updateDoc(msgRef, { text: '[deleted]', isDeleted: true }).then(() => {
-                                U.showToast('Message deleted');
-                            });
-                        }
-                        break;
+                    case 'reply': getDoc(msgRef).then(msgDoc => { if (msgDoc.exists()) this.setReply(msgId, msgDoc.data()); }); break;
+                    case 'copy': getDoc(msgRef).then(msgDoc => { if (msgDoc.exists()) { navigator.clipboard.writeText(msgDoc.data().text); U.showToast('Copied to clipboard'); } }); break;
+                    case 'forward': this.forwardMessage(chatId, msgId); break;
+                    case 'edit': getDoc(msgRef).then(msgDoc => { if (msgDoc.exists()) { const newText = prompt('Edit message:', msgDoc.data().text); if (newText !== null && newText.trim()) updateDoc(msgRef, { text: newText.trim(), isEdited: true }).then(() => U.showToast('Message edited')); } }); break;
+                    case 'delete': if (confirm('Delete this message?')) updateDoc(msgRef, { text: '[deleted]', isDeleted: true }).then(() => U.showToast('Message deleted')); break;
                 }
             },
 
-            // NEW: Set reply
-            setReply(msgId, msg) {
-                this.replyToMessage = { id: msgId, text: msg.text, senderId: msg.senderId };
-                document.getElementById('reply-preview-text').textContent = msg.text.substring(0, 80);
-                document.getElementById('reply-preview').style.display = 'flex';
-                document.getElementById('chat-input').focus();
-            },
+            setReply(msgId, msg) { this.replyToMessage = { id: msgId, text: msg.text, senderId: msg.senderId }; document.getElementById('reply-preview-text').textContent = msg.text.substring(0, 80); document.getElementById('reply-preview').style.display = 'flex'; document.getElementById('chat-input').focus(); },
+            clearReply() { this.replyToMessage = null; document.getElementById('reply-preview').style.display = 'none'; },
 
-            // NEW: Clear reply
-            clearReply() {
-                this.replyToMessage = null;
-                document.getElementById('reply-preview').style.display = 'none';
-            },
-
-            // NEW: Forward message
             async forwardMessage(chatId, msgId) {
                 const target = prompt('Enter chat ID to forward to:');
                 if (target) {
                     const msgDoc = await getDoc(doc(db, 'chats', chatId, 'messages', msgId));
                     if (msgDoc.exists()) {
-                        await addDoc(collection(db, 'chats', target, 'messages'), {
-                            senderId: this.currentUser.uid,
-                            type: 'text',
-                            text: '↪ Forwarded: ' + msgDoc.data().text,
-                            timestamp: serverTimestamp(),
-                            readBy: [this.currentUser.uid],
-                            deliveredTo: [this.currentUser.uid],
-                            isEdited: false,
-                            isDeleted: false,
-                            isPinned: false,
-                            mentions: [],
-                            reactions: {}
-                        });
+                        await addDoc(collection(db, 'chats', target, 'messages'), { senderId: this.currentUser.uid, type: 'text', text: '↪ Forwarded: ' + msgDoc.data().text, timestamp: serverTimestamp(), readBy: [this.currentUser.uid], deliveredTo: [this.currentUser.uid], isEdited: false, isDeleted: false, isPinned: false, mentions: [], reactions: {} });
                         U.showToast('Message forwarded');
                     }
                 }
             },
 
-            // NEW: Toggle pin message
-            async togglePinMessage(chatId, msgId) {
-                const msgRef = doc(db, 'chats', chatId, 'messages', msgId);
-                const msgDoc = await getDoc(msgRef);
-                if (msgDoc.exists()) {
-                    const isPinned = msgDoc.data().isPinned || false;
-                    await updateDoc(msgRef, { isPinned: !isPinned });
-                    U.showToast(isPinned ? 'Message unpinned' : 'Message pinned');
-                    this.loadPinnedMessages(chatId);
-                }
-            },
+            async togglePinMessage(chatId, msgId) { const msgRef = doc(db, 'chats', chatId, 'messages', msgId); const msgDoc = await getDoc(msgRef); if (msgDoc.exists()) { const isPinned = msgDoc.data().isPinned || false; await updateDoc(msgRef, { isPinned: !isPinned }); U.showToast(isPinned ? 'Message unpinned' : 'Message pinned'); this.loadPinnedMessages(chatId); } },
 
-            // NEW: Load pinned messages
             async loadPinnedMessages(chatId) {
                 const container = document.getElementById('pinned-messages');
                 if (!container) return;
-                
-                const pinnedQuery = query(
-                    collection(db, 'chats', chatId, 'messages'),
-                    where('isPinned', '==', true),
-                    orderBy('timestamp', 'desc'),
-                    limit(5)
-                );
-                
-                const snapshot = await getDocs(pinnedQuery);
-                
-                if (snapshot.empty) {
-                    container.style.display = 'none';
-                    return;
-                }
-                
-                container.style.display = 'block';
-                container.innerHTML = '';
-                
-                snapshot.forEach(msgDoc => {
-                    const msg = msgDoc.data();
-                    const item = document.createElement('div');
-                    item.className = 'pinned-item';
-                    item.innerHTML = `
-                        <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg>
-                        <span>${U.escapeHtml(msg.text?.substring(0, 50) || 'Message')}</span>
-                    `;
-                    item.addEventListener('click', () => {
-                        // Scroll to message logic would go here
-                        U.showToast('Scroll to message');
-                    });
-                    container.appendChild(item);
-                });
+                const snapshot = await getDocs(query(collection(db, 'chats', chatId, 'messages'), where('isPinned', '==', true), orderBy('timestamp', 'desc'), limit(5)));
+                if (snapshot.empty) { container.style.display = 'none'; return; }
+                container.style.display = 'block'; container.innerHTML = '';
+                snapshot.forEach(msgDoc => { const msg = msgDoc.data(); const item = document.createElement('div'); item.className = 'pinned-item'; item.innerHTML = `<svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg><span>${U.escapeHtml(msg.text?.substring(0, 50) || 'Message')}</span>`; item.addEventListener('click', () => { U.showToast('Scroll to message'); }); container.appendChild(item); });
             },
 
-            // NEW: Add reaction
             async addReaction(messageId, emoji) {
                 if (!this.currentChatId || !messageId) return;
                 const msgRef = doc(db, 'chats', this.currentChatId, 'messages', messageId);
                 const msgDoc = await getDoc(msgRef);
                 if (!msgDoc.exists()) return;
-                
                 const reactions = msgDoc.data().reactions || {};
-                
-                if (reactions[emoji]) {
-                    const idx = reactions[emoji].indexOf(this.currentUser.uid);
-                    if (idx > -1) {
-                        reactions[emoji].splice(idx, 1);
-                        if (reactions[emoji].length === 0) delete reactions[emoji];
-                    } else {
-                        reactions[emoji].push(this.currentUser.uid);
-                    }
-                } else {
-                    reactions[emoji] = [this.currentUser.uid];
-                }
-                
+                if (reactions[emoji]) { const idx = reactions[emoji].indexOf(this.currentUser.uid); if (idx > -1) { reactions[emoji].splice(idx, 1); if (reactions[emoji].length === 0) delete reactions[emoji]; } else reactions[emoji].push(this.currentUser.uid); }
+                else reactions[emoji] = [this.currentUser.uid];
                 await updateDoc(msgRef, { reactions });
             },
 
-            async blockUser(uid) {
-                if (!confirm('Block this user?')) return;
-                const blockedUsers = this.userData.blockedUsers || [];
-                if (blockedUsers.includes(uid)) {
-                    U.showToast('User already blocked');
-                    return;
-                }
-                blockedUsers.push(uid);
-                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers });
-                this.userData.blockedUsers = blockedUsers;
-                U.showToast('User blocked');
-                this.loadChatList();
-            },
-
-            async unblockUser(uid) {
-                const blockedUsers = this.userData.blockedUsers || [];
-                const newBlocked = blockedUsers.filter(id => id !== uid);
-                await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers: newBlocked });
-                this.userData.blockedUsers = newBlocked;
-                U.showToast('User unblocked');
-                this.showBlockedUsers();
-            },
-
+            async blockUser(uid) { if (!confirm('Block this user?')) return; const blockedUsers = [...(this.userData.blockedUsers || []), uid]; await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers }); this.userData.blockedUsers = blockedUsers; U.showToast('User blocked'); this.loadChatList(); },
+            async unblockUser(uid) { const blockedUsers = (this.userData.blockedUsers || []).filter(id => id !== uid); await updateDoc(doc(db, 'users', this.currentUser.uid), { blockedUsers }); this.userData.blockedUsers = blockedUsers; U.showToast('User unblocked'); this.showBlockedUsers(); },
             showBlockedUsers() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                const blocked = this.userData.blockedUsers || [];
-                if (blocked.length === 0) {
-                    content.innerHTML = `
-                        <h3>Blocked Users</h3>
-                        <p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:20px;">No blocked users</p>
-                        <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                    `;
-                    modal.classList.add('open');
-                    return;
-                }
-
-                let html = `<h3>Blocked Users</h3>`;
-                const promises = blocked.map(uid => {
-                    return getDoc(doc(db, 'users', uid)).then(userDoc => {
-                        if (userDoc.exists()) {
-                            const user = userDoc.data();
-                            const avatarStyle = this.getAvatarStyle(user.displayName);
-                            html += `
-                                <div class="settings-item">
-                                    <div style="display:flex;align-items:center;gap:10px;">
-                                        <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                        <span>${U.escapeHtml(user.displayName)}</span>
-                                    </div>
-                                    <span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);cursor:pointer;">Unblock</span>
-                                </div>
-                            `;
-                        }
-                    });
-                });
-
-                Promise.all(promises).then(() => {
-                    content.innerHTML = html + `<div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>`;
-                });
+                const modal = document.getElementById('modal-overlay'), content = document.getElementById('modal-content'), blocked = this.userData.blockedUsers || [];
+                if (blocked.length === 0) { content.innerHTML = '<h3>Blocked Users</h3><p style="text-align:center;padding:20px;">No blocked users</p><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>'; modal.classList.add('open'); return; }
+                let html = '<h3>Blocked Users</h3>';
+                Promise.all(blocked.map(uid => getDoc(doc(db, 'users', uid)).then(d => { if (d.exists()) { const u = d.data(); html += `<div class="settings-item"><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:${this.getAvatarStyle(u.displayName)};">${u.displayName.charAt(0)}</div><span>${U.escapeHtml(u.displayName)}</span></div><span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);cursor:pointer;">Unblock</span></div>`; } }))).then(() => { content.innerHTML = html + '<div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>'; });
                 modal.classList.add('open');
             },
 
-            // ==================== CHAT FUNCTIONS ====================
             openChat(chatId) {
-                this.closeChat();
-                this.currentChatId = chatId;
-
+                this.closeChat(); this.currentChatId = chatId;
                 getDoc(doc(db, 'chats', chatId)).then((chatDoc) => {
-                    if (!chatDoc.exists()) {
-                        U.showToast('Chat not found');
-                        return;
-                    }
-
-                    this.currentChatData = chatDoc.data();
-                    this.currentChatData.id = chatId;
-
+                    if (!chatDoc.exists()) { U.showToast('Chat not found'); return; }
+                    this.currentChatData = chatDoc.data(); this.currentChatData.id = chatId;
                     const isGroup = this.currentChatData.type === 'group';
                     let displayName = 'Chat';
-                    if (isGroup) {
-                        displayName = this.currentChatData.groupName || 'Group';
-                    } else {
-                        const otherUid = this.currentChatData.participants.find(uid => uid !== this.currentUser.uid);
-                        if (otherUid) {
-                            getDoc(doc(db, 'users', otherUid)).then((userDoc) => {
-                                if (userDoc.exists()) {
-                                    displayName = userDoc.data().displayName || 'User';
-                                    document.getElementById('chat-title').textContent = displayName;
-                                }
-                            });
-                        }
-                    }
+                    if (isGroup) displayName = this.currentChatData.groupName || 'Group';
+                    else { const otherUid = this.currentChatData.participants.find(uid => uid !== this.currentUser.uid); if (otherUid) getDoc(doc(db, 'users', otherUid)).then((userDoc) => { if (userDoc.exists()) { displayName = userDoc.data().displayName || 'User'; document.getElementById('chat-title').textContent = displayName; } }); }
                     document.getElementById('chat-title').textContent = displayName;
                     document.getElementById('group-settings-btn').style.display = isGroup ? 'flex' : 'none';
-                    if (isGroup) {
-                        document.getElementById('group-settings-btn').onclick = () => this.openGroupSettings();
-                    }
-
-                    // NEW: Apply wallpaper
+                    if (isGroup) document.getElementById('group-settings-btn').onclick = () => this.openGroupSettings();
                     this.applyWallpaper(this.currentChatData.wallpaper || 'default');
-                    
                     this.loadMessages(chatId);
-                    // NEW: Load pinned messages
                     this.loadPinnedMessages(chatId);
-                    // NEW: Listen for typing
                     this.listenTyping(chatId);
                     this.markMessagesAsRead(chatId);
                     this.showScreen('chat');
                 });
             },
 
-            // NEW: Apply wallpaper to messages area
-            applyWallpaper(wallpaper) {
-                const messagesArea = document.getElementById('messages-area');
-                if (!messagesArea) return;
-                if (wallpaper === 'default') {
-                    messagesArea.style.background = '';
-                    messagesArea.style.backgroundSize = '';
-                } else {
-                    messagesArea.style.background = wallpaper;
-                    messagesArea.style.backgroundSize = 'cover';
-                }
-            },
+            applyWallpaper(wallpaper) { const messagesArea = document.getElementById('messages-area'); if (!messagesArea) return; if (wallpaper === 'default') { messagesArea.style.background = ''; messagesArea.style.backgroundSize = ''; } else { messagesArea.style.background = wallpaper; messagesArea.style.backgroundSize = 'cover'; } },
 
-            // NEW: Change chat wallpaper
             changeChatWallpaper(chatId) {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                
+                const modal = document.getElementById('modal-overlay'), content = document.getElementById('modal-content');
                 let html = '<h3>Choose Wallpaper</h3><div style="display:flex;flex-wrap:wrap;gap:8px;">';
-                this.wallpapers.forEach((wallpaper, index) => {
-                    const name = index === 0 ? 'Default' : 'Gradient ' + index;
-                    html += `<div style="width:60px;height:60px;border-radius:12px;cursor:pointer;background:${wallpaper === 'default' ? 'var(--bg)' : wallpaper};border:2px solid var(--border);" onclick="window.SoroApp.setChatWallpaper('${chatId}', '${wallpaper}')" title="${name}"></div>`;
-                });
+                this.wallpapers.forEach((wallpaper, index) => { html += `<div style="width:60px;height:60px;border-radius:12px;cursor:pointer;background:${wallpaper === 'default' ? 'var(--bg)' : wallpaper};border:2px solid var(--border);" onclick="window.SoroApp.setChatWallpaper('${chatId}', '${wallpaper}')" title="${index === 0 ? 'Default' : 'Gradient ' + index}"></div>`; });
                 html += '</div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>';
-                
-                content.innerHTML = html;
-                modal.classList.add('open');
+                content.innerHTML = html; modal.classList.add('open');
             },
 
-            // NEW: Set chat wallpaper
-            async setChatWallpaper(chatId, wallpaper) {
-                await updateDoc(doc(db, 'chats', chatId), { wallpaper: wallpaper });
-                document.getElementById('modal-overlay').classList.remove('open');
-                if (this.currentChatId === chatId) {
-                    this.applyWallpaper(wallpaper);
-                }
-                U.showToast('Wallpaper updated');
-            },
+            async setChatWallpaper(chatId, wallpaper) { await updateDoc(doc(db, 'chats', chatId), { wallpaper }); document.getElementById('modal-overlay').classList.remove('open'); if (this.currentChatId === chatId) this.applyWallpaper(wallpaper); U.showToast('Wallpaper updated'); },
 
             loadMessages(chatId) {
                 if (this.messagesListener) this.messagesListener();
-
-                const messagesQuery = query(
-                    collection(db, 'chats', chatId, 'messages'),
-                    orderBy('timestamp', 'asc'),
-                    limit(50)
-                );
-
-                this.messagesListener = onSnapshot(messagesQuery, (snapshot) => {
+                this.messagesListener = onSnapshot(query(collection(db, 'chats', chatId, 'messages'), orderBy('timestamp', 'asc'), limit(50)), (snapshot) => {
                     const messagesArea = document.getElementById('messages-area');
                     if (!messagesArea || this.currentChatId !== chatId) return;
-
                     messagesArea.innerHTML = '';
-                    snapshot.forEach((msgDoc) => {
-                        const msg = msgDoc.data();
-                        msg.id = msgDoc.id;
-                        this.renderMessage(msg, messagesArea);
-                    });
-
+                    snapshot.forEach((msgDoc) => { const msg = msgDoc.data(); msg.id = msgDoc.id; this.renderMessage(msg, messagesArea); });
                     messagesArea.scrollTop = messagesArea.scrollHeight;
                 });
             },
 
             renderMessage(msg, container) {
                 const isMine = msg.senderId === this.currentUser.uid;
-                const msgDiv = document.createElement('div');
-                msgDiv.className = 'msg ' + (isMine ? 'out' : 'in');
-
-                if (msg.type === 'system') {
-                    msgDiv.style.cssText = 'text-align:center;font-size:11px;opacity:0.6;max-width:100%;background:transparent;padding:4px;';
-                    msgDiv.textContent = msg.text;
-                } else {
-                    const content = U.highlightMentions(U.escapeHtml(msg.text || ''));
-                    const time = U.formatTime(msg.timestamp);
-                    const fullTime = U.formatFullTime(msg.timestamp);
-                    
-                    // NEW: Read/delivered status
+                const msgDiv = document.createElement('div'); msgDiv.className = 'msg ' + (isMine ? 'out' : 'in');
+                if (msg.type === 'system') { msgDiv.style.cssText = 'text-align:center;font-size:11px;opacity:0.6;max-width:100%;background:transparent;padding:4px;'; msgDiv.textContent = msg.text; }
+                else {
+                    const content = U.highlightMentions(U.escapeHtml(msg.text || '')), time = U.formatTime(msg.timestamp), fullTime = U.formatFullTime(msg.timestamp);
                     let statusHtml = '';
-                    if (isMine) {
-                        const readBy = msg.readBy || [];
-                        const deliveredTo = msg.deliveredTo || [];
-                        if (readBy.length > 1) {
-                            statusHtml = '<span class="msg-status read"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg></span>';
-                        } else if (deliveredTo.length > 1) {
-                            statusHtml = '<span class="msg-status delivered"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg></span>';
-                        } else {
-                            statusHtml = '<span class="msg-status sent"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check"/></svg></span>';
-                        }
-                    }
-
-                    // NEW: Reaction pills
+                    if (isMine) { const readBy = msg.readBy || [], deliveredTo = msg.deliveredTo || []; if (readBy.length > 1) statusHtml = '<span class="msg-status read"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg></span>'; else if (deliveredTo.length > 1) statusHtml = '<span class="msg-status delivered"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg></span>'; else statusHtml = '<span class="msg-status sent"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check"/></svg></span>'; }
                     let reactionsHtml = '';
-                    if (msg.reactions && Object.keys(msg.reactions).length > 0) {
-                        reactionsHtml = '<div class="reaction-bar">' +
-                            Object.entries(msg.reactions).map(([emoji, users]) => 
-                                `<span class="reaction-pill ${users.includes(this.currentUser.uid) ? 'mine' : ''}" onclick="event.stopPropagation();window.SoroApp.addReaction('${msg.id}', '${emoji}')">${emoji} <span class="reaction-count">${users.length}</span></span>`
-                            ).join('') +
-                        '</div>';
-                    }
-
-                    // NEW: Pinned badge
+                    if (msg.reactions && Object.keys(msg.reactions).length > 0) { reactionsHtml = '<div class="reaction-bar">' + Object.entries(msg.reactions).map(([emoji, users]) => `<span class="reaction-pill ${users.includes(this.currentUser.uid) ? 'mine' : ''}" onclick="event.stopPropagation();window.SoroApp.addReaction('${msg.id}', '${emoji}')">${emoji} <span class="reaction-count">${users.length}</span></span>`).join('') + '</div>'; }
                     const pinnedBadge = msg.isPinned ? ' <span style="font-size:9px;color:var(--accent);"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg></span>' : '';
-                    
-                    msgDiv.innerHTML = `
-                        <div>${pinnedBadge}${content}</div>
-                        <div class="msg-meta" title="${fullTime}">
-                            ${time}
-                            ${statusHtml}
-                            ${msg.isEdited ? ' (edited)' : ''}
-                        </div>
-                        ${reactionsHtml}
-                    `;
-
-                    // NEW: Double-tap to react
+                    msgDiv.innerHTML = `<div>${pinnedBadge}${content}</div><div class="msg-meta" title="${fullTime}">${time}${statusHtml}${msg.isEdited ? ' (edited)' : ''}</div>${reactionsHtml}`;
                     let lastTap = 0;
-                    msgDiv.addEventListener('click', (e) => {
-                        const now = Date.now();
-                        if (now - lastTap < 300) {
-                            e.preventDefault();
-                            this.showReactionPicker(e, msg.id);
-                        }
-                        lastTap = now;
-                    });
-
-                    msgDiv.addEventListener('contextmenu', (e) => {
-                        this.showMessageContextMenu(e, msg.id);
-                    });
-
+                    msgDiv.addEventListener('click', (e) => { const now = Date.now(); if (now - lastTap < 300) { e.preventDefault(); this.showReactionPicker(e, msg.id); } lastTap = now; });
+                    msgDiv.addEventListener('contextmenu', (e) => { this.showMessageContextMenu(e, msg.id); });
                     let longPressTimer;
-                    msgDiv.addEventListener('touchstart', (e) => {
-                        longPressTimer = setTimeout(() => {
-                            this.showMessageContextMenu(e, msg.id);
-                        }, 600);
-                    });
+                    msgDiv.addEventListener('touchstart', (e) => { longPressTimer = setTimeout(() => { this.showMessageContextMenu(e, msg.id); }, 600); });
                     msgDiv.addEventListener('touchend', () => clearTimeout(longPressTimer));
                     msgDiv.addEventListener('touchmove', () => clearTimeout(longPressTimer));
                 }
-
                 container.appendChild(msgDiv);
             },
 
-            // NEW: Send message with offline support
             sendMessage() {
-                const input = document.getElementById('chat-input');
-                const text = input.value.trim();
+                const input = document.getElementById('chat-input'), text = input.value.trim();
                 if (!text || !this.currentChatId) return;
-
-                const messageData = {
-                    senderId: this.currentUser.uid,
-                    type: 'text',
-                    text: text,
-                    timestamp: serverTimestamp(),
-                    readBy: [this.currentUser.uid],
-                    deliveredTo: [this.currentUser.uid],
-                    isEdited: false,
-                    isDeleted: false,
-                    isPinned: false,
-                    mentions: U.extractMentions(text),
-                    reactions: {},
-                    replyTo: this.replyToMessage ? this.replyToMessage.id : null
-                };
-
-                // NEW: Offline handling
-                if (!this.isOnline) {
-                    this.saveOfflineMessage(messageData);
-                    input.value = '';
-                    input.style.height = 'auto';
-                    this.clearReply();
-                    this.setTyping(false);
-                    return;
-                }
-
-                addDoc(collection(db, 'chats', this.currentChatId, 'messages'), messageData)
-                    .then(() => {
-                        return updateDoc(doc(db, 'chats', this.currentChatId), {
-                            lastMessage: text,
-                            lastMessageTime: serverTimestamp(),
-                            lastMessageSenderId: this.currentUser.uid
-                        });
-                    })
-                    .then(() => {
-                        input.value = '';
-                        input.style.height = 'auto';
-                        this.clearReply();
-                        this.setTyping(false);
-                    })
-                    .catch(() => U.showToast('Failed to send message'));
+                const messageData = { senderId: this.currentUser.uid, type: 'text', text, timestamp: serverTimestamp(), readBy: [this.currentUser.uid], deliveredTo: [this.currentUser.uid], isEdited: false, isDeleted: false, isPinned: false, mentions: U.extractMentions(text), reactions: {}, replyTo: this.replyToMessage ? this.replyToMessage.id : null };
+                if (!this.isOnline) { this.saveOfflineMessage(messageData); input.value = ''; input.style.height = 'auto'; this.clearReply(); this.setTyping(false); return; }
+                addDoc(collection(db, 'chats', this.currentChatId, 'messages'), messageData).then(() => updateDoc(doc(db, 'chats', this.currentChatId), { lastMessage: text, lastMessageTime: serverTimestamp(), lastMessageSenderId: this.currentUser.uid })).then(() => { input.value = ''; input.style.height = 'auto'; this.clearReply(); this.setTyping(false); }).catch(() => U.showToast('Failed to send message'));
             },
 
-            // NEW: Save offline message
-            saveOfflineMessage(messageData) {
-                const offlineMessages = JSON.parse(localStorage.getItem('soro_offline_msgs') || '[]');
-                offlineMessages.push({
-                    ...messageData,
-                    chatId: this.currentChatId,
-                    timestamp: Date.now()
-                });
-                localStorage.setItem('soro_offline_msgs', JSON.stringify(offlineMessages));
-                U.showToast('Message saved offline');
-            },
+            saveOfflineMessage(messageData) { const offlineMessages = JSON.parse(localStorage.getItem('soro_offline_msgs') || '[]'); offlineMessages.push({ ...messageData, chatId: this.currentChatId, timestamp: Date.now() }); localStorage.setItem('soro_offline_msgs', JSON.stringify(offlineMessages)); U.showToast('Message saved offline'); },
 
-            // NEW: Sync offline messages
             async syncOfflineMessages() {
                 const offlineMessages = JSON.parse(localStorage.getItem('soro_offline_msgs') || '[]');
                 if (offlineMessages.length === 0) return;
-                
-                for (const msg of offlineMessages) {
-                    try {
-                        await addDoc(collection(db, 'chats', msg.chatId, 'messages'), {
-                            ...msg,
-                            timestamp: serverTimestamp()
-                        });
-                        await updateDoc(doc(db, 'chats', msg.chatId), {
-                            lastMessage: msg.text,
-                            lastMessageTime: serverTimestamp(),
-                            lastMessageSenderId: this.currentUser.uid
-                        });
-                    } catch(e) {
-                        console.error('Failed to sync message:', e);
-                    }
-                }
-                
-                localStorage.removeItem('soro_offline_msgs');
-                U.showToast('Offline messages synced!');
+                for (const msg of offlineMessages) { try { await addDoc(collection(db, 'chats', msg.chatId, 'messages'), { ...msg, timestamp: serverTimestamp() }); await updateDoc(doc(db, 'chats', msg.chatId), { lastMessage: msg.text, lastMessageTime: serverTimestamp(), lastMessageSenderId: this.currentUser.uid }); } catch(e) {} }
+                localStorage.removeItem('soro_offline_msgs'); U.showToast('Offline messages synced!');
             },
 
-            // NEW: Schedule message
             async scheduleMessage() {
                 const text = document.getElementById('chat-input').value.trim();
-                if (!text) {
-                    U.showToast('Type a message first');
-                    return;
-                }
-                
-                const delay = prompt('Schedule in how many minutes?', '5');
-                if (!delay || isNaN(delay)) return;
-                
+                if (!text) { U.showToast('Type a message first'); return; }
+                const delay = prompt('Schedule in how many minutes?', '5'); if (!delay || isNaN(delay)) return;
                 const milliseconds = parseInt(delay) * 60000;
-                
-                // Show confirmation
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Message Scheduled</h3>
-                    <p style="color:var(--text-in);text-align:center;">Will send in ${delay} minute(s).</p>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">OK</button>
-                    </div>
-                `;
+                const modal = document.getElementById('modal-overlay'), content = document.getElementById('modal-content');
+                content.innerHTML = `<h3>Message Scheduled</h3><p style="color:var(--text-in);text-align:center;">Will send in ${delay} minute(s).</p><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">OK</button></div>`;
                 modal.classList.add('open');
-                
-                // Schedule the message
-                setTimeout(() => {
-                    const input = document.getElementById('chat-input');
-                    input.value = text;
-                    this.sendMessage();
-                }, milliseconds);
-                
-                document.getElementById('chat-input').value = '';
-                U.showToast('Message scheduled in ' + delay + ' min');
+                setTimeout(() => { const input = document.getElementById('chat-input'); input.value = text; this.sendMessage(); }, milliseconds);
+                document.getElementById('chat-input').value = ''; U.showToast('Message scheduled in ' + delay + ' min');
             },
 
-            // NEW: Typing indicator
-            setTyping(isTyping) {
-                if (!this.currentChatId) return;
-                const typingRef = rtdbRef(rtdb, `presence/${this.currentUser.uid}/typingIn`);
-                set(typingRef, isTyping ? this.currentChatId : null);
-            },
+            setTyping(isTyping) { if (!this.currentChatId) return; set(rtdbRef(rtdb, `presence/${this.currentUser.uid}/typingIn`), isTyping ? this.currentChatId : null); },
 
-            // NEW: Listen for typing
             listenTyping(chatId) {
                 if (this.typingListener) this.typingListener();
-                
                 const otherUid = this.currentChatData?.participants?.find(uid => uid !== this.currentUser.uid);
                 if (!otherUid) return;
-                
-                const typingRef = rtdbRef(rtdb, `presence/${otherUid}/typingIn`);
-                
-                this.typingListener = onValue(typingRef, (snapshot) => {
-                    const indicator = document.getElementById('chat-typing-indicator');
-                    if (!indicator) return;
-                    
-                    if (snapshot.val() === chatId) {
-                        indicator.textContent = 'typing...';
-                        indicator.style.display = 'block';
-                    } else {
-                        indicator.style.display = 'none';
-                    }
-                });
+                this.typingListener = onValue(rtdbRef(rtdb, `presence/${otherUid}/typingIn`), (snapshot) => { const indicator = document.getElementById('chat-typing-indicator'); if (indicator) { if (snapshot.val() === chatId) { indicator.textContent = 'typing...'; indicator.style.display = 'block'; } else indicator.style.display = 'none'; } });
             },
 
             markMessagesAsRead(chatId) {
                 if (!this.userData || !this.userData.readReceiptsOn) return;
-
-                const unreadQuery = query(
-                    collection(db, 'chats', chatId, 'messages'),
-                    where('senderId', '!=', this.currentUser.uid),
-                    orderBy('timestamp', 'desc'),
-                    limit(30)
-                );
-
-                getDocs(unreadQuery).then((snapshot) => {
-                    const batch = writeBatch(db);
-                    let count = 0;
-
-                    snapshot.forEach((msgDoc) => {
-                        const readBy = msgDoc.data().readBy || [];
-                        if (readBy.indexOf(this.currentUser.uid) === -1) {
-                            readBy.push(this.currentUser.uid);
-                            batch.update(msgDoc.ref, { readBy });
-                            count++;
-                        }
-                    });
-
-                    if (count > 0) return batch.commit();
-                });
+                getDocs(query(collection(db, 'chats', chatId, 'messages'), where('senderId', '!=', this.currentUser.uid), orderBy('timestamp', 'desc'), limit(30))).then((snapshot) => { const batch = writeBatch(db); let count = 0; snapshot.forEach((msgDoc) => { const readBy = msgDoc.data().readBy || []; if (readBy.indexOf(this.currentUser.uid) === -1) { readBy.push(this.currentUser.uid); batch.update(msgDoc.ref, { readBy }); count++; } }); if (count > 0) return batch.commit(); });
             },
 
-            closeChat() {
-                this.currentChatId = null;
-                this.currentChatData = null;
-                this.replyToMessage = null;
-                if (this.messagesListener) {
-                    this.messagesListener();
-                    this.messagesListener = null;
-                }
-                if (this.typingListener) {
-                    this.typingListener();
-                    this.typingListener = null;
-                }
-                this.setTyping(false);
-                this.hideAllContextMenus();
-                document.getElementById('reply-preview').style.display = 'none';
-                document.getElementById('chat-typing-indicator').style.display = 'none';
-            },
+            closeChat() { this.currentChatId = null; this.currentChatData = null; this.replyToMessage = null; if (this.messagesListener) { this.messagesListener(); this.messagesListener = null; } if (this.typingListener) { this.typingListener(); this.typingListener = null; } this.setTyping(false); this.hideAllContextMenus(); document.getElementById('reply-preview').style.display = 'none'; document.getElementById('chat-typing-indicator').style.display = 'none'; },
 
-            // ==================== STORIES ====================
-            createStory() {
-                const text = prompt('Write your story (text only):');
-                if (!text || !text.trim()) return;
-
-                addDoc(collection(db, 'stories'), {
-                    userId: this.currentUser.uid,
-                    type: 'text',
-                    textContent: text.trim(),
-                    createdAt: serverTimestamp(),
-                    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
-                    viewCount: 0,
-                    viewedBy: []
-                }).then(() => {
-                    U.showToast('Story posted!');
-                    this.loadStories();
-                });
-            },
+            createStory() { const text = prompt('Write your story (text only):'); if (!text || !text.trim()) return; addDoc(collection(db, 'stories'), { userId: this.currentUser.uid, type: 'text', textContent: text.trim(), createdAt: serverTimestamp(), expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), viewCount: 0, viewedBy: [] }).then(() => { U.showToast('Story posted!'); this.loadStories(); }); },
 
             loadStories() {
-                if (!this.currentUser) return;
-                const storiesRow = document.getElementById('stories-row');
-                if (!storiesRow) return;
-
-                const addStoryItem = storiesRow.querySelector('#add-story-item');
-                storiesRow.innerHTML = '';
-                if (addStoryItem) storiesRow.appendChild(addStoryItem);
-
-                const friendsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', this.currentUser.uid),
-                    where('type', '==', 'direct')
-                );
-
-                getDocs(friendsQuery).then((snapshot) => {
-                    const friendIds = [];
-                    snapshot.forEach(doc => {
-                        const chat = doc.data();
-                        const otherId = chat.participants.find(uid => uid !== this.currentUser.uid);
-                        if (otherId) friendIds.push(otherId);
-                    });
-
-                    friendIds.push(this.currentUser.uid);
-
-                    if (friendIds.length === 0) return;
-
-                    const storiesQuery = query(
-                        collection(db, 'stories'),
-                        where('expiresAt', '>', new Date()),
-                        orderBy('expiresAt', 'desc'),
-                        limit(15)
-                    );
-
-                    getDocs(storiesQuery).then((storySnapshot) => {
-                        storySnapshot.forEach((storyDoc) => {
-                            const story = storyDoc.data();
-                            if (!friendIds.includes(story.userId)) return;
-
-                            getDoc(doc(db, 'users', story.userId)).then((userDoc) => {
-                                if (!userDoc.exists()) return;
-
-                                const user = userDoc.data();
-                                const isViewed = story.viewedBy && story.viewedBy.indexOf(this.currentUser.uid) !== -1;
-                                const avatarStyle = this.getAvatarStyle(user.displayName);
-
-                                const storyItem = document.createElement('div');
-                                storyItem.className = 'story-item';
-                                storyItem.innerHTML = `
-                                    <div class="story-ring ${isViewed ? 'viewed' : ''}">
-                                        <div class="story-avatar" style="background:${avatarStyle};color:white;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                    </div>
-                                    <span class="story-name">${U.escapeHtml(user.displayName)}</span>
-                                `;
-
-                                storyItem.addEventListener('click', () => {
-                                    this.viewStory(storyDoc.id, story, user);
-                                });
-
-                                storiesRow.appendChild(storyItem);
-                            });
+                if (!this.currentUser) return; const storiesRow = document.getElementById('stories-row'), addStoryItem = storiesRow.querySelector('#add-story-item'); storiesRow.innerHTML = ''; if (addStoryItem) storiesRow.appendChild(addStoryItem);
+                getDocs(query(collection(db, 'chats'), where('participants', 'array-contains', this.currentUser.uid), where('type', '==', 'direct'))).then((snapshot) => { const friendIds = []; snapshot.forEach(doc => { const otherId = doc.data().participants.find(uid => uid !== this.currentUser.uid); if (otherId) friendIds.push(otherId); }); friendIds.push(this.currentUser.uid); if (friendIds.length === 0) return;
+                    getDocs(query(collection(db, 'stories'), where('expiresAt', '>', new Date()), orderBy('expiresAt', 'desc'), limit(15))).then((storySnapshot) => { storySnapshot.forEach((storyDoc) => { const story = storyDoc.data(); if (!friendIds.includes(story.userId)) return;
+                        getDoc(doc(db, 'users', story.userId)).then((userDoc) => { if (!userDoc.exists()) return; const user = userDoc.data(); const isViewed = story.viewedBy && story.viewedBy.indexOf(this.currentUser.uid) !== -1; const avatarStyle = this.getAvatarStyle(user.displayName);
+                            const storyItem = document.createElement('div'); storyItem.className = 'story-item'; storyItem.innerHTML = `<div class="story-ring ${isViewed ? 'viewed' : ''}"><div class="story-avatar" style="background:${avatarStyle};color:white;">${user.displayName.charAt(0).toUpperCase()}</div></div><span class="story-name">${U.escapeHtml(user.displayName)}</span>`;
+                            storyItem.addEventListener('click', () => { this.viewStory(storyDoc.id, story, user); }); storiesRow.appendChild(storyItem);
                         });
                     });
                 });
-            },
-
-            viewStory(storyId, story, user) {
-                updateDoc(doc(db, 'stories', storyId), {
-                    viewCount: increment(1),
-                    viewedBy: arrayUnion(this.currentUser.uid)
-                });
-
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                const avatarStyle = this.getAvatarStyle(user.displayName);
-
-                content.innerHTML = `
-                    <div style="text-align:center;padding:20px">
-                        <div class="avatar avatar-lg" style="background:${avatarStyle};margin:0 auto 8px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                        <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
-                        <div style="margin:20px 0;padding:30px;background:var(--incoming);border-radius:var(--radius-md);font-size:18px;color:var(--text-in);line-height:1.5;">${U.escapeHtml(story.textContent || '')}</div>
-                        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px;color:var(--text-in);font-size:12px;">
-                            <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-eye"/></svg>
-                            Seen by ${story.viewCount || 0} people
-                        </div>
-                        <div style="display:flex;gap:8px;margin-bottom:12px;">
-                            <input type="text" id="story-reply-input" class="input" placeholder="Reply to story..." style="flex:1;margin:0;">
-                            <button class="btn btn-primary" id="story-reply-btn">Reply</button>
-                        </div>
-                        <div class="modal-actions">
-                            <button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button>
-                        </div>
-                    </div>
-                `;
-
-                document.getElementById('story-reply-btn').addEventListener('click', () => {
-                    this.replyToStory(story.userId);
-                });
-
-                modal.classList.add('open');
-            },
-
-            async replyToStory(userId) {
-                const replyInput = document.getElementById('story-reply-input');
-                if (!replyInput) return;
-                const text = replyInput.value.trim();
-                if (!text) {
-                    U.showToast('Please enter a reply');
-                    return;
-                }
-
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', this.currentUser.uid)
-                );
-                const snapshot = await getDocs(chatsQuery);
-                let chatId = null;
-
-                snapshot.forEach(doc => {
-                    const chat = doc.data();
-                    if (chat.type === 'direct' && chat.participants.includes(userId)) {
-                        chatId = doc.id;
-                    }
-                });
-
-                if (!chatId) {
-                    const newChat = await addDoc(collection(db, 'chats'), {
-                        type: 'direct',
-                        participants: [this.currentUser.uid, userId],
-                        lastMessage: `Replied to your story: ${text}`,
-                        lastMessageTime: serverTimestamp(),
-                        lastMessageSenderId: this.currentUser.uid,
-                        createdAt: serverTimestamp(),
-                        wallpaper: 'default'
-                    });
-                    chatId = newChat.id;
-                }
-
-                await addDoc(collection(db, 'chats', chatId, 'messages'), {
-                    senderId: this.currentUser.uid,
-                    type: 'story_reply',
-                    text: text,
-                    timestamp: serverTimestamp(),
-                    readBy: [this.currentUser.uid],
-                    deliveredTo: [this.currentUser.uid],
-                    isEdited: false,
-                    isDeleted: false,
-                    isPinned: false,
-                    mentions: [],
-                    reactions: {}
-                });
-
-                await updateDoc(doc(db, 'chats', chatId), {
-                    lastMessage: `Replied to your story: ${text}`,
-                    lastMessageTime: serverTimestamp(),
-                    lastMessageSenderId: this.currentUser.uid
-                });
-
-                document.getElementById('modal-overlay').classList.remove('open');
-                U.showToast('Reply sent!');
-            },
-
-            // ==================== COMMUNITIES ====================
-            async createCommunity() {
-                const name = prompt('Community name:');
-                if (!name || !name.trim()) return;
-                const description = prompt('Description (optional):') || '';
-
-                await addDoc(collection(db, 'communities'), {
-                    name: name.trim(),
-                    description: description.trim(),
-                    photoURL: null,
-                    ownerUid: this.currentUser.uid,
-                    adminUids: [this.currentUser.uid],
-                    memberUids: [this.currentUser.uid],
-                    channelIds: [],
-                    privacy: 'public',
-                    createdAt: serverTimestamp()
-                });
-
-                U.showToast('Community created!');
-                this.loadCommunities();
-            },
-
-            async loadCommunities() {
-                const container = document.getElementById('communities-list');
-                if (!container) return;
-
-                const communitiesQuery = query(
-                    collection(db, 'communities'),
-                    where('memberUids', 'array-contains', this.currentUser.uid)
-                );
-
-                const snapshot = await getDocs(communitiesQuery);
-
-                if (snapshot.empty) {
-                    container.innerHTML = '<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:30px;font-size:13px;">No communities yet</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const community = { id: doc.id, ...doc.data() };
-                    const item = document.createElement('div');
-                    item.className = 'chat-item';
-                    item.innerHTML = `
-                        <div class="avatar" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);width:44px;height:44px;font-size:16px;">
-                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
-                        </div>
-                        <div class="chat-info">
-                            <div class="chat-name">${U.escapeHtml(community.name)}</div>
-                            <div class="chat-preview">${U.escapeHtml(community.description || '')}</div>
-                        </div>
-                        <div class="chat-meta">
-                            <div class="chat-time">${community.channelIds?.length || 0} channels</div>
-                        </div>
-                    `;
-                    item.addEventListener('click', () => this.openCommunity(community.id, community));
-                    container.appendChild(item);
                 });
             },
 
-            openCommunity(communityId, community) {
-                this.communityData = community;
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
+            viewStory(storyId, story, user) { updateDoc(doc(db, 'stories', storyId), { viewCount: increment(1), viewedBy: arrayUnion(this.currentUser.uid) }); const content = document.getElementById('modal-content'); content.innerHTML = `<div style="text-align:center;padding:20px"><div class="avatar avatar-lg" style="background:${this.getAvatarStyle(user.displayName)};">${user.displayName.charAt(0)}</div><div style="font-weight:600;">${U.escapeHtml(user.displayName)}</div><div style="margin:20px 0;padding:30px;background:var(--incoming);border-radius:var(--radius-md);font-size:18px;">${U.escapeHtml(story.textContent || '')}</div><div style="display:flex;gap:8px;"><input type="text" id="story-reply-input" class="input" placeholder="Reply..." style="flex:1;margin:0;"><button class="btn btn-primary" id="story-reply-btn">Reply</button></div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div></div>`; document.getElementById('story-reply-btn').addEventListener('click', () => this.replyToStory(story.userId)); document.getElementById('modal-overlay').classList.add('open'); },
 
-                content.innerHTML = `
-                    <div class="community-hero">
-                        <div class="community-avatar">
-                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg>
-                        </div>
-                        <div style="font-weight:700;font-size:20px;color:var(--text-in);">${U.escapeHtml(community.name)}</div>
-                        <div style="font-size:13px;color:var(--terracotta);opacity:0.7;">${U.escapeHtml(community.description || '')}</div>
-                        <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
-                    </div>
-                    <div class="settings-section">Actions</div>
-                    <div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')">
-                        <span><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg> Add Channel</span>
-                    </div>
-                    <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')">
-                        <span><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-x"/></svg> Leave Community</span>
-                    </div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                `;
+            async replyToStory(userId) { const text = document.getElementById('story-reply-input').value.trim(); if (!text) { U.showToast('Please enter a reply'); return; } let chatId = null; const snapshot = await getDocs(query(collection(db, 'chats'), where('participants', 'array-contains', this.currentUser.uid))); snapshot.forEach(doc => { if (doc.data().type === 'direct' && doc.data().participants.includes(userId)) chatId = doc.id; }); if (!chatId) { const newChat = await addDoc(collection(db, 'chats'), { type: 'direct', participants: [this.currentUser.uid, userId], lastMessage: text, lastMessageTime: serverTimestamp(), lastMessageSenderId: this.currentUser.uid, createdAt: serverTimestamp(), wallpaper: 'default' }); chatId = newChat.id; } await addDoc(collection(db, 'chats', chatId, 'messages'), { senderId: this.currentUser.uid, type: 'text', text, timestamp: serverTimestamp(), readBy: [this.currentUser.uid], deliveredTo: [this.currentUser.uid], isEdited: false, isDeleted: false, isPinned: false, mentions: [], reactions: {} }); document.getElementById('modal-overlay').classList.remove('open'); U.showToast('Reply sent!'); },
 
-                modal.classList.add('open');
-            },
+            async createCommunity() { const name = prompt('Community name:'); if (!name || !name.trim()) return; await addDoc(collection(db, 'communities'), { name: name.trim(), description: prompt('Description (optional):') || '', photoURL: null, ownerUid: this.currentUser.uid, adminUids: [this.currentUser.uid], memberUids: [this.currentUser.uid], channelIds: [], privacy: 'public', createdAt: serverTimestamp() }); U.showToast('Community created!'); this.loadCommunities(); },
 
-            async addChannelToCommunity(communityId) {
-                const groupsQuery = query(
-                    collection(db, 'chats'),
-                    where('type', '==', 'group'),
-                    where('adminUids', 'array-contains', this.currentUser.uid)
-                );
-                const snapshot = await getDocs(groupsQuery);
+            async loadCommunities() { const container = document.getElementById('communities-list'); const snapshot = await getDocs(query(collection(db, 'communities'), where('memberUids', 'array-contains', this.currentUser.uid))); if (snapshot.empty) { container.innerHTML = '<p style="text-align:center;padding:30px;">No communities yet</p>'; return; } container.innerHTML = ''; snapshot.forEach(doc => { const community = { id: doc.id, ...doc.data() }; const item = document.createElement('div'); item.className = 'chat-item'; item.innerHTML = `<div class="avatar" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg></div><div class="chat-info"><div class="chat-name">${U.escapeHtml(community.name)}</div><div class="chat-preview">${U.escapeHtml(community.description || '')}</div></div>`; item.addEventListener('click', () => this.openCommunity(community.id, community)); container.appendChild(item); }); },
 
-                if (snapshot.empty) {
-                    U.showToast('You are not an admin of any group');
-                    return;
-                }
+            openCommunity(communityId, community) { this.communityData = community; const content = document.getElementById('modal-content'); content.innerHTML = `<div class="community-hero"><div class="community-avatar"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg></div><div style="font-weight:700;">${U.escapeHtml(community.name)}</div></div><div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')"><span><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg> Add Channel</span></div><div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')"><span><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-x"/></svg> Leave</span></div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>`; document.getElementById('modal-overlay').classList.add('open'); },
 
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
+            async addChannelToCommunity(communityId) { const snapshot = await getDocs(query(collection(db, 'chats'), where('type', '==', 'group'), where('adminUids', 'array-contains', this.currentUser.uid))); if (snapshot.empty) { U.showToast('No admin groups'); return; } let html = '<h3>Add Channel</h3>'; snapshot.forEach(doc => { html += `<div class="settings-item" onclick="window.SoroApp.addChannelConfirm('${communityId}','${doc.id}')"><span>${U.escapeHtml(doc.data().groupName)}</span><span class="settings-value">Add</span></div>`; }); document.getElementById('modal-content').innerHTML = html + '<div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openCommunity(\'' + communityId + '\',window.SoroApp.communityData)">Back</button></div>'; },
+            async addChannelConfirm(communityId, channelId) { await updateDoc(doc(db, 'communities', communityId), { channelIds: arrayUnion(channelId) }); await updateDoc(doc(db, 'chats', channelId), { communityId }); document.getElementById('modal-overlay').classList.remove('open'); U.showToast('Added!'); },
+            async leaveCommunity(communityId) { if (!confirm('Leave?')) return; await updateDoc(doc(db, 'communities', communityId), { memberUids: arrayRemove(this.currentUser.uid) }); document.getElementById('modal-overlay').classList.remove('open'); U.showToast('Left'); },
 
-                let html = `<h3>Add Channel to Community</h3><div style="max-height:300px;overflow-y:auto;">`;
-                snapshot.forEach(doc => {
-                    const group = doc.data();
-                    html += `
-                        <div class="settings-item" onclick="window.SoroApp.addChannelConfirm('${communityId}', '${doc.id}')">
-                            <span>${U.escapeHtml(group.groupName || 'Group')}</span>
-                            <span class="settings-value" style="color:var(--accent);">Add</span>
-                        </div>
-                    `;
-                });
-                html += `</div><div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openCommunity('${communityId}', window.SoroApp.communityData)">Back</button></div>`;
+            openGroupSettings() { if (!this.currentChatData || this.currentChatData.type !== 'group') return; const chat = this.currentChatData; const content = document.getElementById('modal-content'); content.innerHTML = `<h3>Group Settings</h3><div style="text-align:center;"><div class="avatar avatar-lg" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);">${(chat.groupName||'G').charAt(0)}</div><div style="font-weight:600;">${U.escapeHtml(chat.groupName||'Group')}</div></div><div class="settings-item" onclick="window.SoroApp.manageMembers()"><span>Members</span></div><div class="settings-item danger-text" onclick="window.SoroApp.exitGroup()"><span>Exit</span></div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>`; document.getElementById('modal-overlay').classList.add('open'); },
+            async manageMembers() { let html = ''; for (const uid of this.currentChatData.participants) { const d = await getDoc(doc(db, 'users', uid)); if (d.exists()) { const u = d.data(); html += `<div class="settings-item"><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-sm" style="background:${this.getAvatarStyle(u.displayName)};">${u.displayName.charAt(0)}</div><span>${U.escapeHtml(u.displayName)}</span></div></div>`; } } document.getElementById('modal-content').innerHTML = `<h3>Members</h3>${html}<div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openGroupSettings()">Back</button></div>`; },
+            async exitGroup() { if (!confirm('Leave?')) return; await updateDoc(doc(db, 'chats', this.currentChatData.id), { participants: this.currentChatData.participants.filter(u => u !== this.currentUser.uid) }); document.getElementById('modal-overlay').classList.remove('open'); this.closeChat(); this.showScreen('chats'); U.showToast('Left'); },
 
-                content.innerHTML = html;
-            },
+            loadSettings() { const u = this.userData; if (!u) return; document.getElementById('settings-name').textContent = u.displayName || 'User'; document.getElementById('settings-username').textContent = '@' + (u.username || 'user'); document.getElementById('val-displayName').textContent = u.displayName || 'Set'; document.getElementById('val-username').textContent = '@' + (u.username || 'user'); document.getElementById('val-bio').textContent = u.bio || 'Add bio'; document.getElementById('val-email').textContent = u.email || ''; document.getElementById('val-theme').textContent = u.theme || 'Light'; document.getElementById('val-wallpaper').textContent = u.wallpaper || 'Default'; document.getElementById('val-lastSeen').textContent = u.lastSeenPrivacy || 'Contacts'; document.getElementById('read-receipts-toggle').className = 'toggle' + (u.readReceiptsOn ? ' on' : ''); document.getElementById('data-saver-toggle').className = 'toggle' + (u.dataSaverOn ? ' on' : ''); const av = document.getElementById('settings-avatar'); if (av && !u.avatarURL) { av.style.background = this.getAvatarStyle(u.displayName || 'U'); av.innerHTML = (u.displayName || 'U').charAt(0).toUpperCase(); } document.querySelector('#blocked-users-btn .settings-value').textContent = (u.blockedUsers || []).length; },
 
-            async addChannelConfirm(communityId, channelId) {
-                await updateDoc(doc(db, 'communities', communityId), {
-                    channelIds: arrayUnion(channelId)
-                });
-                await updateDoc(doc(db, 'chats', channelId), {
-                    communityId: communityId
-                });
-                U.showToast('Channel added to community!');
-                document.getElementById('modal-overlay').classList.remove('open');
-                this.loadCommunities();
-            },
-
-            async leaveCommunity(communityId) {
-                if (!confirm('Leave this community?')) return;
-                await updateDoc(doc(db, 'communities', communityId), {
-                    memberUids: arrayRemove(this.currentUser.uid)
-                });
-                document.getElementById('modal-overlay').classList.remove('open');
-                U.showToast('Left community');
-                this.loadCommunities();
-            },
-
-            // ==================== GROUP SETTINGS ====================
-            openGroupSettings() {
-                if (!this.currentChatData || this.currentChatData.type !== 'group') return;
-
-                const chat = this.currentChatData;
-                const isAdmin = chat.adminUids && chat.adminUids.includes(this.currentUser.uid);
-
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-
-                let html = `
-                    <h3>Group Settings</h3>
-                    <div style="text-align:center;margin-bottom:16px;">
-                        <div class="avatar avatar-lg" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);margin:0 auto 8px;font-size:28px;">${(chat.groupName || 'G').charAt(0).toUpperCase()}</div>
-                        <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(chat.groupName || 'Group')}</div>
-                    </div>
-                `;
-
-                if (isAdmin) {
-                    html += `
-                        <div class="settings-section">Settings</div>
-                        <div class="settings-item" onclick="window.SoroApp.manageMembers()"><span>Manage Members</span></div>
-                    `;
-                }
-
-                html += `
-                    <div class="settings-section">Actions</div>
-                    <div class="settings-item danger-text" onclick="window.SoroApp.exitGroup()"><span>Exit Group</span></div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                `;
-
-                content.innerHTML = html;
-                modal.classList.add('open');
-            },
-
-            async manageMembers() {
-                const chat = this.currentChatData;
-                let membersHTML = '';
-
-                for (const uid of chat.participants) {
-                    const userDoc = await getDoc(doc(db, 'users', uid));
-                    if (userDoc.exists()) {
-                        const user = userDoc.data();
-                        membersHTML += `
-                            <div class="settings-item">
-                                <div style="display:flex;align-items:center;gap:10px;">
-                                    <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                    <span>${U.escapeHtml(user.displayName)}</span>
-                                </div>
-                            </div>
-                        `;
-                    }
-                }
-
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Members</h3>
-                    ${membersHTML}
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openGroupSettings()">Back</button></div>
-                `;
-            },
-
-            async exitGroup() {
-                if (!confirm('Leave this group?')) return;
-                const chat = this.currentChatData;
-                const userId = this.currentUser.uid;
-                const newParticipants = chat.participants.filter(uid => uid !== userId);
-
-                await updateDoc(doc(db, 'chats', chat.id), { participants: newParticipants });
-                document.getElementById('modal-overlay').classList.remove('open');
-                this.closeChat();
-                this.showScreen('chats');
-                U.showToast('You left the group');
-            },
-
-            // ==================== SETTINGS ====================
-            loadSettings() {
-                const user = this.userData;
-                if (!user) return;
-
-                document.getElementById('settings-name').textContent = user.displayName || 'User';
-                document.getElementById('settings-username').textContent = '@' + (user.username || 'user');
-                document.getElementById('val-displayName').textContent = user.displayName || 'Set name';
-                document.getElementById('val-username').textContent = '@' + (user.username || 'user');
-                document.getElementById('val-bio').textContent = user.bio || 'Add bio';
-                document.getElementById('val-email').textContent = user.email || '';
-                document.getElementById('val-theme').textContent = user.theme || 'Light';
-                document.getElementById('val-wallpaper').textContent = user.wallpaper || 'Default';
-                document.getElementById('val-lastSeen').textContent = user.lastSeenPrivacy || 'Contacts';
-
-                const readReceiptsToggle = document.getElementById('read-receipts-toggle');
-                if (readReceiptsToggle) {
-                    readReceiptsToggle.className = 'toggle' + (user.readReceiptsOn ? ' on' : '');
-                }
-
-                const dataSaverToggle = document.getElementById('data-saver-toggle');
-                if (dataSaverToggle) {
-                    dataSaverToggle.className = 'toggle' + (user.dataSaverOn ? ' on' : '');
-                }
-
-                const avatarEl = document.getElementById('settings-avatar');
-                if (avatarEl && !user.avatarURL) {
-                    const initials = (user.displayName || 'U').charAt(0).toUpperCase();
-                    const avatarStyle = this.getAvatarStyle(user.displayName || 'User');
-                    avatarEl.style.background = avatarStyle;
-                    avatarEl.innerHTML = `<span style="font-size:28px;font-weight:700;">${initials}</span>`;
-                }
-
-                const blockedCount = (user.blockedUsers || []).length;
-                const blockedEl = document.querySelector('#blocked-users-btn .settings-value');
-                if (blockedEl) blockedEl.textContent = blockedCount;
-
-                this.updateProfileProgress();
-            },
-
-            changeProfilePhoto() {
-                const colors = this.avatarColors;
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                const avatarEl = document.getElementById('settings-avatar');
-                if (avatarEl) {
-                    avatarEl.style.background = randomColor;
-                }
-                U.showToast('Avatar color updated');
-            },
-
-            updateProfileProgress() {
-                const user = this.userData;
-                let progress = 0;
-                if (user.displayName && user.displayName !== (user.email ? user.email.split('@')[0] : '')) progress += 33;
-                if (user.bio) progress += 33;
-                if (user.username) progress += 34;
-
-                const progressBar = document.getElementById('profile-progress');
-                const progressText = document.getElementById('profile-progress-text');
-                if (progressBar) progressBar.style.width = progress + '%';
-                if (progressText) progressText.textContent = 'Profile ' + progress + '% complete';
-            },
-
-            // NEW: Change wallpaper
-            changeWallpaper() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                
-                let html = '<h3>Default Wallpaper</h3><div style="display:flex;flex-wrap:wrap;gap:8px;">';
-                this.wallpapers.forEach((wallpaper, index) => {
-                    const name = index === 0 ? 'Default' : 'Gradient ' + index;
-                    html += `<div style="width:60px;height:60px;border-radius:12px;cursor:pointer;background:${wallpaper === 'default' ? 'var(--bg)' : wallpaper};border:2px solid var(--border);" onclick="window.SoroApp.setDefaultWallpaper('${wallpaper}')" title="${name}"></div>`;
-                });
-                html += '</div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>';
-                
-                content.innerHTML = html;
-                modal.classList.add('open');
-            },
-
-            // NEW: Set default wallpaper
-            async setDefaultWallpaper(wallpaper) {
-                await updateDoc(doc(db, 'users', this.currentUser.uid), { wallpaper: wallpaper });
-                this.userData.wallpaper = wallpaper;
-                document.getElementById('val-wallpaper').textContent = wallpaper === 'default' ? 'Default' : 'Custom';
-                document.getElementById('modal-overlay').classList.remove('open');
-                U.showToast('Default wallpaper set');
-            },
-
-            editProfile(field) {
-                const user = this.userData;
-                const currentValue = user[field] || '';
-                const value = prompt('Edit ' + field + ':', currentValue);
-                if (value === null || value.trim() === '') return;
-
-                const updateData = {};
-                updateData[field] = value.trim();
-
-                updateDoc(doc(db, 'users', user.uid), updateData).then(() => {
-                    this.userData[field] = value.trim();
-                    this.loadSettings();
-                    U.showToast(field + ' updated');
-                });
-            },
-
-            changePassword() {
-                const newPassword = prompt('Enter new password (min 8 chars, 1 number):');
-                if (!newPassword || newPassword.length < 8 || !/\d/.test(newPassword)) {
-                    U.showToast('Password must be 8+ characters with a number');
-                    return;
-                }
-                updatePassword(auth.currentUser, newPassword)
-                    .then(() => U.showToast('Password updated'))
-                    .catch(() => U.showToast('Failed. Re-login and try again.'));
-            },
-
-            changeLastSeen() {
-                const options = ['everyone', 'contacts', 'nobody'];
-                const current = this.userData.lastSeenPrivacy || 'contacts';
-                const nextIndex = (options.indexOf(current) + 1) % options.length;
-                const nextValue = options[nextIndex];
-
-                updateDoc(doc(db, 'users', this.currentUser.uid), { lastSeenPrivacy: nextValue }).then(() => {
-                    this.userData.lastSeenPrivacy = nextValue;
-                    document.getElementById('val-lastSeen').textContent = nextValue.charAt(0).toUpperCase() + nextValue.slice(1);
-                    U.showToast('Last seen: ' + nextValue);
-                });
-            },
-
-            toggleReadReceipts() {
-                const toggle = document.getElementById('read-receipts-toggle');
-                const newValue = !toggle.classList.contains('on');
-                toggle.classList.toggle('on', newValue);
-                updateDoc(doc(db, 'users', this.currentUser.uid), { readReceiptsOn: newValue });
-                this.userData.readReceiptsOn = newValue;
-            },
-
-            changeTheme() {
-                const themes = ['light', 'dark', 'system'];
-                const current = this.userData.theme || 'light';
-                const nextIndex = (themes.indexOf(current) + 1) % themes.length;
-                const nextTheme = themes[nextIndex];
-
-                updateDoc(doc(db, 'users', this.currentUser.uid), { theme: nextTheme }).then(() => {
-                    this.userData.theme = nextTheme;
-                    if (nextTheme === 'dark') {
-                        document.getElementById('app').classList.add('dark');
-                    } else {
-                        document.getElementById('app').classList.remove('dark');
-                    }
-                    document.getElementById('val-theme').textContent = nextTheme.charAt(0).toUpperCase() + nextTheme.slice(1);
-                    U.showToast('Theme: ' + nextTheme);
-                });
-            },
-
-            toggleDataSaver() {
-                const toggle = document.getElementById('data-saver-toggle');
-                const newValue = !toggle.classList.contains('on');
-                toggle.classList.toggle('on', newValue);
-                updateDoc(doc(db, 'users', this.currentUser.uid), { dataSaverOn: newValue });
-                this.userData.dataSaverOn = newValue;
-                U.showToast('Data saver ' + (newValue ? 'on' : 'off'));
-            },
-
-            showActiveSessions() {
-                const modal = document.getElementById('modal-overlay');
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Active Sessions</h3>
-                    <div class="settings-item">
-                        <div style="display:flex;align-items:center;gap:10px;">
-                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-device"/></svg>
-                            <div><div style="font-weight:600">Current Device</div></div>
-                        </div>
-                        <span style="color:var(--online);font-size:11px;">Current</span>
-                    </div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
-                `;
-                modal.classList.add('open');
-            },
-
-            deleteAccount() {
-                if (!confirm('Delete your SORO account? This cannot be undone.')) return;
-                if (!confirm('Are you absolutely sure?')) return;
-
-                deleteDoc(doc(db, 'users', this.currentUser.uid))
-                    .then(() => deleteUser(auth.currentUser))
-                    .then(() => U.showToast('Account deleted'))
-                    .catch(() => U.showToast('Failed. Re-login and try again.'));
-            },
-
-            logout() {
-                if (this.currentUser) {
-                    updateDoc(doc(db, 'users', this.currentUser.uid), {
-                        isOnline: false,
-                        lastSeen: serverTimestamp()
-                    });
-                    set(rtdbRef(rtdb, `presence/${this.currentUser.uid}`), {
-                        online: false,
-                        lastSeen: rtdbTimestamp(),
-                        typingIn: null
-                    });
-                }
-                signOut(auth);
-                U.showToast('Logged out');
-            }
+            changeWallpaper() { const modal = document.getElementById('modal-overlay'), content = document.getElementById('modal-content'); let html = '<h3>Default Wallpaper</h3><div style="display:flex;flex-wrap:wrap;gap:8px;">'; this.wallpapers.forEach((wallpaper, index) => { html += `<div style="width:60px;height:60px;border-radius:12px;cursor:pointer;background:${wallpaper === 'default' ? 'var(--bg)' : wallpaper};border:2px solid var(--border);" onclick="window.SoroApp.setDefaultWallpaper('${wallpaper}')"></div>`; }); html += '</div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>'; content.innerHTML = html; modal.classList.add('open'); },
+            async setDefaultWallpaper(wallpaper) { await updateDoc(doc(db, 'users', this.currentUser.uid), { wallpaper }); this.userData.wallpaper = wallpaper; document.getElementById('val-wallpaper').textContent = wallpaper === 'default' ? 'Default' : 'Custom'; document.getElementById('modal-overlay').classList.remove('open'); U.showToast('Default wallpaper set'); },
+            editProfile(field) { const val = prompt('Edit ' + field + ':', this.userData[field] || ''); if (val === null || val.trim() === '') return; updateDoc(doc(db, 'users', this.userData.uid), { [field]: val.trim() }).then(() => { this.userData[field] = val.trim(); this.loadSettings(); }); },
+            changePassword() { const pw = prompt('New password (8+ chars):'); if (pw && pw.length >= 8) updatePassword(auth.currentUser, pw).then(() => U.showToast('Updated')).catch(() => U.showToast('Failed')); },
+            changeLastSeen() { const o = ['everyone', 'contacts', 'nobody'], n = o[(o.indexOf(this.userData.lastSeenPrivacy || 'contacts') + 1) % 3]; updateDoc(doc(db, 'users', this.currentUser.uid), { lastSeenPrivacy: n }).then(() => { this.userData.lastSeenPrivacy = n; document.getElementById('val-lastSeen').textContent = n; }); },
+            toggleReadReceipts() { const t = document.getElementById('read-receipts-toggle'), v = !t.classList.contains('on'); t.classList.toggle('on', v); updateDoc(doc(db, 'users', this.currentUser.uid), { readReceiptsOn: v }); },
+            changeTheme() { const th = ['light', 'dark', 'system'], n = th[(th.indexOf(this.userData.theme || 'light') + 1) % 3]; updateDoc(doc(db, 'users', this.currentUser.uid), { theme: n }).then(() => { this.userData.theme = n; document.getElementById('app').classList.toggle('dark', n === 'dark'); document.getElementById('val-theme').textContent = n; }); },
+            toggleDataSaver() { const t = document.getElementById('data-saver-toggle'), v = !t.classList.contains('on'); t.classList.toggle('on', v); updateDoc(doc(db, 'users', this.currentUser.uid), { dataSaverOn: v }); },
+            showActiveSessions() { document.getElementById('modal-content').innerHTML = '<h3>Active Sessions</h3><div class="settings-item"><div><strong>Current Device</strong></div><span style="color:var(--online);">Active</span></div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>'; document.getElementById('modal-overlay').classList.add('open'); },
+            deleteAccount() { if (!confirm('Delete?')) return; deleteDoc(doc(db, 'users', this.currentUser.uid)).then(() => deleteUser(auth.currentUser)).catch(() => U.showToast('Failed')); },
+            logout() { if (this.currentUser) { updateDoc(doc(db, 'users', this.currentUser.uid), { isOnline: false, lastSeen: serverTimestamp() }); set(rtdbRef(rtdb, `presence/${this.currentUser.uid}`), { online: false, lastSeen: rtdbTimestamp(), typingIn: null }); } signOut(auth); }
         };
 
-        // Start the app
         window.SoroApp = SoroApp;
         document.getElementById('loading-status').textContent = 'Starting app...';
         SoroApp.init();
