@@ -965,6 +965,11 @@
                 <symbol id="icon-device" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></symbol>
                 <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
                 <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+                <symbol id="icon-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></symbol>
+                <symbol id="icon-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></symbol>
+                <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+                <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+                <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
             </defs>
         </svg>
 
@@ -1178,7 +1183,7 @@
 
     <script type="module">
         // ============================================================
-        // 🔥 FIREBASE CONFIG - Injected at build time
+        // FIREBASE CONFIG
         // ============================================================
         const firebaseConfig = {
             apiKey: "{{FIREBASE_API_KEY}}",
@@ -1194,12 +1199,12 @@
                        firebaseConfig.apiKey.startsWith('AIza');
 
         if (!isValid) {
-            document.getElementById('loading-status').textContent = '⚠️ Firebase config missing. Check Vercel env vars.';
+            document.getElementById('loading-status').textContent = 'Firebase config missing. Check Vercel env vars.';
             document.getElementById('loading-status').style.color = 'var(--rust)';
-            console.error('❌ Firebase config not set!');
+            console.error('Firebase config not set!');
         } else {
-            console.log('✅ Firebase config loaded');
-            document.getElementById('loading-status').textContent = '✅ Config loaded!';
+            console.log('Firebase config loaded');
+            document.getElementById('loading-status').textContent = 'Config loaded!';
         }
 
         import { initializeApp } from 'firebase/app';
@@ -1245,7 +1250,7 @@
         } from 'firebase/database';
 
         if (!isValid) {
-            document.getElementById('loading-status').textContent = '⚠️ Waiting for config...';
+            document.getElementById('loading-status').textContent = 'Waiting for config...';
             throw new Error('Firebase config not set');
         }
 
@@ -1255,7 +1260,7 @@
         const rtdb = getDatabase(app);
 
         // ============================================================
-        // ⚡ APP CODE
+        // APP CODE
         // ============================================================
 
         const U = {
@@ -1325,6 +1330,8 @@
             searchQuery: '',
             selectedChatId: null,
             selectedMessageId: null,
+            allChatsCache: [],
+            communityData: null,
             avatarColors: [
                 'linear-gradient(135deg, #D47A3A, #C26A4A)',
                 'linear-gradient(135deg, #4A6FA5, #3B5A8A)',
@@ -1465,7 +1472,7 @@
                             blockedUsers: []
                         });
 
-                        U.showToast('Account created successfully! 🎉');
+                        U.showToast('Account created successfully!');
                     } catch (err) {
                         console.error('Signup error:', err);
                         U.showToast('Signup failed: ' + err.message);
@@ -1565,7 +1572,7 @@
                         
                         if (snapshot.empty) {
                             userInfoDiv.style.display = 'block';
-                            userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ User not found</span>`;
+                            userInfoDiv.innerHTML = `<span style="color:var(--rust);">User not found</span>`;
                             this.foundUser = null;
                             return;
                         }
@@ -1574,7 +1581,7 @@
                             const user = doc.data();
                             if (user.uid === this.currentUser.uid) {
                                 userInfoDiv.style.display = 'block';
-                                userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ That's you!</span>`;
+                                userInfoDiv.innerHTML = `<span style="color:var(--rust);">That's you!</span>`;
                                 this.foundUser = null;
                                 return;
                             }
@@ -1587,7 +1594,7 @@
                                     <div>
                                         <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
                                         <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
-                                        ${isBlocked ? '<span style="color:var(--rust);font-size:10px;">🚫 Blocked</span>' : (user.isOnline ? '<span style="color:var(--online);font-size:10px;">● Online</span>' : '')}
+                                        ${isBlocked ? '<span style="color:var(--rust);font-size:10px;">Blocked</span>' : (user.isOnline ? '<span style="color:var(--online);font-size:10px;">Online</span>' : '')}
                                     </div>
                                 </div>
                             `;
@@ -1708,37 +1715,80 @@
                 document.getElementById('chat-context-menu').classList.remove('show');
             },
 
-            // ==================== TABS ====================
+            // ==================== TABS & FILTERING ====================
             filterChats(filter) {
                 this.chatFilter = filter;
                 document.querySelectorAll('.tab').forEach(tab => {
                     tab.classList.toggle('active', tab.dataset.tab === filter);
                 });
-                this.loadChatList();
+                this.renderFilteredChats();
             },
 
             searchChats(query) {
                 this.searchQuery = query.toLowerCase().trim();
-                this.loadChatList();
+                this.renderFilteredChats();
+            },
+
+            renderFilteredChats() {
+                const chatList = document.getElementById('chat-list');
+                if (!chatList) return;
+                chatList.innerHTML = '';
+
+                let unreadCount = 0, pinnedCount = 0, archivedCount = 0;
+                let filteredChats = [];
+
+                this.allChatsCache.forEach(chat => {
+                    const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
+                    const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
+                    const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
+
+                    // Count
+                    if (hasUnread && !isArchived) unreadCount++;
+                    if (isPinned && !isArchived) pinnedCount++;
+                    if (isArchived) archivedCount++;
+
+                    // Search filter
+                    if (this.searchQuery && !chat.displayName.toLowerCase().includes(this.searchQuery)) {
+                        return;
+                    }
+
+                    // Tab filter
+                    if (this.chatFilter === 'archived' && !isArchived) return;
+                    if (this.chatFilter === 'unread' && (!hasUnread || isArchived)) return;
+                    if (this.chatFilter === 'pinned' && (!isPinned || isArchived)) return;
+                    if (this.chatFilter === 'all' && isArchived) return;
+
+                    filteredChats.push(chat);
+                });
+
+                // Update counts
+                document.getElementById('unread-count').textContent = unreadCount;
+                document.getElementById('pinned-count').textContent = pinnedCount;
+                document.getElementById('archived-count').textContent = archivedCount;
+
+                // Render
+                filteredChats.forEach(chat => {
+                    this.renderChatItem(chatList, chat);
+                });
+
+                if (filteredChats.length === 0) {
+                    chatList.innerHTML = `<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:40px;font-size:13px;">No chats found</p>`;
+                }
             },
 
             updateTabCounts() {
-                const chatsQuery = query(
-                    collection(db, 'chats'),
-                    where('participants', 'array-contains', this.currentUser.uid)
-                );
-                getDocs(chatsQuery).then(snapshot => {
-                    let unread = 0, pinned = 0, archived = 0;
-                    snapshot.forEach(doc => {
-                        const chat = doc.data();
-                        if (chat.lastMessageSenderId !== this.currentUser.uid) unread++;
-                        if (chat.isPinned && chat.isPinned[this.currentUser.uid]) pinned++;
-                        if (chat.isArchived && chat.isArchived[this.currentUser.uid]) archived++;
-                    });
-                    document.getElementById('unread-count').textContent = unread;
-                    document.getElementById('pinned-count').textContent = pinned;
-                    document.getElementById('archived-count').textContent = archived;
+                let unread = 0, pinned = 0, archived = 0;
+                this.allChatsCache.forEach(chat => {
+                    const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
+                    const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
+                    const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
+                    if (hasUnread && !isArchived) unread++;
+                    if (isPinned && !isArchived) pinned++;
+                    if (isArchived) archived++;
                 });
+                document.getElementById('unread-count').textContent = unread;
+                document.getElementById('pinned-count').textContent = pinned;
+                document.getElementById('archived-count').textContent = archived;
             },
 
             // ==================== TUTORIAL ====================
@@ -1751,7 +1801,9 @@
                     color: white; text-align: center; padding: 40px;
                 `;
                 overlay.innerHTML = `
-                    <div style="font-size: 56px; margin-bottom: 20px;">💬</div>
+                    <div style="font-size: 56px; margin-bottom: 20px;">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><use href="#icon-chat"/></svg>
+                    </div>
                     <h2 style="margin-bottom: 12px; font-size: 24px;">Welcome to SORO</h2>
                     <p style="opacity: 0.7; margin-bottom: 24px; line-height: 1.8; font-size: 15px;">Your chats live here.<br>Tap to talk. Use @ to mention friends.<br>Long press for more options.</p>
                     <button style="padding: 14px 48px; background: var(--accent); color: white; border: none; border-radius: 24px; font-size: 16px; font-weight: 600; cursor: pointer;">Get Started</button>
@@ -1791,7 +1843,10 @@
                 if (screen) {
                     screen.classList.add('active');
                     this.currentScreen = screenName;
-                    document.querySelectorAll(`.nav-item[data-screen="${screenName}"]`).forEach(item => item.classList.add('active'));
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.screen === screenName) item.classList.add('active');
+                    });
                     this.onScreenChange(screenName);
                 }
                 this.hideAllContextMenus();
@@ -1803,7 +1858,6 @@
                         this.loadChatList();
                         this.loadStories();
                         this.loadFriendRequests();
-                        this.updateTabCounts();
                         break;
                     case 'communities':
                         this.loadCommunities();
@@ -1947,102 +2001,94 @@
                     collection(db, 'chats'),
                     where('participants', 'array-contains', this.currentUser.uid),
                     orderBy('lastMessageTime', 'desc'),
-                    limit(20)
+                    limit(50)
                 );
 
-                this.chatListListener = onSnapshot(chatsQuery, (snapshot) => {
-                    const chatList = document.getElementById('chat-list');
-                    if (!chatList) return;
-                    chatList.innerHTML = '';
-
-                    let unreadCount = 0, pinnedCount = 0, archivedCount = 0;
+                this.chatListListener = onSnapshot(chatsQuery, async (snapshot) => {
+                    this.allChatsCache = [];
+                    const promises = [];
 
                     snapshot.forEach((chatDoc) => {
                         const chat = chatDoc.data();
                         chat.id = chatDoc.id;
-
-                        const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                        const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                        const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
-
-                        // Filter logic
-                        if (this.chatFilter === 'archived' && !isArchived) return;
-                        if (this.chatFilter === 'unread' && (!hasUnread || isArchived)) return;
-                        if (this.chatFilter === 'pinned' && (!isPinned || isArchived)) return;
-                        if (this.chatFilter === 'all' && isArchived) return;
-
-                        if (hasUnread) unreadCount++;
-                        if (isPinned) pinnedCount++;
-                        if (isArchived) archivedCount++;
-
-                        const isGroup = chat.type === 'group';
-                        let displayName = 'Chat';
-                        let initials = '?';
-                        let avatarStyle = this.avatarColors[0];
-                        let onlineDot = '';
-
-                        if (isGroup) {
-                            displayName = chat.groupName || 'Group';
-                            initials = displayName.charAt(0).toUpperCase();
-                            avatarStyle = 'linear-gradient(135deg, #5A7A8A, #4A6A7A)';
-                            this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived);
-                        } else {
-                            const otherUid = chat.participants.find(uid => uid !== this.currentUser.uid);
-                            if (otherUid) {
-                                getDoc(doc(db, 'users', otherUid)).then((userDoc) => {
-                                    if (userDoc.exists()) {
-                                        const userData = userDoc.data();
-                                        displayName = userData.displayName || 'User';
-                                        initials = displayName.charAt(0).toUpperCase();
-                                        avatarStyle = this.getAvatarStyle(displayName);
-                                        if (userData.isOnline) onlineDot = '<span class="online-dot"></span>';
-                                        this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived);
-                                    }
-                                });
-                                return;
-                            }
-                        }
-
-                        this.renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived);
+                        promises.push(this.processChatForCache(chat));
                     });
 
-                    document.getElementById('unread-count').textContent = unreadCount;
-                    document.getElementById('pinned-count').textContent = pinnedCount;
-                    document.getElementById('archived-count').textContent = archivedCount;
+                    await Promise.all(promises);
+                    this.renderFilteredChats();
+                    this.updateTabCounts();
                 });
             },
 
-            renderChatItem(chatList, chat, displayName, initials, avatarStyle, onlineDot, isPinned, hasUnread, isArchived) {
-                const time = U.formatTime(chat.lastMessageTime);
-                const preview = chat.lastMessage || 'No messages yet';
+            async processChatForCache(chat) {
+                const isGroup = chat.type === 'group';
+                let displayName = 'Chat';
+                let initials = '?';
+                let avatarStyle = this.avatarColors[0];
+                let onlineDot = '';
+
+                if (isGroup) {
+                    displayName = chat.groupName || 'Group';
+                    initials = displayName.charAt(0).toUpperCase();
+                    avatarStyle = 'linear-gradient(135deg, #5A7A8A, #4A6A7A)';
+                } else {
+                    const otherUid = chat.participants.find(uid => uid !== this.currentUser.uid);
+                    if (otherUid) {
+                        const userDoc = await getDoc(doc(db, 'users', otherUid));
+                        if (userDoc.exists()) {
+                            const userData = userDoc.data();
+                            displayName = userData.displayName || 'User';
+                            initials = displayName.charAt(0).toUpperCase();
+                            avatarStyle = this.getAvatarStyle(displayName);
+                            if (userData.isOnline) onlineDot = '<span class="online-dot"></span>';
+                        }
+                    }
+                }
 
                 const isBlocked = chat.type === 'direct' && 
                     chat.participants.some(uid => uid !== this.currentUser.uid && 
                     (this.userData.blockedUsers || []).includes(uid));
 
+                this.allChatsCache.push({
+                    ...chat,
+                    displayName,
+                    initials,
+                    avatarStyle,
+                    onlineDot,
+                    isBlocked
+                });
+            },
+
+            renderChatItem(chatList, chat) {
+                const time = U.formatTime(chat.lastMessageTime);
+                const preview = chat.lastMessage || 'No messages yet';
+                const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
+                const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
+                const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
+
                 const chatItem = document.createElement('div');
                 chatItem.className = 'chat-item';
                 chatItem.innerHTML = `
-                    <div class="avatar" style="background:${avatarStyle};width:44px;height:44px;font-size:16px;">
-                        ${initials}${onlineDot}
+                    <div class="avatar" style="background:${chat.avatarStyle};width:44px;height:44px;font-size:16px;">
+                        ${chat.initials}${chat.onlineDot}
                     </div>
                     <div class="chat-info">
                         <div class="chat-name">
-                            ${isPinned ? '<span class="pinned-badge">📌</span>' : ''}
-                            ${isArchived ? '<span class="archived-badge">📦</span>' : ''}
-                            ${isBlocked ? '🚫 ' : ''}
-                            ${U.escapeHtml(displayName)}
+                            ${isPinned ? '<span class="pinned-badge"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg></span>' : ''}
+                            ${isArchived ? '<span class="archived-badge"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-archive"/></svg></span>' : ''}
+                            ${chat.isBlocked ? '<svg class="icon-sm" viewBox="0 0 24 24" style="color:var(--rust)"><use href="#icon-block"/></svg> ' : ''}
+                            ${U.escapeHtml(chat.displayName)}
                         </div>
-                        <div class="chat-preview">${isBlocked ? '🚫 Blocked' : U.highlightMentions(U.escapeHtml(preview))}</div>
+                        <div class="chat-preview">${chat.isBlocked ? 'Blocked' : U.highlightMentions(U.escapeHtml(preview))}</div>
                     </div>
                     <div class="chat-meta">
                         <div class="chat-time">${time}</div>
-                        ${hasUnread ? '<span class="unread-badge">1</span>' : ''}
+                        ${hasUnread && !isArchived ? '<span class="unread-badge">1</span>' : ''}
                     </div>
                 `;
 
                 chatItem.addEventListener('click', () => {
-                    if (isBlocked) {
+                    if (chat.isBlocked) {
                         U.showToast('This user is blocked');
                         return;
                     }
@@ -2050,7 +2096,7 @@
                 });
 
                 chatItem.addEventListener('contextmenu', (e) => {
-                    if (isBlocked) {
+                    if (chat.isBlocked) {
                         U.showToast('This user is blocked');
                         return;
                     }
@@ -2059,7 +2105,7 @@
 
                 let longPressTimer;
                 chatItem.addEventListener('touchstart', (e) => {
-                    if (isBlocked) return;
+                    if (chat.isBlocked) return;
                     longPressTimer = setTimeout(() => {
                         this.showChatContextMenu(e, chat.id);
                     }, 600);
@@ -2125,7 +2171,7 @@
                 const userId = this.currentUser.uid;
                 const participants = [userId, ...memberIds];
 
-                // Check if group already exists with same name and members
+                // Check for duplicates
                 const existingGroups = await getDocs(query(
                     collection(db, 'chats'),
                     where('type', '==', 'group'),
@@ -2315,7 +2361,7 @@
                                     addDoc(collection(db, 'chats', targetChatId, 'messages'), {
                                         senderId: this.currentUser.uid,
                                         type: 'text',
-                                        text: '📤 Forwarded: ' + msgDoc.data().text,
+                                        text: 'Forwarded: ' + msgDoc.data().text,
                                         timestamp: serverTimestamp(),
                                         readBy: [this.currentUser.uid],
                                         deliveredTo: [this.currentUser.uid],
@@ -2399,11 +2445,11 @@
                             const avatarStyle = this.getAvatarStyle(user.displayName);
                             html += `
                                 <div class="settings-item">
-                                    <div class="settings-item-left">
+                                    <div style="display:flex;align-items:center;gap:10px;">
                                         <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
                                         <span>${U.escapeHtml(user.displayName)}</span>
                                     </div>
-                                    <span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);">Unblock</span>
+                                    <span class="settings-value" onclick="window.SoroApp.unblockUser('${uid}')" style="color:var(--online);cursor:pointer;">Unblock</span>
                                 </div>
                             `;
                         }
@@ -2463,7 +2509,7 @@
                 const messagesQuery = query(
                     collection(db, 'chats', chatId, 'messages'),
                     orderBy('timestamp', 'asc'),
-                    limit(30)
+                    limit(50)
                 );
 
                 this.messagesListener = onSnapshot(messagesQuery, (snapshot) => {
@@ -2487,7 +2533,7 @@
                 msgDiv.className = 'msg ' + (isMine ? 'out' : 'in');
 
                 if (msg.type === 'system') {
-                    msgDiv.className = 'time-divider';
+                    msgDiv.style.cssText = 'text-align:center;font-size:11px;opacity:0.6;max-width:100%;background:transparent;padding:4px;';
                     msgDiv.textContent = msg.text;
                 } else {
                     const content = U.highlightMentions(U.escapeHtml(msg.text || ''));
@@ -2498,7 +2544,7 @@
                         <div>${content}</div>
                         <div class="msg-meta" title="${fullTime}">
                             ${time}
-                            ${isMine ? '<svg class="icon" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg>' : ''}
+                            ${isMine ? '<svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg>' : ''}
                             ${msg.isEdited ? ' (edited)' : ''}
                         </div>
                         <div class="reaction-bar" id="reactions-${msg.id}">
@@ -2837,7 +2883,7 @@
                 const snapshot = await getDocs(communitiesQuery);
 
                 if (snapshot.empty) {
-                    container.innerHTML = '<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:30px;font-size:13px">No communities yet</p>';
+                    container.innerHTML = '<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:30px;font-size:13px;">No communities yet</p>';
                     return;
                 }
 
@@ -2864,6 +2910,7 @@
             },
 
             openCommunity(communityId, community) {
+                this.communityData = community;
                 const modal = document.getElementById('modal-overlay');
                 const content = document.getElementById('modal-content');
 
@@ -2877,8 +2924,18 @@
                         <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
                     </div>
                     <div class="settings-section">Actions</div>
-                    <div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')"><span>+ Add Channel</span></div>
-                    <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')"><span>Leave Community</span></div>
+                    <div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')">
+                        <span>
+                            <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
+                            Add Channel
+                        </span>
+                    </div>
+                    <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')">
+                        <span>
+                            <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-x"/></svg>
+                            Leave Community
+                        </span>
+                    </div>
                     <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
                 `;
 
@@ -2908,7 +2965,7 @@
                     html += `
                         <div class="settings-item" onclick="window.SoroApp.addChannelConfirm('${communityId}', '${doc.id}')">
                             <span>${U.escapeHtml(group.groupName || 'Group')}</span>
-                            <span class="settings-value">Add</span>
+                            <span class="settings-value" style="color:var(--accent);">Add</span>
                         </div>
                     `;
                 });
@@ -3035,7 +3092,7 @@
                     await addDoc(collection(db, 'chats', this.currentChatId, 'messages'), {
                         senderId: this.currentUser.uid,
                         type: 'system',
-                        text: `📢 ${message.trim()}`,
+                        text: message.trim(),
                         isBroadcast: true,
                         timestamp: serverTimestamp(),
                         readBy: [this.currentUser.uid]
@@ -3059,7 +3116,7 @@
                                     (chat.adminUids && chat.adminUids.indexOf(uid) !== -1 ? 'Admin' : 'Member');
                                 membersHTML += `
                                     <div class="settings-item">
-                                        <div class="settings-item-left">
+                                        <div style="display:flex;align-items:center;gap:10px;">
                                             <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
                                             <div><div>${U.escapeHtml(user.displayName)}</div><div style="font-size:10px;color:var(--admin-badge)">${role}</div></div>
                                         </div>
@@ -3078,7 +3135,7 @@
                 content.innerHTML = `
                     <h3>Manage Members</h3>
                     ${membersHTML}
-                    <div class="settings-item" onclick="window.SoroApp.addMembers()"><div class="settings-item-left" style="color:var(--accent)">+ Add Members</div></div>
+                    <div class="settings-item" onclick="window.SoroApp.addMembers()"><div style="color:var(--accent);display:flex;align-items:center;gap:6px;"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg> Add Members</div></div>
                     <div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openGroupSettings()">Back</button></div>
                 `;
             },
@@ -3212,7 +3269,8 @@
                 }
 
                 const blockedCount = (user.blockedUsers || []).length;
-                document.querySelector('#blocked-users-btn .settings-value').textContent = blockedCount;
+                const blockedEl = document.querySelector('#blocked-users-btn .settings-value');
+                if (blockedEl) blockedEl.textContent = blockedCount;
 
                 this.updateProfileProgress();
             },
@@ -3321,11 +3379,11 @@
                 content.innerHTML = `
                     <h3>Active Sessions</h3>
                     <div class="settings-item">
-                        <div class="settings-item-left">
-                            <span class="settings-icon-box"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-device"/></svg></span>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <svg class="icon" viewBox="0 0 24 24"><use href="#icon-device"/></svg>
                             <div><div style="font-weight:600">Current Device</div><div style="font-size:10px;opacity:0.5">${navigator.userAgent.substring(0, 50)}...</div></div>
                         </div>
-                        <span style="color:var(--online);font-size:11px">Current</span>
+                        <span style="color:var(--online);font-size:11px;">Current</span>
                     </div>
                     <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
                 `;
