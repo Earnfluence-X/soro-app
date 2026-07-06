@@ -4,8 +4,8 @@ const path = require('path');
 
 console.log('🔧 Building SORO...');
 
-// Read the TEMPLATE file
-const templatePath = path.join(__dirname, 'index.template.html');
+// Read the TEMPLATE file from the template folder
+const templatePath = path.join(__dirname, 'template', 'index.html');
 let html = fs.readFileSync(templatePath, 'utf8');
 
 // Get config from environment
@@ -40,7 +40,7 @@ html = html.replace(/{{FIREBASE_STORAGE_BUCKET}}/g, config.storageBucket);
 html = html.replace(/{{FIREBASE_MESSAGING_SENDER_ID}}/g, config.messagingSenderId);
 html = html.replace(/{{FIREBASE_APP_ID}}/g, config.appId);
 
-// Write to index.html (the file that will be served)
+// Write to index.html in the root
 fs.writeFileSync(path.join(__dirname, 'index.html'), html);
 
 console.log('✅ Built index.html with config injected!');
