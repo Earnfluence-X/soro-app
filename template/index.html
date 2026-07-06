@@ -614,7 +614,7 @@
         }
 
         .stories-row {
-            padding: 4px 16px 6px;
+            padding: 8px 16px 12px;
             overflow-x: auto;
             white-space: nowrap;
             scroll-behavior: smooth;
@@ -628,22 +628,33 @@
             text-align: center;
             margin-right: 12px;
             cursor: pointer;
+            vertical-align: top;
         }
 
         .story-ring {
-            width: 56px;
-            height: 56px;
+            width: 62px;
+            height: 62px;
             border-radius: 50%;
             padding: 3px;
             border: 2px solid var(--accent);
             margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
 
-        .story-ring.viewed { border-color: var(--border); }
+        .story-ring.viewed { border-color: var(--border); opacity: 0.6; }
+        .story-ring.add {
+            border: 2px dashed var(--terracotta);
+            background: var(--incoming);
+        }
+
+        .story-ring:hover { transform: scale(1.05); }
 
         .story-avatar {
-            width: 100%;
-            height: 100%;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -658,9 +669,10 @@
             color: var(--text-in);
             opacity: 0.6;
             display: block;
-            max-width: 56px;
+            max-width: 62px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .profile-avatar-lg {
@@ -747,10 +759,57 @@
             font-size: 13px;
         }
 
+        .contact-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .contact-check:hover { background: var(--incoming); }
+        .contact-check input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .friend-request-item {
+            background: var(--request-bg);
+            border: 1px dashed var(--accent);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .friend-request-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .friend-request-actions button {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+
+        .btn-accept { background: var(--online); color: white; }
+        .btn-decline { background: var(--incoming); color: var(--text-in); }
+
         @media (min-width: 431px) {
             #app {
                 border-left: 1px solid var(--border);
-                border-right: 1px solid var(--border);
+                border-right: 1px var(--border);
             }
         }
 
@@ -776,6 +835,7 @@
                 <symbol id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
                 <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
                 <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+                <symbol id="icon-user-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></symbol>
                 <symbol id="icon-check-double" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 6 7 17 2 12"/><polyline points="22 6 11 17 6 12"/></symbol>
                 <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
             </defs>
@@ -800,6 +860,7 @@
                 <input type="password" id="login-password" class="input" placeholder="Password">
                 <button class="btn btn-primary btn-block" id="login-btn">Sign In</button>
                 <span class="auth-link" id="goto-signup">Create account</span>
+                <span class="auth-link" id="forgot-password" style="font-size:11px;">Forgot password?</span>
             </div>
         </div>
 
@@ -822,33 +883,25 @@
             <div class="header">
                 <div class="logo">SORO</div>
                 <div style="display:flex;gap:8px;align-items:center">
-                    <button class="btn-icon" id="add-chat-btn" title="New Chat">
-                        <svg class="icon" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
-                    </button>
                     <button class="btn-icon" id="create-story-btn" title="Add Story">
                         <svg class="icon" viewBox="0 0 24 24"><use href="#icon-story"/></svg>
                     </button>
                 </div>
             </div>
-            <div class="search-container" style="padding:0 16px 8px;">
-                <div class="search-bar">
-                    <svg class="icon" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
-                    <input type="text" id="search-input" placeholder="Search chats and friends...">
-                </div>
+            <div class="search-bar">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+                <input type="text" id="search-input" placeholder="Search chats...">
             </div>
             <div id="stories-row" class="stories-row">
                 <div class="story-item" id="add-story-item">
-                    <div class="story-ring" style="border-color:var(--accent)">
-                        <div class="story-avatar" style="background:var(--accent);color:white;"><svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-plus"/></svg></div>
+                    <div class="story-ring add">
+                        <div class="story-avatar" style="background:var(--accent);color:white;font-size:28px;">+</div>
                     </div>
-                    <span class="story-name">Add Story</span>
+                    <span class="story-name" style="font-weight:600;color:var(--accent);">Add Story</span>
                 </div>
             </div>
+            <div id="friend-requests-container" style="padding:0 12px;"></div>
             <div id="chat-list" class="chat-list"></div>
-            <button class="btn btn-primary btn-block" id="new-chat-btn" style="margin:8px 16px 12px;padding:12px;border-radius:var(--radius-lg);font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;">
-                <svg class="icon" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
-                New Chat
-            </button>
             <div class="bottom-nav">
                 <button class="nav-item active" data-screen="chats"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-chat"/></svg></button>
                 <button class="nav-item" data-screen="communities"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-community"/></svg></button>
@@ -923,12 +976,27 @@
         <div id="modal-new-chat" class="modal-overlay">
             <div class="modal">
                 <h3>New Chat</h3>
-                <p style="color:var(--text-in);opacity:0.6;font-size:13px;margin-bottom:12px;">Enter a username to start a chat</p>
-                <input type="text" id="new-chat-username" class="input" placeholder="Username" style="margin-bottom:12px;">
-                <div id="new-chat-user-info" style="display:none;padding:10px;background:var(--incoming);border-radius:var(--radius-sm);margin-bottom:12px;"></div>
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" id="new-chat-cancel">Cancel</button>
-                    <button class="btn btn-primary" id="start-chat-btn">Start Chat</button>
+                <div style="display:flex;gap:8px;margin-bottom:12px;">
+                    <button class="btn btn-primary" id="new-chat-find" style="flex:1;padding:8px;">Find User</button>
+                    <button class="btn btn-secondary" id="new-chat-group" style="flex:1;padding:8px;">New Group</button>
+                </div>
+                <div id="new-chat-content">
+                    <input type="text" id="new-chat-username" class="input" placeholder="Enter username..." style="margin-bottom:12px;">
+                    <div id="new-chat-user-info" style="display:none;padding:10px;background:var(--incoming);border-radius:var(--radius-sm);margin-bottom:12px;"></div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" id="new-chat-cancel">Cancel</button>
+                        <button class="btn btn-primary" id="start-chat-btn">Send Request</button>
+                    </div>
+                </div>
+                <div id="new-group-content" style="display:none;">
+                    <input type="text" id="group-name-input" class="input" placeholder="Group name">
+                    <input type="text" id="group-desc-input" class="input" placeholder="Description (optional)">
+                    <div style="font-size:13px;font-weight:600;color:var(--text-in);margin-bottom:8px;">Add Members</div>
+                    <div id="group-member-list" style="max-height:200px;overflow-y:auto;"></div>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" id="new-group-cancel">Cancel</button>
+                        <button class="btn btn-primary" id="create-group-btn">Create Group</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -987,7 +1055,8 @@
             signOut, 
             onAuthStateChanged,
             updatePassword,
-            deleteUser
+            deleteUser,
+            sendPasswordResetEmail
         } from 'firebase/auth';
         import { 
             getFirestore, 
@@ -1083,6 +1152,7 @@
             currentChatData: null,
             messagesListener: null,
             chatListListener: null,
+            friendRequestsListener: null,
             foundUser: null,
             avatarColors: [
                 'linear-gradient(135deg, #D47A3A, #C26A4A)',
@@ -1161,6 +1231,21 @@
                     document.getElementById('screen-signup').style.display = 'flex';
                 });
 
+                document.getElementById('goto-login').addEventListener('click', () => {
+                    document.getElementById('screen-signup').style.display = 'none';
+                    document.getElementById('screen-login').style.display = 'flex';
+                });
+
+                // Forgot password
+                document.getElementById('forgot-password').addEventListener('click', () => {
+                    const email = prompt('Enter your email address to reset password:');
+                    if (email) {
+                        sendPasswordResetEmail(auth, email)
+                            .then(() => U.showToast('Password reset email sent!'))
+                            .catch(err => U.showToast('Error: ' + err.message));
+                    }
+                });
+
                 // Signup
                 document.getElementById('signup-btn').addEventListener('click', async () => {
                     const email = document.getElementById('signup-email').value;
@@ -1212,11 +1297,6 @@
                     }
                 });
 
-                document.getElementById('goto-login').addEventListener('click', () => {
-                    document.getElementById('screen-signup').style.display = 'none';
-                    document.getElementById('screen-login').style.display = 'flex';
-                });
-
                 // Chat back
                 document.getElementById('chat-back-btn').addEventListener('click', () => {
                     this.showScreen('chats');
@@ -1242,32 +1322,53 @@
                     this.createStory();
                 });
 
-                // New Chat Button
+                // New Chat Modal
                 document.getElementById('add-chat-btn').addEventListener('click', () => {
                     this.openNewChatModal();
                 });
-                document.getElementById('new-chat-btn').addEventListener('click', () => {
-                    this.openNewChatModal();
+
+                // New Chat tabs
+                document.getElementById('new-chat-find').addEventListener('click', () => {
+                    document.getElementById('new-chat-find').className = 'btn btn-primary';
+                    document.getElementById('new-chat-group').className = 'btn btn-secondary';
+                    document.getElementById('new-chat-content').style.display = 'block';
+                    document.getElementById('new-group-content').style.display = 'none';
                 });
+
+                document.getElementById('new-chat-group').addEventListener('click', () => {
+                    document.getElementById('new-chat-group').className = 'btn btn-primary';
+                    document.getElementById('new-chat-find').className = 'btn btn-secondary';
+                    document.getElementById('new-chat-content').style.display = 'none';
+                    document.getElementById('new-group-content').style.display = 'block';
+                    this.loadGroupMembers();
+                });
+
                 document.getElementById('new-chat-cancel').addEventListener('click', () => {
                     document.getElementById('modal-new-chat').classList.remove('open');
                 });
 
-                // Start Chat from modal
+                document.getElementById('new-group-cancel').addEventListener('click', () => {
+                    document.getElementById('modal-new-chat').classList.remove('open');
+                });
+
                 document.getElementById('start-chat-btn').addEventListener('click', async () => {
                     if (!this.foundUser) {
                         U.showToast('Please enter a valid username');
                         return;
                     }
                     if (this.foundUser.uid === this.currentUser.uid) {
-                        U.showToast('You cannot chat with yourself');
+                        U.showToast('You cannot send a request to yourself');
                         return;
                     }
-                    await this.createDirectChat(this.foundUser.uid);
+                    await this.sendFriendRequest(this.foundUser.uid);
                     document.getElementById('modal-new-chat').classList.remove('open');
                     this.foundUser = null;
                     document.getElementById('new-chat-user-info').style.display = 'none';
                     document.getElementById('new-chat-username').value = '';
+                });
+
+                document.getElementById('create-group-btn').addEventListener('click', async () => {
+                    await this.createGroup();
                 });
 
                 // Search user in new chat modal
@@ -1368,7 +1469,6 @@
                     }
                 });
 
-                // Close new chat modal on overlay click
                 document.getElementById('modal-new-chat').addEventListener('click', (e) => {
                     if (e.target === e.currentTarget) {
                         e.currentTarget.classList.remove('open');
@@ -1417,6 +1517,7 @@
                     case 'chats':
                         this.loadChatList();
                         this.loadStories();
+                        this.loadFriendRequests();
                         break;
                     case 'communities':
                         this.loadCommunities();
@@ -1429,10 +1530,143 @@
 
             openNewChatModal() {
                 document.getElementById('modal-new-chat').classList.add('open');
+                document.getElementById('new-chat-content').style.display = 'block';
+                document.getElementById('new-group-content').style.display = 'none';
+                document.getElementById('new-chat-find').className = 'btn btn-primary';
+                document.getElementById('new-chat-group').className = 'btn btn-secondary';
                 document.getElementById('new-chat-username').focus();
             },
 
-            // Chat Functions
+            // ==================== FRIEND SYSTEM ====================
+            async sendFriendRequest(toUserId) {
+                const userId = this.currentUser.uid;
+
+                // Check if request already exists
+                const existingQuery = query(
+                    collection(db, 'friendRequests'),
+                    where('from', '==', userId),
+                    where('to', '==', toUserId)
+                );
+                const existing = await getDocs(existingQuery);
+                if (!existing.empty) {
+                    U.showToast('Request already sent');
+                    return;
+                }
+
+                // Check if already friends (chat exists)
+                const chatsQuery = query(
+                    collection(db, 'chats'),
+                    where('participants', 'array-contains', userId)
+                );
+                const chatsSnapshot = await getDocs(chatsQuery);
+                let isFriend = false;
+                chatsSnapshot.forEach(doc => {
+                    const chat = doc.data();
+                    if (chat.type === 'direct' && chat.participants.includes(toUserId)) {
+                        isFriend = true;
+                    }
+                });
+
+                if (isFriend) {
+                    U.showToast('You are already friends');
+                    return;
+                }
+
+                await addDoc(collection(db, 'friendRequests'), {
+                    from: userId,
+                    to: toUserId,
+                    status: 'pending',
+                    createdAt: serverTimestamp()
+                });
+
+                U.showToast('Friend request sent!');
+            },
+
+            loadFriendRequests() {
+                if (!this.currentUser) return;
+                if (this.friendRequestsListener) this.friendRequestsListener();
+
+                const requestsQuery = query(
+                    collection(db, 'friendRequests'),
+                    where('to', '==', this.currentUser.uid),
+                    where('status', '==', 'pending')
+                );
+
+                this.friendRequestsListener = onSnapshot(requestsQuery, (snapshot) => {
+                    const container = document.getElementById('friend-requests-container');
+                    if (!container) return;
+                    container.innerHTML = '';
+
+                    snapshot.forEach(async (requestDoc) => {
+                        const request = requestDoc.data();
+                        const fromUser = await getDoc(doc(db, 'users', request.from));
+                        if (!fromUser.exists()) return;
+
+                        const user = fromUser.data();
+                        const avatarStyle = this.getAvatarStyle(user.displayName);
+
+                        const div = document.createElement('div');
+                        div.className = 'friend-request-item';
+                        div.innerHTML = `
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                                <div>
+                                    <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
+                                    <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
+                                </div>
+                            </div>
+                            <div class="friend-request-actions">
+                                <button class="btn-accept" data-request="${requestDoc.id}" data-from="${request.from}">Accept</button>
+                                <button class="btn-decline" data-request="${requestDoc.id}">Decline</button>
+                            </div>
+                        `;
+
+                        container.appendChild(div);
+
+                        // Accept button
+                        div.querySelector('.btn-accept').addEventListener('click', async (e) => {
+                            const requestId = e.target.dataset.request;
+                            const fromId = e.target.dataset.from;
+                            await this.acceptFriendRequest(requestId, fromId);
+                        });
+
+                        // Decline button
+                        div.querySelector('.btn-decline').addEventListener('click', async (e) => {
+                            const requestId = e.target.dataset.request;
+                            await updateDoc(doc(db, 'friendRequests', requestId), { status: 'declined' });
+                            U.showToast('Request declined');
+                            this.loadFriendRequests();
+                        });
+                    });
+                });
+            },
+
+            async acceptFriendRequest(requestId, fromUserId) {
+                const userId = this.currentUser.uid;
+
+                // Update request status
+                await updateDoc(doc(db, 'friendRequests', requestId), { status: 'accepted' });
+
+                // Create chat
+                const chatRef = await addDoc(collection(db, 'chats'), {
+                    type: 'direct',
+                    participants: [userId, fromUserId],
+                    lastMessage: 'You are now friends! Say hello.',
+                    lastMessageTime: serverTimestamp(),
+                    lastMessageSenderId: userId,
+                    createdAt: serverTimestamp(),
+                    isArchived: {},
+                    isPinned: {},
+                    isMuted: {},
+                    wallpaper: {}
+                });
+
+                U.showToast('Friend request accepted!');
+                this.loadFriendRequests();
+                this.loadChatList();
+            },
+
+            // ==================== CHAT FUNCTIONS ====================
             loadChatList() {
                 if (!this.currentUser) return;
                 if (this.chatListListener) this.chatListListener();
@@ -1517,7 +1751,6 @@
             async createDirectChat(otherUserId) {
                 const userId = this.currentUser.uid;
 
-                // Check if chat already exists
                 const chatsQuery = query(
                     collection(db, 'chats'),
                     where('participants', 'array-contains', userId)
@@ -1538,7 +1771,6 @@
                     return;
                 }
 
-                // Create new chat
                 const chatRef = await addDoc(collection(db, 'chats'), {
                     type: 'direct',
                     participants: [userId, otherUserId],
@@ -1693,7 +1925,7 @@
                 }
             },
 
-            // Stories
+            // ==================== STORIES ====================
             createStory() {
                 const text = prompt('Write your story (text only):');
                 if (!text || !text.trim()) return;
@@ -1713,45 +1945,68 @@
             },
 
             loadStories() {
+                if (!this.currentUser) return;
+
                 const storiesRow = document.getElementById('stories-row');
                 if (!storiesRow) return;
 
-                const existingStories = storiesRow.querySelectorAll('.story-item:not(:first-child)');
-                existingStories.forEach(el => el.remove());
+                // Keep only the "Add Story" item
+                const addStoryItem = storiesRow.querySelector('#add-story-item');
+                storiesRow.innerHTML = '';
+                if (addStoryItem) storiesRow.appendChild(addStoryItem);
 
-                const storiesQuery = query(
-                    collection(db, 'stories'),
-                    where('expiresAt', '>', new Date()),
-                    orderBy('expiresAt', 'desc'),
-                    limit(15)
+                // Get friends list (users with direct chats)
+                const friendsQuery = query(
+                    collection(db, 'chats'),
+                    where('participants', 'array-contains', this.currentUser.uid),
+                    where('type', '==', 'direct')
                 );
 
-                getDocs(storiesQuery).then((snapshot) => {
-                    snapshot.forEach((storyDoc) => {
-                        const story = storyDoc.data();
-                        if (story.userId === this.currentUser.uid) return;
+                getDocs(friendsQuery).then((snapshot) => {
+                    const friendIds = [];
+                    snapshot.forEach(doc => {
+                        const chat = doc.data();
+                        const otherId = chat.participants.find(uid => uid !== this.currentUser.uid);
+                        if (otherId) friendIds.push(otherId);
+                    });
 
-                        getDoc(doc(db, 'users', story.userId)).then((userDoc) => {
-                            if (!userDoc.exists()) return;
+                    if (friendIds.length === 0) return;
 
-                            const user = userDoc.data();
-                            const isViewed = story.viewedBy && story.viewedBy.indexOf(this.currentUser.uid) !== -1;
-                            const avatarStyle = this.getAvatarStyle(user.displayName);
+                    const storiesQuery = query(
+                        collection(db, 'stories'),
+                        where('expiresAt', '>', new Date()),
+                        orderBy('expiresAt', 'desc'),
+                        limit(15)
+                    );
 
-                            const storyItem = document.createElement('div');
-                            storyItem.className = 'story-item';
-                            storyItem.innerHTML = `
-                                <div class="story-ring ${isViewed ? 'viewed' : ''}">
-                                    <div class="story-avatar" style="background:${avatarStyle};color:white;">${user.displayName.charAt(0)}</div>
-                                </div>
-                                <span class="story-name">${U.escapeHtml(user.displayName)}</span>
-                            `;
+                    getDocs(storiesQuery).then((storySnapshot) => {
+                        storySnapshot.forEach((storyDoc) => {
+                            const story = storyDoc.data();
+                            // Only show stories from friends
+                            if (!friendIds.includes(story.userId) && story.userId !== this.currentUser.uid) return;
 
-                            storyItem.addEventListener('click', () => {
-                                this.viewStory(storyDoc.id, story, user);
+                            getDoc(doc(db, 'users', story.userId)).then((userDoc) => {
+                                if (!userDoc.exists()) return;
+
+                                const user = userDoc.data();
+                                const isViewed = story.viewedBy && story.viewedBy.indexOf(this.currentUser.uid) !== -1;
+                                const avatarStyle = this.getAvatarStyle(user.displayName);
+
+                                const storyItem = document.createElement('div');
+                                storyItem.className = 'story-item';
+                                storyItem.innerHTML = `
+                                    <div class="story-ring ${isViewed ? 'viewed' : ''}">
+                                        <div class="story-avatar" style="background:${avatarStyle};color:white;">${user.displayName.charAt(0).toUpperCase()}</div>
+                                    </div>
+                                    <span class="story-name">${U.escapeHtml(user.displayName)}</span>
+                                `;
+
+                                storyItem.addEventListener('click', () => {
+                                    this.viewStory(storyDoc.id, story, user);
+                                });
+
+                                storiesRow.appendChild(storyItem);
                             });
-
-                            storiesRow.appendChild(storyItem);
                         });
                     });
                 });
@@ -1769,7 +2024,7 @@
 
                 content.innerHTML = `
                     <div style="text-align:center;padding:20px">
-                        <div class="avatar avatar-lg" style="background:${avatarStyle};margin:0 auto 8px;">${user.displayName.charAt(0)}</div>
+                        <div class="avatar avatar-lg" style="background:${avatarStyle};margin:0 auto 8px;">${user.displayName.charAt(0).toUpperCase()}</div>
                         <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
                         <div style="margin:20px 0;padding:30px;background:var(--incoming);border-radius:var(--radius-md);font-size:18px;color:var(--text-in);line-height:1.5;">${U.escapeHtml(story.textContent || '')}</div>
                         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px;color:var(--text-in);font-size:12px;">
@@ -1785,7 +2040,87 @@
                 modal.classList.add('open');
             },
 
-            // Communities
+            // ==================== GROUP CHAT ====================
+            async loadGroupMembers() {
+                const container = document.getElementById('group-member-list');
+                if (!container) return;
+
+                const usersQuery = query(
+                    collection(db, 'users'),
+                    where('uid', '!=', this.currentUser.uid)
+                );
+                const snapshot = await getDocs(usersQuery);
+
+                container.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const user = doc.data();
+                    const avatarStyle = this.getAvatarStyle(user.displayName);
+
+                    const div = document.createElement('div');
+                    div.className = 'contact-check';
+                    div.innerHTML = `
+                        <input type="checkbox" value="${doc.id}">
+                        <div class="avatar avatar-sm" style="background:${avatarStyle};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                        <span style="font-size:14px;color:var(--text-in);">${U.escapeHtml(user.displayName)}</span>
+                    `;
+                    container.appendChild(div);
+                });
+            },
+
+            async createGroup() {
+                const name = document.getElementById('group-name-input').value.trim();
+                if (!name) {
+                    U.showToast('Please enter a group name');
+                    return;
+                }
+
+                const checked = document.querySelectorAll('#group-member-list input:checked');
+                const memberIds = Array.from(checked).map(cb => cb.value);
+
+                if (memberIds.length === 0) {
+                    U.showToast('Please select at least one member');
+                    return;
+                }
+
+                const userId = this.currentUser.uid;
+                const participants = [userId, ...memberIds];
+
+                const groupRef = await addDoc(collection(db, 'chats'), {
+                    type: 'group',
+                    participants: participants,
+                    groupName: name,
+                    groupDescription: document.getElementById('group-desc-input').value.trim() || '',
+                    groupPhotoURL: null,
+                    groupPrivacy: 'public',
+                    slowMode: 0,
+                    ownerUid: userId,
+                    adminUids: [userId],
+                    lastMessage: 'Group created',
+                    lastMessageTime: serverTimestamp(),
+                    lastMessageSenderId: userId,
+                    createdAt: serverTimestamp(),
+                    communityId: null,
+                    isArchived: {},
+                    isPinned: {},
+                    isMuted: {},
+                    wallpaper: {}
+                });
+
+                await addDoc(collection(db, 'chats', groupRef.id, 'messages'), {
+                    senderId: userId,
+                    type: 'system',
+                    text: this.userData.displayName + ' created the group',
+                    timestamp: serverTimestamp(),
+                    readBy: [userId]
+                });
+
+                U.showToast('Group created!');
+                document.getElementById('modal-new-chat').classList.remove('open');
+                this.loadChatList();
+                this.openChat(groupRef.id);
+            },
+
+            // ==================== COMMUNITIES ====================
             async createCommunity() {
                 const name = prompt('Community name:');
                 if (!name || !name.trim()) return;
@@ -1844,7 +2179,7 @@
                 });
             },
 
-            // Settings
+            // ==================== SETTINGS ====================
             loadSettings() {
                 const user = this.userData;
                 if (!user) return;
