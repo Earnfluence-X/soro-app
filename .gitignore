@@ -1,0 +1,33 @@
+# Environment Variables (SECRETS!)
+.env
+.env.local
+.env.*.local
+
+# Node Modules
+node_modules/
+
+# Vercel
+.vercel/
+
+# Build Outputs
+dist/
+build/
+out/
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Firebase (if using local emulators)
+firebase-debug.log
+.firebase/
+
+# Generated files (if any)
+index.html  # <-- ONLY if you're generating it from a template

@@ -2,11 +2,10 @@
   "name": "soro-app",
   "version": "1.0.0",
   "description": "SORO - talk, simply.",
-  "main": "api/index.js",
   "scripts": {
-    "start": "node api/index.js"
+    "build": "node build.js"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   }
 }
