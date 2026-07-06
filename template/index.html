@@ -305,6 +305,11 @@
             gap: 2px;
         }
 
+        .msg-status { display: flex; align-items: center; gap: 2px; }
+        .msg-status.sent { color: rgba(255,255,255,0.4); }
+        .msg-status.delivered { color: rgba(255,255,255,0.6); }
+        .msg-status.read { color: var(--accent-glow); }
+
         .msg-context-menu {
             position: absolute;
             background: var(--bg);
@@ -340,6 +345,74 @@
             padding: 0 2px;
             border-radius: 3px;
         }
+
+        /* NEW: Pinned Messages Section */
+        .pinned-messages {
+            padding: 6px 16px;
+            background: var(--incoming);
+            border-bottom: 1px solid var(--border);
+            max-height: 100px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .pinned-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            margin-bottom: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text-in);
+        }
+
+        .pinned-item:hover { background: var(--border); }
+
+        /* NEW: Reply Preview */
+        .reply-preview {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--incoming);
+            margin: 0 12px 4px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            color: var(--text-in);
+            border-left: 3px solid var(--accent);
+        }
+
+        .reply-preview .reply-text {
+            flex: 1;
+            opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .reply-preview .reply-close {
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 50%;
+        }
+
+        .reply-preview .reply-close:hover { background: var(--border); }
+
+        /* NEW: Offline Banner */
+        .offline-banner {
+            padding: 6px 12px;
+            background: var(--rust);
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .offline-banner.show { display: block; }
 
         .chat-list {
             flex: 1;
@@ -763,13 +836,14 @@
             transition: width 0.5s;
         }
 
+        /* NEW: Typing Indicator in Chat Header */
         .typing-indicator {
             font-size: 11px;
-            color: var(--terracotta);
-            opacity: 0.7;
-            padding: 3px 14px;
+            color: var(--online);
+            padding: 0 14px;
             font-style: italic;
             animation: pulse 1.8s infinite;
+            display: none;
         }
 
         @keyframes pulse {
@@ -797,6 +871,35 @@
             font-family: var(--font);
         }
 
+        /* NEW: Reaction Picker */
+        .reaction-picker {
+            position: absolute;
+            background: var(--bg);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            display: none;
+            gap: 8px;
+            z-index: 70;
+            border: 1px solid var(--border);
+            animation: slideUp 0.2s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reaction-emoji {
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.15s;
+            user-select: none;
+        }
+
+        .reaction-emoji:hover { transform: scale(1.3); }
+        .reaction-emoji:active { transform: scale(1.1); }
+
         .reaction-bar {
             display: flex;
             gap: 4px;
@@ -819,6 +922,7 @@
 
         .reaction-pill:hover { background: var(--border); }
         .reaction-pill.mine { background: var(--mention-highlight); }
+        .reaction-count { font-size: 10px; font-weight: 600; }
 
         .friend-request-item {
             background: var(--request-bg);
@@ -921,6 +1025,8 @@
                 <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
                 <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
                 <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+                <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+                <symbol id="icon-wifi-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></symbol>
             </defs>
         </svg>
 
@@ -963,6 +1069,10 @@
 
         <!-- Chats Screen -->
         <div id="screen-chats" class="screen">
+            <!-- NEW: Offline Banner -->
+            <div class="offline-banner" id="offline-banner">
+                <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-wifi-off"/></svg> You're offline. Messages will sync when connected.
+            </div>
             <div class="header">
                 <div class="logo">SORO</div>
                 <div style="display:flex;gap:8px;align-items:center">
@@ -995,12 +1105,26 @@
         <div id="screen-chat" class="screen">
             <div class="header">
                 <button class="btn-back" id="chat-back-btn"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg></button>
-                <span id="chat-title" class="header-title">Chat</span>
+                <div style="flex:1;text-align:center;">
+                    <span id="chat-title" class="header-title">Chat</span>
+                    <!-- NEW: Typing indicator in header -->
+                    <div id="chat-typing-indicator" class="typing-indicator"></div>
+                </div>
                 <button id="group-settings-btn" class="btn-icon" style="display:none"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-settings"/></svg></button>
             </div>
+            <!-- NEW: Pinned Messages -->
+            <div id="pinned-messages" class="pinned-messages"></div>
+            <!-- NEW: Reply Preview -->
+            <div id="reply-preview" class="reply-preview" style="display:none;">
+                <div class="reply-text" id="reply-preview-text"></div>
+                <div class="reply-close" onclick="window.SoroApp.clearReply()">
+                    <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-x"/></svg>
+                </div>
+            </div>
             <div id="messages-area" class="messages-area"></div>
-            <div id="typing-indicator" class="typing-indicator" style="display:none">Someone is typing...</div>
             <div class="input-bar">
+                <!-- NEW: Schedule button -->
+                <button class="btn-icon" id="schedule-btn" title="Schedule Message"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-clock"/></svg></button>
                 <textarea id="chat-input" class="input textarea" rows="1" placeholder="Type a message... Use @ to mention"></textarea>
                 <button class="btn btn-primary" id="send-btn" style="border-radius:50%;padding:12px;height:44px;width:44px;"><svg class="icon" viewBox="0 0 24 24" style="color:white"><use href="#icon-send"/></svg></button>
             </div>
@@ -1043,6 +1167,8 @@
             <div class="settings-item" id="blocked-users-btn"><span>Blocked Users</span><span class="settings-value">0</span></div>
             <div class="settings-section">Appearance</div>
             <div class="settings-item" id="change-theme-btn"><span>Theme</span><span id="val-theme" class="settings-value">Light</span></div>
+            <!-- NEW: Wallpaper settings -->
+            <div class="settings-item" id="change-wallpaper-btn"><span>Chat Wallpaper</span><span id="val-wallpaper" class="settings-value">Default</span></div>
             <div class="settings-section">Data</div>
             <div class="settings-item" id="toggle-datasaver"><span>Data Saver</span><div id="data-saver-toggle" class="toggle"></div></div>
             <div class="settings-item" id="active-sessions-btn"><span>Active Sessions</span><span class="settings-value">1 device</span></div>
@@ -1091,7 +1217,8 @@
             <div class="msg-context-menu-item" data-action="copy"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-copy"/></svg> Copy</div>
             <div class="msg-context-menu-item" data-action="forward"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-forward"/></svg> Forward</div>
             <div class="msg-context-menu-item" data-action="edit"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-edit"/></svg> Edit</div>
-            <div class="msg-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin</div>
+            <!-- NEW: Pin message option -->
+            <div class="msg-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin Message</div>
             <div class="msg-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
         </div>
 
@@ -1101,7 +1228,19 @@
             <div class="chat-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin</div>
             <div class="chat-context-menu-item" data-action="unpin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Unpin</div>
             <div class="chat-context-menu-item" data-action="block"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-block"/></svg> Block</div>
+            <!-- NEW: Wallpaper option -->
+            <div class="chat-context-menu-item" data-action="wallpaper"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-edit"/></svg> Change Wallpaper</div>
             <div class="chat-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
+        </div>
+
+        <!-- NEW: Reaction Picker -->
+        <div class="reaction-picker" id="reaction-picker">
+            <span class="reaction-emoji" data-emoji="👍">👍</span>
+            <span class="reaction-emoji" data-emoji="❤️">❤️</span>
+            <span class="reaction-emoji" data-emoji="😂">😂</span>
+            <span class="reaction-emoji" data-emoji="😮">😮</span>
+            <span class="reaction-emoji" data-emoji="😢">😢</span>
+            <span class="reaction-emoji" data-emoji="🔥">🔥</span>
         </div>
 
         <!-- Modal -->
@@ -1142,12 +1281,12 @@
                        firebaseConfig.apiKey.startsWith('AIza');
 
         if (!isValid) {
-            document.getElementById('loading-status').textContent = 'Firebase config missing. Check Vercel env vars.';
+            document.getElementById('loading-status').textContent = '⚠️ Firebase config missing. Check Vercel env vars.';
             document.getElementById('loading-status').style.color = 'var(--rust)';
-            console.error('Firebase config not set!');
+            console.error('❌ Firebase config not set!');
         } else {
-            console.log('Firebase config loaded');
-            document.getElementById('loading-status').textContent = 'Config loaded!';
+            console.log('✅ Firebase config loaded');
+            document.getElementById('loading-status').textContent = '✅ Config loaded!';
         }
 
         import { initializeApp } from 'firebase/app';
@@ -1187,11 +1326,12 @@
             ref as rtdbRef, 
             set, 
             onDisconnect, 
-            serverTimestamp as rtdbTimestamp
+            serverTimestamp as rtdbTimestamp,
+            onValue
         } from 'firebase/database';
 
         if (!isValid) {
-            document.getElementById('loading-status').textContent = 'Waiting for config...';
+            document.getElementById('loading-status').textContent = '⚠️ Waiting for config...';
             throw new Error('Firebase config not set');
         }
 
@@ -1201,7 +1341,7 @@
         const rtdb = getDatabase(app);
 
         // ============================================================
-        // APP CODE
+        // ⚡ APP CODE
         // ============================================================
 
         const U = {
@@ -1249,6 +1389,9 @@
             },
             highlightMentions(text) {
                 return text.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
+            },
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
             }
         };
         window.U = U;
@@ -1263,12 +1406,15 @@
             messagesListener: null,
             chatListListener: null,
             friendRequestsListener: null,
+            typingListener: null,
             foundUser: null,
             searchQuery: '',
             selectedChatId: null,
             selectedMessageId: null,
+            replyToMessage: null,
             allChatsCache: [],
             communityData: null,
+            isOnline: navigator.onLine,
             avatarColors: [
                 'linear-gradient(135deg, #D47A3A, #C26A4A)',
                 'linear-gradient(135deg, #4A6FA5, #3B5A8A)',
@@ -1277,7 +1423,18 @@
                 'linear-gradient(135deg, #D4A373, #C49363)',
                 'linear-gradient(135deg, #5A7A8A, #4A6A7A)'
             ],
+            wallpapers: [
+                'default',
+                'linear-gradient(135deg, #FDF8F0, #EDE4D3)',
+                'linear-gradient(135deg, #E8F5E9, #C8E6C9)',
+                'linear-gradient(135deg, #E3F2FD, #BBDEFB)',
+                'linear-gradient(135deg, #FCE4EC, #F8BBD0)',
+                'linear-gradient(135deg, #FFF3E0, #FFE0B2)',
+                'linear-gradient(135deg, #EDE7F6, #D1C4E9)',
+                'linear-gradient(135deg, #EFEBE9, #D7CCC8)'
+            ],
 
+            // ==================== INIT ====================
             init() {
                 if (!isValid) return;
 
@@ -1285,6 +1442,7 @@
                     this.screens[screen.id] = screen;
                 });
 
+                // Navigation
                 document.querySelectorAll('.nav-item').forEach(item => {
                     item.addEventListener('click', () => {
                         const screen = item.dataset.screen;
@@ -1292,6 +1450,19 @@
                     });
                 });
 
+                // Online/Offline detection
+                window.addEventListener('online', () => {
+                    this.isOnline = true;
+                    this.hideOfflineBanner();
+                    this.syncOfflineMessages();
+                });
+                window.addEventListener('offline', () => {
+                    this.isOnline = false;
+                    this.showOfflineBanner();
+                });
+                if (!this.isOnline) this.showOfflineBanner();
+
+                // Auth state
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         this.currentUser = user;
@@ -1315,7 +1486,8 @@
                                 lastSeenPrivacy: 'contacts',
                                 dataSaverOn: false,
                                 hasSeenTutorial: false,
-                                blockedUsers: []
+                                blockedUsers: [],
+                                wallpaper: 'default'
                             };
                             await setDoc(doc(db, 'users', user.uid), this.userData);
                             this.showTutorial();
@@ -1332,6 +1504,7 @@
                     }
                 });
 
+                // Login
                 document.getElementById('login-btn').addEventListener('click', () => {
                     const email = document.getElementById('login-email').value;
                     const password = document.getElementById('login-password').value;
@@ -1350,6 +1523,7 @@
                     document.getElementById('screen-login').style.display = 'flex';
                 });
 
+                // Forgot password
                 document.getElementById('forgot-password').addEventListener('click', () => {
                     const email = prompt('Enter your email address to reset password:');
                     if (email) {
@@ -1359,6 +1533,7 @@
                     }
                 });
 
+                // Signup
                 document.getElementById('signup-btn').addEventListener('click', async () => {
                     const email = document.getElementById('signup-email').value;
                     const username = document.getElementById('signup-username').value;
@@ -1400,20 +1575,23 @@
                             lastSeenPrivacy: 'contacts',
                             dataSaverOn: false,
                             hasSeenTutorial: false,
-                            blockedUsers: []
+                            blockedUsers: [],
+                            wallpaper: 'default'
                         });
 
-                        U.showToast('Account created successfully!');
+                        U.showToast('Account created successfully! 🎉');
                     } catch (err) {
                         console.error('Signup error:', err);
                         U.showToast('Signup failed: ' + err.message);
                     }
                 });
 
+                // Chat back
                 document.getElementById('chat-back-btn').addEventListener('click', () => {
                     this.showScreen('chats');
                 });
 
+                // Send message
                 document.getElementById('send-btn').addEventListener('click', () => {
                     this.sendMessage();
                 });
@@ -1423,8 +1601,18 @@
                         e.preventDefault();
                         this.sendMessage();
                     }
+                    // NEW: Typing indicator
+                    this.setTyping(true);
+                    clearTimeout(this._typingTimeout);
+                    this._typingTimeout = setTimeout(() => this.setTyping(false), 2000);
                 });
 
+                // NEW: Schedule button
+                document.getElementById('schedule-btn').addEventListener('click', () => {
+                    this.scheduleMessage();
+                });
+
+                // Stories
                 document.getElementById('add-story-item').addEventListener('click', () => {
                     this.createStory();
                 });
@@ -1432,6 +1620,7 @@
                     this.createStory();
                 });
 
+                // New Chat Modal
                 document.getElementById('add-chat-btn').addEventListener('click', () => {
                     this.openNewChatModal();
                 });
@@ -1479,6 +1668,7 @@
                     await this.createGroup();
                 });
 
+                // Search user in new chat modal
                 document.getElementById('new-chat-username').addEventListener('input', async (e) => {
                     const username = e.target.value.trim();
                     const userInfoDiv = document.getElementById('new-chat-user-info');
@@ -1498,7 +1688,7 @@
                         
                         if (snapshot.empty) {
                             userInfoDiv.style.display = 'block';
-                            userInfoDiv.innerHTML = `<span style="color:var(--rust);">User not found</span>`;
+                            userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ User not found</span>`;
                             this.foundUser = null;
                             return;
                         }
@@ -1507,7 +1697,7 @@
                             const user = doc.data();
                             if (user.uid === this.currentUser.uid) {
                                 userInfoDiv.style.display = 'block';
-                                userInfoDiv.innerHTML = `<span style="color:var(--rust);">That's you!</span>`;
+                                userInfoDiv.innerHTML = `<span style="color:var(--rust);">❌ That's you!</span>`;
                                 this.foundUser = null;
                                 return;
                             }
@@ -1520,6 +1710,7 @@
                                     <div>
                                         <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
                                         <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
+                                        ${isBlocked ? '<span style="color:var(--rust);font-size:10px;">🚫 Blocked</span>' : (user.isOnline ? '<span style="color:var(--online);font-size:10px;">● Online</span>' : '')}
                                     </div>
                                 </div>
                             `;
@@ -1530,10 +1721,12 @@
                     }
                 });
 
+                // Communities
                 document.getElementById('create-community-btn').addEventListener('click', () => {
                     this.createCommunity();
                 });
 
+                // Settings
                 document.querySelectorAll('.settings-item[data-edit]').forEach(item => {
                     item.addEventListener('click', () => {
                         this.editProfile(item.dataset.edit);
@@ -1556,6 +1749,11 @@
                     this.changeTheme();
                 });
 
+                // NEW: Wallpaper settings
+                document.getElementById('change-wallpaper-btn').addEventListener('click', () => {
+                    this.changeWallpaper();
+                });
+
                 document.getElementById('toggle-datasaver').addEventListener('click', () => {
                     this.toggleDataSaver();
                 });
@@ -1576,7 +1774,9 @@
                     this.showActiveSessions();
                 });
 
+                // Context menus
                 this.setupContextMenus();
+                this.setupReactionPicker();
 
                 document.getElementById('modal-overlay').addEventListener('click', (e) => {
                     if (e.target === e.currentTarget) {
@@ -1600,6 +1800,7 @@
                 }, 500);
             },
 
+            // ==================== CONTEXT MENUS ====================
             setupContextMenus() {
                 const msgMenu = document.getElementById('msg-context-menu');
                 const chatMenu = document.getElementById('chat-context-menu');
@@ -1615,7 +1816,12 @@
                         const msgId = this.selectedMessageId;
                         const chatId = this.currentChatId;
                         if (!msgId || !chatId) return;
-                        this.handleMessageAction(action, chatId, msgId);
+                        // NEW: Handle pin action
+                        if (action === 'pin') {
+                            this.togglePinMessage(chatId, msgId);
+                        } else {
+                            this.handleMessageAction(action, chatId, msgId);
+                        }
                         msgMenu.classList.remove('show');
                     });
                 });
@@ -1625,17 +1831,48 @@
                         const action = item.dataset.action;
                         const chatId = this.selectedChatId;
                         if (!chatId) return;
-                        this.handleChatAction(action, chatId);
+                        // NEW: Handle wallpaper action
+                        if (action === 'wallpaper') {
+                            this.changeChatWallpaper(chatId);
+                        } else {
+                            this.handleChatAction(action, chatId);
+                        }
                         chatMenu.classList.remove('show');
                     });
+                });
+            },
+
+            // NEW: Setup reaction picker
+            setupReactionPicker() {
+                const picker = document.getElementById('reaction-picker');
+                picker.querySelectorAll('.reaction-emoji').forEach(emoji => {
+                    emoji.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const emojiChar = emoji.dataset.emoji;
+                        this.addReaction(this.selectedMessageId, emojiChar);
+                        picker.style.display = 'none';
+                    });
+                });
+                document.addEventListener('click', () => {
+                    picker.style.display = 'none';
                 });
             },
 
             hideAllContextMenus() {
                 document.getElementById('msg-context-menu').classList.remove('show');
                 document.getElementById('chat-context-menu').classList.remove('show');
+                document.getElementById('reaction-picker').style.display = 'none';
             },
 
+            // NEW: Offline banner
+            showOfflineBanner() {
+                document.getElementById('offline-banner').classList.add('show');
+            },
+            hideOfflineBanner() {
+                document.getElementById('offline-banner').classList.remove('show');
+            },
+
+            // ==================== SEARCH & FILTER ====================
             searchChats(query) {
                 this.searchQuery = query.toLowerCase().trim();
                 this.renderFilteredChats();
@@ -1663,6 +1900,7 @@
                 }
             },
 
+            // ==================== TUTORIAL ====================
             showTutorial() {
                 const overlay = document.createElement('div');
                 overlay.style.cssText = `
@@ -1672,9 +1910,7 @@
                     color: white; text-align: center; padding: 40px;
                 `;
                 overlay.innerHTML = `
-                    <div style="font-size: 56px; margin-bottom: 20px;">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><use href="#icon-chat"/></svg>
-                    </div>
+                    <div style="font-size: 56px; margin-bottom: 20px;">💬</div>
                     <h2 style="margin-bottom: 12px; font-size: 24px;">Welcome to SORO</h2>
                     <p style="opacity: 0.7; margin-bottom: 24px; line-height: 1.8; font-size: 15px;">Your chats live here.<br>Tap to talk. Use @ to mention friends.<br>Long press for more options.</p>
                     <button style="padding: 14px 48px; background: var(--accent); color: white; border: none; border-radius: 24px; font-size: 16px; font-weight: 600; cursor: pointer;">Get Started</button>
@@ -1690,6 +1926,7 @@
                 });
             },
 
+            // ==================== UTILITY ====================
             getAvatarStyle(name) {
                 let hash = 0;
                 for (let i = 0; i < name.length; i++) {
@@ -1740,6 +1977,7 @@
                 }
             },
 
+            // ==================== FRIEND SYSTEM ====================
             async sendFriendRequest(toUserId) {
                 const userId = this.currentUser.uid;
 
@@ -1841,6 +2079,7 @@
 
             async acceptFriendRequest(requestId, fromUserId) {
                 const userId = this.currentUser.uid;
+
                 await updateDoc(doc(db, 'friendRequests', requestId), { status: 'accepted' });
 
                 const chatRef = await addDoc(collection(db, 'chats'), {
@@ -1849,7 +2088,8 @@
                     lastMessage: 'You are now friends! Say hello.',
                     lastMessageTime: serverTimestamp(),
                     lastMessageSenderId: userId,
-                    createdAt: serverTimestamp()
+                    createdAt: serverTimestamp(),
+                    wallpaper: 'default'
                 });
 
                 U.showToast('Friend request accepted!');
@@ -1858,6 +2098,7 @@
                 this.openChat(chatRef.id);
             },
 
+            // ==================== CHAT LIST FUNCTIONS ====================
             loadChatList() {
                 if (!this.currentUser) return;
                 if (this.chatListListener) this.chatListListener();
@@ -1880,6 +2121,14 @@
                     });
 
                     await Promise.all(promises);
+                    // NEW: Cache chats locally
+                    if (this.isOnline) {
+                        try {
+                            localStorage.setItem('soro_chats_cache', JSON.stringify(
+                                this.allChatsCache.map(c => ({...c, lastMessageTime: c.lastMessageTime?.toMillis?.() || c.lastMessageTime}))
+                            ));
+                        } catch(e) {}
+                    }
                     this.renderFilteredChats();
                 });
             },
@@ -2065,7 +2314,8 @@
                     lastMessageTime: serverTimestamp(),
                     lastMessageSenderId: userId,
                     createdAt: serverTimestamp(),
-                    communityId: null
+                    communityId: null,
+                    wallpaper: 'default'
                 });
 
                 await addDoc(collection(db, 'chats', groupRef.id, 'messages'), {
@@ -2073,7 +2323,8 @@
                     type: 'system',
                     text: this.userData.displayName + ' created the group',
                     timestamp: serverTimestamp(),
-                    readBy: [userId]
+                    readBy: [userId],
+                    deliveredTo: []
                 });
 
                 U.showToast('Group created!');
@@ -2094,6 +2345,7 @@
                 menu.querySelector('[data-action="pin"]').style.display = 'block';
                 menu.querySelector('[data-action="unpin"]').style.display = 'none';
                 menu.querySelector('[data-action="block"]').style.display = 'block';
+                menu.querySelector('[data-action="wallpaper"]').style.display = 'block';
                 
                 getDoc(doc(db, 'chats', chatId)).then(chatDoc => {
                     if (chatDoc.exists()) {
@@ -2117,6 +2369,16 @@
                 menu.style.left = x + 'px';
                 menu.style.top = y + 'px';
                 menu.classList.add('show');
+            },
+
+            // NEW: Show reaction picker
+            showReactionPicker(e, msgId) {
+                this.selectedMessageId = msgId;
+                const picker = document.getElementById('reaction-picker');
+                const rect = e.target.getBoundingClientRect();
+                picker.style.left = Math.min(rect.left, window.innerWidth - 250) + 'px';
+                picker.style.top = (rect.top - 60) + 'px';
+                picker.style.display = 'flex';
             },
 
             handleChatAction(action, chatId) {
@@ -2156,9 +2418,7 @@
                     case 'reply':
                         getDoc(msgRef).then(msgDoc => {
                             if (msgDoc.exists()) {
-                                const msg = msgDoc.data();
-                                document.getElementById('chat-input').value = `@${this.currentUser.displayName} (replying to "${msg.text.substring(0,30)}..."): `;
-                                document.getElementById('chat-input').focus();
+                                this.setReply(msgId, msgDoc.data());
                             }
                         });
                         break;
@@ -2171,26 +2431,7 @@
                         });
                         break;
                     case 'forward':
-                        const targetChatId = prompt('Enter chat ID to forward to:');
-                        if (targetChatId) {
-                            getDoc(msgRef).then(msgDoc => {
-                                if (msgDoc.exists()) {
-                                    addDoc(collection(db, 'chats', targetChatId, 'messages'), {
-                                        senderId: this.currentUser.uid,
-                                        type: 'text',
-                                        text: 'Forwarded: ' + msgDoc.data().text,
-                                        timestamp: serverTimestamp(),
-                                        readBy: [this.currentUser.uid],
-                                        deliveredTo: [this.currentUser.uid],
-                                        isEdited: false,
-                                        isDeleted: false,
-                                        isPinned: false,
-                                        mentions: [],
-                                        reactions: {}
-                                    }).then(() => U.showToast('Message forwarded'));
-                                }
-                            });
-                        }
+                        this.forwardMessage(chatId, msgId);
                         break;
                     case 'edit':
                         getDoc(msgRef).then(msgDoc => {
@@ -2204,9 +2445,6 @@
                             }
                         });
                         break;
-                    case 'pin':
-                        updateDoc(msgRef, { isPinned: true }).then(() => U.showToast('Message pinned'));
-                        break;
                     case 'delete':
                         if (confirm('Delete this message?')) {
                             updateDoc(msgRef, { text: '[deleted]', isDeleted: true }).then(() => {
@@ -2215,6 +2453,118 @@
                         }
                         break;
                 }
+            },
+
+            // NEW: Set reply
+            setReply(msgId, msg) {
+                this.replyToMessage = { id: msgId, text: msg.text, senderId: msg.senderId };
+                document.getElementById('reply-preview-text').textContent = msg.text.substring(0, 80);
+                document.getElementById('reply-preview').style.display = 'flex';
+                document.getElementById('chat-input').focus();
+            },
+
+            // NEW: Clear reply
+            clearReply() {
+                this.replyToMessage = null;
+                document.getElementById('reply-preview').style.display = 'none';
+            },
+
+            // NEW: Forward message
+            async forwardMessage(chatId, msgId) {
+                const target = prompt('Enter chat ID to forward to:');
+                if (target) {
+                    const msgDoc = await getDoc(doc(db, 'chats', chatId, 'messages', msgId));
+                    if (msgDoc.exists()) {
+                        await addDoc(collection(db, 'chats', target, 'messages'), {
+                            senderId: this.currentUser.uid,
+                            type: 'text',
+                            text: '↪ Forwarded: ' + msgDoc.data().text,
+                            timestamp: serverTimestamp(),
+                            readBy: [this.currentUser.uid],
+                            deliveredTo: [this.currentUser.uid],
+                            isEdited: false,
+                            isDeleted: false,
+                            isPinned: false,
+                            mentions: [],
+                            reactions: {}
+                        });
+                        U.showToast('Message forwarded');
+                    }
+                }
+            },
+
+            // NEW: Toggle pin message
+            async togglePinMessage(chatId, msgId) {
+                const msgRef = doc(db, 'chats', chatId, 'messages', msgId);
+                const msgDoc = await getDoc(msgRef);
+                if (msgDoc.exists()) {
+                    const isPinned = msgDoc.data().isPinned || false;
+                    await updateDoc(msgRef, { isPinned: !isPinned });
+                    U.showToast(isPinned ? 'Message unpinned' : 'Message pinned');
+                    this.loadPinnedMessages(chatId);
+                }
+            },
+
+            // NEW: Load pinned messages
+            async loadPinnedMessages(chatId) {
+                const container = document.getElementById('pinned-messages');
+                if (!container) return;
+                
+                const pinnedQuery = query(
+                    collection(db, 'chats', chatId, 'messages'),
+                    where('isPinned', '==', true),
+                    orderBy('timestamp', 'desc'),
+                    limit(5)
+                );
+                
+                const snapshot = await getDocs(pinnedQuery);
+                
+                if (snapshot.empty) {
+                    container.style.display = 'none';
+                    return;
+                }
+                
+                container.style.display = 'block';
+                container.innerHTML = '';
+                
+                snapshot.forEach(msgDoc => {
+                    const msg = msgDoc.data();
+                    const item = document.createElement('div');
+                    item.className = 'pinned-item';
+                    item.innerHTML = `
+                        <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg>
+                        <span>${U.escapeHtml(msg.text?.substring(0, 50) || 'Message')}</span>
+                    `;
+                    item.addEventListener('click', () => {
+                        // Scroll to message logic would go here
+                        U.showToast('Scroll to message');
+                    });
+                    container.appendChild(item);
+                });
+            },
+
+            // NEW: Add reaction
+            async addReaction(messageId, emoji) {
+                if (!this.currentChatId || !messageId) return;
+                const msgRef = doc(db, 'chats', this.currentChatId, 'messages', messageId);
+                const msgDoc = await getDoc(msgRef);
+                if (!msgDoc.exists()) return;
+                
+                const reactions = msgDoc.data().reactions || {};
+                
+                if (reactions[emoji]) {
+                    const idx = reactions[emoji].indexOf(this.currentUser.uid);
+                    if (idx > -1) {
+                        reactions[emoji].splice(idx, 1);
+                        if (reactions[emoji].length === 0) delete reactions[emoji];
+                    } else {
+                        reactions[emoji].push(this.currentUser.uid);
+                    }
+                } else {
+                    reactions[emoji] = [this.currentUser.uid];
+                }
+                
+                await updateDoc(msgRef, { reactions });
             },
 
             async blockUser(uid) {
@@ -2279,6 +2629,7 @@
                 modal.classList.add('open');
             },
 
+            // ==================== CHAT FUNCTIONS ====================
             openChat(chatId) {
                 this.closeChat();
                 this.currentChatId = chatId;
@@ -2313,10 +2664,56 @@
                         document.getElementById('group-settings-btn').onclick = () => this.openGroupSettings();
                     }
 
+                    // NEW: Apply wallpaper
+                    this.applyWallpaper(this.currentChatData.wallpaper || 'default');
+                    
                     this.loadMessages(chatId);
+                    // NEW: Load pinned messages
+                    this.loadPinnedMessages(chatId);
+                    // NEW: Listen for typing
+                    this.listenTyping(chatId);
                     this.markMessagesAsRead(chatId);
                     this.showScreen('chat');
                 });
+            },
+
+            // NEW: Apply wallpaper to messages area
+            applyWallpaper(wallpaper) {
+                const messagesArea = document.getElementById('messages-area');
+                if (!messagesArea) return;
+                if (wallpaper === 'default') {
+                    messagesArea.style.background = '';
+                    messagesArea.style.backgroundSize = '';
+                } else {
+                    messagesArea.style.background = wallpaper;
+                    messagesArea.style.backgroundSize = 'cover';
+                }
+            },
+
+            // NEW: Change chat wallpaper
+            changeChatWallpaper(chatId) {
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+                
+                let html = '<h3>Choose Wallpaper</h3><div style="display:flex;flex-wrap:wrap;gap:8px;">';
+                this.wallpapers.forEach((wallpaper, index) => {
+                    const name = index === 0 ? 'Default' : 'Gradient ' + index;
+                    html += `<div style="width:60px;height:60px;border-radius:12px;cursor:pointer;background:${wallpaper === 'default' ? 'var(--bg)' : wallpaper};border:2px solid var(--border);" onclick="window.SoroApp.setChatWallpaper('${chatId}', '${wallpaper}')" title="${name}"></div>`;
+                });
+                html += '</div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>';
+                
+                content.innerHTML = html;
+                modal.classList.add('open');
+            },
+
+            // NEW: Set chat wallpaper
+            async setChatWallpaper(chatId, wallpaper) {
+                await updateDoc(doc(db, 'chats', chatId), { wallpaper: wallpaper });
+                document.getElementById('modal-overlay').classList.remove('open');
+                if (this.currentChatId === chatId) {
+                    this.applyWallpaper(wallpaper);
+                }
+                U.showToast('Wallpaper updated');
             },
 
             loadMessages(chatId) {
@@ -2356,14 +2753,53 @@
                     const time = U.formatTime(msg.timestamp);
                     const fullTime = U.formatFullTime(msg.timestamp);
                     
+                    // NEW: Read/delivered status
+                    let statusHtml = '';
+                    if (isMine) {
+                        const readBy = msg.readBy || [];
+                        const deliveredTo = msg.deliveredTo || [];
+                        if (readBy.length > 1) {
+                            statusHtml = '<span class="msg-status read"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg></span>';
+                        } else if (deliveredTo.length > 1) {
+                            statusHtml = '<span class="msg-status delivered"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg></span>';
+                        } else {
+                            statusHtml = '<span class="msg-status sent"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check"/></svg></span>';
+                        }
+                    }
+
+                    // NEW: Reaction pills
+                    let reactionsHtml = '';
+                    if (msg.reactions && Object.keys(msg.reactions).length > 0) {
+                        reactionsHtml = '<div class="reaction-bar">' +
+                            Object.entries(msg.reactions).map(([emoji, users]) => 
+                                `<span class="reaction-pill ${users.includes(this.currentUser.uid) ? 'mine' : ''}" onclick="event.stopPropagation();window.SoroApp.addReaction('${msg.id}', '${emoji}')">${emoji} <span class="reaction-count">${users.length}</span></span>`
+                            ).join('') +
+                        '</div>';
+                    }
+
+                    // NEW: Pinned badge
+                    const pinnedBadge = msg.isPinned ? ' <span style="font-size:9px;color:var(--accent);"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg></span>' : '';
+                    
                     msgDiv.innerHTML = `
-                        <div>${content}</div>
+                        <div>${pinnedBadge}${content}</div>
                         <div class="msg-meta" title="${fullTime}">
                             ${time}
-                            ${isMine ? '<svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg>' : ''}
+                            ${statusHtml}
                             ${msg.isEdited ? ' (edited)' : ''}
                         </div>
+                        ${reactionsHtml}
                     `;
+
+                    // NEW: Double-tap to react
+                    let lastTap = 0;
+                    msgDiv.addEventListener('click', (e) => {
+                        const now = Date.now();
+                        if (now - lastTap < 300) {
+                            e.preventDefault();
+                            this.showReactionPicker(e, msg.id);
+                        }
+                        lastTap = now;
+                    });
 
                     msgDiv.addEventListener('contextmenu', (e) => {
                         this.showMessageContextMenu(e, msg.id);
@@ -2382,6 +2818,7 @@
                 container.appendChild(msgDiv);
             },
 
+            // NEW: Send message with offline support
             sendMessage() {
                 const input = document.getElementById('chat-input');
                 const text = input.value.trim();
@@ -2398,8 +2835,19 @@
                     isDeleted: false,
                     isPinned: false,
                     mentions: U.extractMentions(text),
-                    reactions: {}
+                    reactions: {},
+                    replyTo: this.replyToMessage ? this.replyToMessage.id : null
                 };
+
+                // NEW: Offline handling
+                if (!this.isOnline) {
+                    this.saveOfflineMessage(messageData);
+                    input.value = '';
+                    input.style.height = 'auto';
+                    this.clearReply();
+                    this.setTyping(false);
+                    return;
+                }
 
                 addDoc(collection(db, 'chats', this.currentChatId, 'messages'), messageData)
                     .then(() => {
@@ -2412,15 +2860,112 @@
                     .then(() => {
                         input.value = '';
                         input.style.height = 'auto';
+                        this.clearReply();
                         this.setTyping(false);
                     })
                     .catch(() => U.showToast('Failed to send message'));
             },
 
+            // NEW: Save offline message
+            saveOfflineMessage(messageData) {
+                const offlineMessages = JSON.parse(localStorage.getItem('soro_offline_msgs') || '[]');
+                offlineMessages.push({
+                    ...messageData,
+                    chatId: this.currentChatId,
+                    timestamp: Date.now()
+                });
+                localStorage.setItem('soro_offline_msgs', JSON.stringify(offlineMessages));
+                U.showToast('Message saved offline');
+            },
+
+            // NEW: Sync offline messages
+            async syncOfflineMessages() {
+                const offlineMessages = JSON.parse(localStorage.getItem('soro_offline_msgs') || '[]');
+                if (offlineMessages.length === 0) return;
+                
+                for (const msg of offlineMessages) {
+                    try {
+                        await addDoc(collection(db, 'chats', msg.chatId, 'messages'), {
+                            ...msg,
+                            timestamp: serverTimestamp()
+                        });
+                        await updateDoc(doc(db, 'chats', msg.chatId), {
+                            lastMessage: msg.text,
+                            lastMessageTime: serverTimestamp(),
+                            lastMessageSenderId: this.currentUser.uid
+                        });
+                    } catch(e) {
+                        console.error('Failed to sync message:', e);
+                    }
+                }
+                
+                localStorage.removeItem('soro_offline_msgs');
+                U.showToast('Offline messages synced!');
+            },
+
+            // NEW: Schedule message
+            async scheduleMessage() {
+                const text = document.getElementById('chat-input').value.trim();
+                if (!text) {
+                    U.showToast('Type a message first');
+                    return;
+                }
+                
+                const delay = prompt('Schedule in how many minutes?', '5');
+                if (!delay || isNaN(delay)) return;
+                
+                const milliseconds = parseInt(delay) * 60000;
+                
+                // Show confirmation
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+                content.innerHTML = `
+                    <h3>Message Scheduled</h3>
+                    <p style="color:var(--text-in);text-align:center;">Will send in ${delay} minute(s).</p>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">OK</button>
+                    </div>
+                `;
+                modal.classList.add('open');
+                
+                // Schedule the message
+                setTimeout(() => {
+                    const input = document.getElementById('chat-input');
+                    input.value = text;
+                    this.sendMessage();
+                }, milliseconds);
+                
+                document.getElementById('chat-input').value = '';
+                U.showToast('Message scheduled in ' + delay + ' min');
+            },
+
+            // NEW: Typing indicator
             setTyping(isTyping) {
                 if (!this.currentChatId) return;
                 const typingRef = rtdbRef(rtdb, `presence/${this.currentUser.uid}/typingIn`);
                 set(typingRef, isTyping ? this.currentChatId : null);
+            },
+
+            // NEW: Listen for typing
+            listenTyping(chatId) {
+                if (this.typingListener) this.typingListener();
+                
+                const otherUid = this.currentChatData?.participants?.find(uid => uid !== this.currentUser.uid);
+                if (!otherUid) return;
+                
+                const typingRef = rtdbRef(rtdb, `presence/${otherUid}/typingIn`);
+                
+                this.typingListener = onValue(typingRef, (snapshot) => {
+                    const indicator = document.getElementById('chat-typing-indicator');
+                    if (!indicator) return;
+                    
+                    if (snapshot.val() === chatId) {
+                        indicator.textContent = 'typing...';
+                        indicator.style.display = 'block';
+                    } else {
+                        indicator.style.display = 'none';
+                    }
+                });
             },
 
             markMessagesAsRead(chatId) {
@@ -2453,14 +2998,22 @@
             closeChat() {
                 this.currentChatId = null;
                 this.currentChatData = null;
+                this.replyToMessage = null;
                 if (this.messagesListener) {
                     this.messagesListener();
                     this.messagesListener = null;
                 }
+                if (this.typingListener) {
+                    this.typingListener();
+                    this.typingListener = null;
+                }
                 this.setTyping(false);
                 this.hideAllContextMenus();
+                document.getElementById('reply-preview').style.display = 'none';
+                document.getElementById('chat-typing-indicator').style.display = 'none';
             },
 
+            // ==================== STORIES ====================
             createStory() {
                 const text = prompt('Write your story (text only):');
                 if (!text || !text.trim()) return;
@@ -2503,6 +3056,7 @@
                     });
 
                     friendIds.push(this.currentUser.uid);
+
                     if (friendIds.length === 0) return;
 
                     const storiesQuery = query(
@@ -2610,7 +3164,8 @@
                         lastMessage: `Replied to your story: ${text}`,
                         lastMessageTime: serverTimestamp(),
                         lastMessageSenderId: this.currentUser.uid,
-                        createdAt: serverTimestamp()
+                        createdAt: serverTimestamp(),
+                        wallpaper: 'default'
                     });
                     chatId = newChat.id;
                 }
@@ -2639,6 +3194,7 @@
                 U.showToast('Reply sent!');
             },
 
+            // ==================== COMMUNITIES ====================
             async createCommunity() {
                 const name = prompt('Community name:');
                 if (!name || !name.trim()) return;
@@ -2710,6 +3266,7 @@
                         </div>
                         <div style="font-weight:700;font-size:20px;color:var(--text-in);">${U.escapeHtml(community.name)}</div>
                         <div style="font-size:13px;color:var(--terracotta);opacity:0.7;">${U.escapeHtml(community.description || '')}</div>
+                        <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
                     </div>
                     <div class="settings-section">Actions</div>
                     <div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')">
@@ -2777,6 +3334,7 @@
                 this.loadCommunities();
             },
 
+            // ==================== GROUP SETTINGS ====================
             openGroupSettings() {
                 if (!this.currentChatData || this.currentChatData.type !== 'group') return;
 
@@ -2851,6 +3409,7 @@
                 U.showToast('You left the group');
             },
 
+            // ==================== SETTINGS ====================
             loadSettings() {
                 const user = this.userData;
                 if (!user) return;
@@ -2862,6 +3421,7 @@
                 document.getElementById('val-bio').textContent = user.bio || 'Add bio';
                 document.getElementById('val-email').textContent = user.email || '';
                 document.getElementById('val-theme').textContent = user.theme || 'Light';
+                document.getElementById('val-wallpaper').textContent = user.wallpaper || 'Default';
                 document.getElementById('val-lastSeen').textContent = user.lastSeenPrivacy || 'Contacts';
 
                 const readReceiptsToggle = document.getElementById('read-receipts-toggle');
@@ -2910,6 +3470,31 @@
                 const progressText = document.getElementById('profile-progress-text');
                 if (progressBar) progressBar.style.width = progress + '%';
                 if (progressText) progressText.textContent = 'Profile ' + progress + '% complete';
+            },
+
+            // NEW: Change wallpaper
+            changeWallpaper() {
+                const modal = document.getElementById('modal-overlay');
+                const content = document.getElementById('modal-content');
+                
+                let html = '<h3>Default Wallpaper</h3><div style="display:flex;flex-wrap:wrap;gap:8px;">';
+                this.wallpapers.forEach((wallpaper, index) => {
+                    const name = index === 0 ? 'Default' : 'Gradient ' + index;
+                    html += `<div style="width:60px;height:60px;border-radius:12px;cursor:pointer;background:${wallpaper === 'default' ? 'var(--bg)' : wallpaper};border:2px solid var(--border);" onclick="window.SoroApp.setDefaultWallpaper('${wallpaper}')" title="${name}"></div>`;
+                });
+                html += '</div><div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById(\'modal-overlay\').classList.remove(\'open\')">Close</button></div>';
+                
+                content.innerHTML = html;
+                modal.classList.add('open');
+            },
+
+            // NEW: Set default wallpaper
+            async setDefaultWallpaper(wallpaper) {
+                await updateDoc(doc(db, 'users', this.currentUser.uid), { wallpaper: wallpaper });
+                this.userData.wallpaper = wallpaper;
+                document.getElementById('val-wallpaper').textContent = wallpaper === 'default' ? 'Default' : 'Custom';
+                document.getElementById('modal-overlay').classList.remove('open');
+                U.showToast('Default wallpaper set');
             },
 
             editProfile(field) {
@@ -3031,6 +3616,8 @@
             }
         };
 
+        // Start the app
+        window.SoroApp = SoroApp;
         document.getElementById('loading-status').textContent = 'Starting app...';
         SoroApp.init();
     </script>
