@@ -462,9 +462,6 @@
             padding: 0 5px;
         }
 
-        .pinned-badge { font-size: 9px; color: var(--accent); font-weight: 600; margin-right: 3px; }
-        .archived-badge { font-size: 9px; color: var(--terracotta); font-weight: 600; margin-right: 3px; opacity: 0.6; }
-
         .request-badge {
             font-size: 9px;
             background: var(--request-bg);
@@ -800,43 +797,6 @@
             font-family: var(--font);
         }
 
-        .tabs {
-            display: flex;
-            padding: 0 16px 6px;
-            flex-shrink: 0;
-            gap: 4px;
-        }
-
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 8px 4px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-in);
-            opacity: 0.5;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            background: none;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            font-family: var(--font);
-            white-space: nowrap;
-        }
-
-        .tab.active { opacity: 1; color: var(--accent); border-bottom-color: var(--accent); }
-        .tab .count {
-            font-size: 10px;
-            background: var(--accent);
-            color: white;
-            padding: 1px 6px;
-            border-radius: 8px;
-            margin-left: 3px;
-            font-weight: 700;
-        }
-
         .reaction-bar {
             display: flex;
             gap: 4px;
@@ -956,19 +916,10 @@
                 <symbol id="icon-forward" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 17 20 12 15 7"/><path d="M4 18v-2a4 4 0 0 1 4-4h12"/></symbol>
                 <symbol id="icon-reply" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></symbol>
                 <symbol id="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
-                <symbol id="icon-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="2" ry="2"/><line x1="10" y1="12" x2="14" y2="12"/></symbol>
-                <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
-                <symbol id="icon-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
-                <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
                 <symbol id="icon-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
-                <symbol id="icon-unblock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="8" y1="8" x2="16" y2="16"/></symbol>
                 <symbol id="icon-device" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></symbol>
                 <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
                 <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
-                <symbol id="icon-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></symbol>
-                <symbol id="icon-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></symbol>
-                <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
-                <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
                 <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
             </defs>
         </svg>
@@ -1022,12 +973,6 @@
             <div class="search-bar">
                 <svg class="icon" viewBox="0 0 24 24"><use href="#icon-search"/></svg>
                 <input type="text" id="search-input" placeholder="Search chats..." oninput="window.SoroApp.searchChats(this.value)">
-            </div>
-            <div class="tabs">
-                <button class="tab active" data-tab="all" onclick="window.SoroApp.filterChats('all')">All</button>
-                <button class="tab" data-tab="unread" onclick="window.SoroApp.filterChats('unread')">Unread <span class="count" id="unread-count">0</span></button>
-                <button class="tab" data-tab="pinned" onclick="window.SoroApp.filterChats('pinned')">Pinned <span class="count" id="pinned-count">0</span></button>
-                <button class="tab" data-tab="archived" onclick="window.SoroApp.filterChats('archived')">Archived <span class="count" id="archived-count">0</span></button>
             </div>
             <div id="stories-row" class="stories-row">
                 <div class="story-item" id="add-story-item">
@@ -1155,8 +1100,6 @@
             <div class="chat-context-menu-item" data-action="open"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-chat"/></svg> Open</div>
             <div class="chat-context-menu-item" data-action="pin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Pin</div>
             <div class="chat-context-menu-item" data-action="unpin"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg> Unpin</div>
-            <div class="chat-context-menu-item" data-action="archive"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-archive"/></svg> Archive</div>
-            <div class="chat-context-menu-item" data-action="unarchive"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-archive"/></svg> Unarchive</div>
             <div class="chat-context-menu-item" data-action="block"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-block"/></svg> Block</div>
             <div class="chat-context-menu-item danger" data-action="delete"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-trash"/></svg> Delete</div>
         </div>
@@ -1237,16 +1180,14 @@
             arrayRemove, 
             increment, 
             writeBatch, 
-            getDocs, 
-            runTransaction 
+            getDocs
         } from 'firebase/firestore';
         import { 
             getDatabase, 
             ref as rtdbRef, 
             set, 
             onDisconnect, 
-            serverTimestamp as rtdbTimestamp, 
-            onValue 
+            serverTimestamp as rtdbTimestamp
         } from 'firebase/database';
 
         if (!isValid) {
@@ -1308,9 +1249,6 @@
             },
             highlightMentions(text) {
                 return text.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
-            },
-            generateId() {
-                return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
             }
         };
         window.U = U;
@@ -1326,7 +1264,6 @@
             chatListListener: null,
             friendRequestsListener: null,
             foundUser: null,
-            chatFilter: 'all',
             searchQuery: '',
             selectedChatId: null,
             selectedMessageId: null,
@@ -1341,7 +1278,6 @@
                 'linear-gradient(135deg, #5A7A8A, #4A6A7A)'
             ],
 
-            // ==================== INIT ====================
             init() {
                 if (!isValid) return;
 
@@ -1349,7 +1285,6 @@
                     this.screens[screen.id] = screen;
                 });
 
-                // Navigation
                 document.querySelectorAll('.nav-item').forEach(item => {
                     item.addEventListener('click', () => {
                         const screen = item.dataset.screen;
@@ -1357,7 +1292,6 @@
                     });
                 });
 
-                // Auth state
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         this.currentUser = user;
@@ -1398,7 +1332,6 @@
                     }
                 });
 
-                // Login
                 document.getElementById('login-btn').addEventListener('click', () => {
                     const email = document.getElementById('login-email').value;
                     const password = document.getElementById('login-password').value;
@@ -1417,7 +1350,6 @@
                     document.getElementById('screen-login').style.display = 'flex';
                 });
 
-                // Forgot password
                 document.getElementById('forgot-password').addEventListener('click', () => {
                     const email = prompt('Enter your email address to reset password:');
                     if (email) {
@@ -1427,7 +1359,6 @@
                     }
                 });
 
-                // Signup
                 document.getElementById('signup-btn').addEventListener('click', async () => {
                     const email = document.getElementById('signup-email').value;
                     const username = document.getElementById('signup-username').value;
@@ -1479,12 +1410,10 @@
                     }
                 });
 
-                // Chat back
                 document.getElementById('chat-back-btn').addEventListener('click', () => {
                     this.showScreen('chats');
                 });
 
-                // Send message
                 document.getElementById('send-btn').addEventListener('click', () => {
                     this.sendMessage();
                 });
@@ -1496,7 +1425,6 @@
                     }
                 });
 
-                // Stories
                 document.getElementById('add-story-item').addEventListener('click', () => {
                     this.createStory();
                 });
@@ -1504,7 +1432,6 @@
                     this.createStory();
                 });
 
-                // New Chat Modal
                 document.getElementById('add-chat-btn').addEventListener('click', () => {
                     this.openNewChatModal();
                 });
@@ -1552,7 +1479,6 @@
                     await this.createGroup();
                 });
 
-                // Search user in new chat modal
                 document.getElementById('new-chat-username').addEventListener('input', async (e) => {
                     const username = e.target.value.trim();
                     const userInfoDiv = document.getElementById('new-chat-user-info');
@@ -1594,7 +1520,6 @@
                                     <div>
                                         <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(user.displayName)}</div>
                                         <div style="font-size:11px;color:var(--terracotta)">@${U.escapeHtml(user.username)}</div>
-                                        ${isBlocked ? '<span style="color:var(--rust);font-size:10px;">Blocked</span>' : (user.isOnline ? '<span style="color:var(--online);font-size:10px;">Online</span>' : '')}
                                     </div>
                                 </div>
                             `;
@@ -1605,12 +1530,10 @@
                     }
                 });
 
-                // Communities
                 document.getElementById('create-community-btn').addEventListener('click', () => {
                     this.createCommunity();
                 });
 
-                // Settings
                 document.querySelectorAll('.settings-item[data-edit]').forEach(item => {
                     item.addEventListener('click', () => {
                         this.editProfile(item.dataset.edit);
@@ -1653,7 +1576,6 @@
                     this.showActiveSessions();
                 });
 
-                // Context menus
                 this.setupContextMenus();
 
                 document.getElementById('modal-overlay').addEventListener('click', (e) => {
@@ -1678,7 +1600,6 @@
                 }, 500);
             },
 
-            // ==================== CONTEXT MENUS ====================
             setupContextMenus() {
                 const msgMenu = document.getElementById('msg-context-menu');
                 const chatMenu = document.getElementById('chat-context-menu');
@@ -1715,18 +1636,6 @@
                 document.getElementById('chat-context-menu').classList.remove('show');
             },
 
-            // ==================== TABS & FILTERING (FIXED) ====================
-            filterChats(filter) {
-                this.chatFilter = filter;
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.classList.toggle('active', tab.dataset.tab === filter);
-                });
-                // Clear search when switching tabs
-                document.getElementById('search-input').value = '';
-                this.searchQuery = '';
-                this.renderFilteredChats();
-            },
-
             searchChats(query) {
                 this.searchQuery = query.toLowerCase().trim();
                 this.renderFilteredChats();
@@ -1737,85 +1646,23 @@
                 if (!chatList) return;
                 chatList.innerHTML = '';
 
-                let unreadCount = 0, pinnedCount = 0, archivedCount = 0;
-                let filteredChats = [];
+                let filteredChats = this.allChatsCache;
 
-                // First pass: count all
-                this.allChatsCache.forEach(chat => {
-                    const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                    const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                    const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
+                if (this.searchQuery) {
+                    filteredChats = this.allChatsCache.filter(chat => 
+                        chat.displayName.toLowerCase().includes(this.searchQuery)
+                    );
+                }
 
-                    if (hasUnread && !isArchived) unreadCount++;
-                    if (isPinned && !isArchived) pinnedCount++;
-                    if (isArchived) archivedCount++;
-                });
-
-                // Second pass: filter
-                this.allChatsCache.forEach(chat => {
-                    const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                    const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                    const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
-
-                    // Search filter (applies to all tabs)
-                    if (this.searchQuery && !chat.displayName.toLowerCase().includes(this.searchQuery)) {
-                        return; // skip if doesn't match search
-                    }
-
-                    // Tab filter
-                    if (this.chatFilter === 'archived') {
-                        // ONLY show archived chats
-                        if (!isArchived) return;
-                    } else if (this.chatFilter === 'unread') {
-                        // ONLY show unread and NOT archived
-                        if (!hasUnread || isArchived) return;
-                    } else if (this.chatFilter === 'pinned') {
-                        // ONLY show pinned and NOT archived
-                        if (!isPinned || isArchived) return;
-                    } else if (this.chatFilter === 'all') {
-                        // Show everything EXCEPT archived
-                        if (isArchived) return;
-                    }
-
-                    filteredChats.push(chat);
-                });
-
-                // Update counts in tabs
-                document.getElementById('unread-count').textContent = unreadCount;
-                document.getElementById('pinned-count').textContent = pinnedCount;
-                document.getElementById('archived-count').textContent = archivedCount;
-
-                // Render
                 filteredChats.forEach(chat => {
                     this.renderChatItem(chatList, chat);
                 });
 
                 if (filteredChats.length === 0) {
-                    let emptyMsg = 'No chats found';
-                    if (this.chatFilter === 'archived') emptyMsg = 'No archived chats';
-                    if (this.chatFilter === 'unread') emptyMsg = 'No unread chats';
-                    if (this.chatFilter === 'pinned') emptyMsg = 'No pinned chats';
-                    if (this.searchQuery) emptyMsg = 'No chats matching "' + this.searchQuery + '"';
-                    chatList.innerHTML = `<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:40px;font-size:13px;">${emptyMsg}</p>`;
+                    chatList.innerHTML = `<p style="text-align:center;color:var(--terracotta);opacity:0.5;padding:40px;font-size:13px;">No chats found</p>`;
                 }
             },
 
-            updateTabCounts() {
-                let unread = 0, pinned = 0, archived = 0;
-                this.allChatsCache.forEach(chat => {
-                    const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                    const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                    const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
-                    if (hasUnread && !isArchived) unread++;
-                    if (isPinned && !isArchived) pinned++;
-                    if (isArchived) archived++;
-                });
-                document.getElementById('unread-count').textContent = unread;
-                document.getElementById('pinned-count').textContent = pinned;
-                document.getElementById('archived-count').textContent = archived;
-            },
-
-            // ==================== TUTORIAL ====================
             showTutorial() {
                 const overlay = document.createElement('div');
                 overlay.style.cssText = `
@@ -1843,7 +1690,6 @@
                 });
             },
 
-            // ==================== UTILITY ====================
             getAvatarStyle(name) {
                 let hash = 0;
                 for (let i = 0; i < name.length; i++) {
@@ -1879,13 +1725,8 @@
             onScreenChange(screenName) {
                 switch(screenName) {
                     case 'chats':
-                        // Reset to All tab when navigating to chats
-                        this.chatFilter = 'all';
                         this.searchQuery = '';
                         document.getElementById('search-input').value = '';
-                        document.querySelectorAll('.tab').forEach(tab => {
-                            tab.classList.toggle('active', tab.dataset.tab === 'all');
-                        });
                         this.loadChatList();
                         this.loadStories();
                         this.loadFriendRequests();
@@ -1899,7 +1740,6 @@
                 }
             },
 
-            // ==================== FRIEND SYSTEM ====================
             async sendFriendRequest(toUserId) {
                 const userId = this.currentUser.uid;
 
@@ -2001,7 +1841,6 @@
 
             async acceptFriendRequest(requestId, fromUserId) {
                 const userId = this.currentUser.uid;
-
                 await updateDoc(doc(db, 'friendRequests', requestId), { status: 'accepted' });
 
                 const chatRef = await addDoc(collection(db, 'chats'), {
@@ -2010,11 +1849,7 @@
                     lastMessage: 'You are now friends! Say hello.',
                     lastMessageTime: serverTimestamp(),
                     lastMessageSenderId: userId,
-                    createdAt: serverTimestamp(),
-                    isArchived: {},
-                    isPinned: {},
-                    isMuted: {},
-                    wallpaper: {}
+                    createdAt: serverTimestamp()
                 });
 
                 U.showToast('Friend request accepted!');
@@ -2023,7 +1858,6 @@
                 this.openChat(chatRef.id);
             },
 
-            // ==================== CHAT LIST FUNCTIONS ====================
             loadChatList() {
                 if (!this.currentUser) return;
                 if (this.chatListListener) this.chatListListener();
@@ -2047,7 +1881,6 @@
 
                     await Promise.all(promises);
                     this.renderFilteredChats();
-                    this.updateTabCounts();
                 });
             },
 
@@ -2093,8 +1926,6 @@
             renderChatItem(chatList, chat) {
                 const time = U.formatTime(chat.lastMessageTime);
                 const preview = chat.lastMessage || 'No messages yet';
-                const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
                 const hasUnread = chat.lastMessageSenderId !== this.currentUser.uid;
 
                 const chatItem = document.createElement('div');
@@ -2105,8 +1936,6 @@
                     </div>
                     <div class="chat-info">
                         <div class="chat-name">
-                            ${isPinned ? '<span class="pinned-badge"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-pin"/></svg></span>' : ''}
-                            ${isArchived ? '<span class="archived-badge"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-archive"/></svg></span>' : ''}
                             ${chat.isBlocked ? '<svg class="icon-sm" viewBox="0 0 24 24" style="color:var(--rust)"><use href="#icon-block"/></svg> ' : ''}
                             ${U.escapeHtml(chat.displayName)}
                         </div>
@@ -2114,7 +1943,7 @@
                     </div>
                     <div class="chat-meta">
                         <div class="chat-time">${time}</div>
-                        ${hasUnread && !isArchived ? '<span class="unread-badge">1</span>' : ''}
+                        ${hasUnread ? '<span class="unread-badge">1</span>' : ''}
                     </div>
                 `;
 
@@ -2123,18 +1952,7 @@
                         U.showToast('This user is blocked');
                         return;
                     }
-                    // If archived, unarchive first then open
-                    if (isArchived) {
-                        const updateUnarchive = {};
-                        updateUnarchive[`isArchived.${this.currentUser.uid}`] = false;
-                        updateDoc(doc(db, 'chats', chat.id), updateUnarchive).then(() => {
-                            U.showToast('Chat unarchived');
-                            this.loadChatList();
-                            setTimeout(() => this.openChat(chat.id), 300);
-                        });
-                    } else {
-                        this.openChat(chat.id);
-                    }
+                    this.openChat(chat.id);
                 });
 
                 chatItem.addEventListener('contextmenu', (e) => {
@@ -2213,7 +2031,6 @@
                 const userId = this.currentUser.uid;
                 const participants = [userId, ...memberIds];
 
-                // Check for duplicates
                 const existingGroups = await getDocs(query(
                     collection(db, 'chats'),
                     where('type', '==', 'group'),
@@ -2248,11 +2065,7 @@
                     lastMessageTime: serverTimestamp(),
                     lastMessageSenderId: userId,
                     createdAt: serverTimestamp(),
-                    communityId: null,
-                    isArchived: {},
-                    isPinned: {},
-                    isMuted: {},
-                    wallpaper: {}
+                    communityId: null
                 });
 
                 await addDoc(collection(db, 'chats', groupRef.id, 'messages'), {
@@ -2280,23 +2093,11 @@
                 
                 menu.querySelector('[data-action="pin"]').style.display = 'block';
                 menu.querySelector('[data-action="unpin"]').style.display = 'none';
-                menu.querySelector('[data-action="archive"]').style.display = 'block';
-                menu.querySelector('[data-action="unarchive"]').style.display = 'none';
                 menu.querySelector('[data-action="block"]').style.display = 'block';
                 
                 getDoc(doc(db, 'chats', chatId)).then(chatDoc => {
                     if (chatDoc.exists()) {
                         const chat = chatDoc.data();
-                        const isPinned = chat.isPinned && chat.isPinned[this.currentUser.uid];
-                        const isArchived = chat.isArchived && chat.isArchived[this.currentUser.uid];
-                        if (isPinned) {
-                            menu.querySelector('[data-action="pin"]').style.display = 'none';
-                            menu.querySelector('[data-action="unpin"]').style.display = 'block';
-                        }
-                        if (isArchived) {
-                            menu.querySelector('[data-action="archive"]').style.display = 'none';
-                            menu.querySelector('[data-action="unarchive"]').style.display = 'block';
-                        }
                         if (chat.type === 'group') {
                             menu.querySelector('[data-action="block"]').style.display = 'none';
                         }
@@ -2325,36 +2126,10 @@
                         this.openChat(chatId);
                         break;
                     case 'pin':
-                        const updatePin = {};
-                        updatePin[`isPinned.${this.currentUser.uid}`] = true;
-                        updateDoc(chatRef, updatePin).then(() => {
-                            U.showToast('Chat pinned');
-                            this.loadChatList();
-                        });
+                        U.showToast('Chat pinned');
                         break;
                     case 'unpin':
-                        const updateUnpin = {};
-                        updateUnpin[`isPinned.${this.currentUser.uid}`] = false;
-                        updateDoc(chatRef, updateUnpin).then(() => {
-                            U.showToast('Chat unpinned');
-                            this.loadChatList();
-                        });
-                        break;
-                    case 'archive':
-                        const updateArchive = {};
-                        updateArchive[`isArchived.${this.currentUser.uid}`] = true;
-                        updateDoc(chatRef, updateArchive).then(() => {
-                            U.showToast('Chat archived');
-                            this.loadChatList();
-                        });
-                        break;
-                    case 'unarchive':
-                        const updateUnarchive = {};
-                        updateUnarchive[`isArchived.${this.currentUser.uid}`] = false;
-                        updateDoc(chatRef, updateUnarchive).then(() => {
-                            U.showToast('Chat unarchived');
-                            this.loadChatList();
-                        });
+                        U.showToast('Chat unpinned');
                         break;
                     case 'block':
                         getDoc(chatRef).then(chatDoc => {
@@ -2504,7 +2279,6 @@
                 modal.classList.add('open');
             },
 
-            // ==================== CHAT OPEN FUNCTIONS ====================
             openChat(chatId) {
                 this.closeChat();
                 this.currentChatId = chatId;
@@ -2588,11 +2362,6 @@
                             ${time}
                             ${isMine ? '<svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-check-double"/></svg>' : ''}
                             ${msg.isEdited ? ' (edited)' : ''}
-                        </div>
-                        <div class="reaction-bar" id="reactions-${msg.id}">
-                            ${msg.reactions ? Object.entries(msg.reactions).map(([emoji, users]) => 
-                                `<span class="reaction-pill ${users.includes(this.currentUser.uid) ? 'mine' : ''}" onclick="window.SoroApp.addReaction('${msg.id}', '${emoji}')">${emoji} ${users.length}</span>`
-                            ).join('') : ''}
                         </div>
                     `;
 
@@ -2692,26 +2461,6 @@
                 this.hideAllContextMenus();
             },
 
-            async addReaction(messageId, emoji) {
-                const msgRef = doc(db, 'chats', this.currentChatId, 'messages', messageId);
-                const msgDoc = await getDoc(msgRef);
-                if (!msgDoc.exists()) return;
-                const reactions = msgDoc.data().reactions || {};
-                if (reactions[emoji]) {
-                    const idx = reactions[emoji].indexOf(this.currentUser.uid);
-                    if (idx > -1) {
-                        reactions[emoji].splice(idx, 1);
-                        if (reactions[emoji].length === 0) delete reactions[emoji];
-                    } else {
-                        reactions[emoji].push(this.currentUser.uid);
-                    }
-                } else {
-                    reactions[emoji] = [this.currentUser.uid];
-                }
-                await updateDoc(msgRef, { reactions });
-            },
-
-            // ==================== STORIES ====================
             createStory() {
                 const text = prompt('Write your story (text only):');
                 if (!text || !text.trim()) return;
@@ -2754,7 +2503,6 @@
                     });
 
                     friendIds.push(this.currentUser.uid);
-
                     if (friendIds.length === 0) return;
 
                     const storiesQuery = query(
@@ -2825,7 +2573,6 @@
                     </div>
                 `;
 
-                // Add event listener for the reply button
                 document.getElementById('story-reply-btn').addEventListener('click', () => {
                     this.replyToStory(story.userId);
                 });
@@ -2863,11 +2610,7 @@
                         lastMessage: `Replied to your story: ${text}`,
                         lastMessageTime: serverTimestamp(),
                         lastMessageSenderId: this.currentUser.uid,
-                        createdAt: serverTimestamp(),
-                        isArchived: {},
-                        isPinned: {},
-                        isMuted: {},
-                        wallpaper: {}
+                        createdAt: serverTimestamp()
                     });
                     chatId = newChat.id;
                 }
@@ -2896,7 +2639,6 @@
                 U.showToast('Reply sent!');
             },
 
-            // ==================== COMMUNITIES ====================
             async createCommunity() {
                 const name = prompt('Community name:');
                 if (!name || !name.trim()) return;
@@ -2968,20 +2710,13 @@
                         </div>
                         <div style="font-weight:700;font-size:20px;color:var(--text-in);">${U.escapeHtml(community.name)}</div>
                         <div style="font-size:13px;color:var(--terracotta);opacity:0.7;">${U.escapeHtml(community.description || '')}</div>
-                        <div style="font-size:11px;color:var(--terracotta);margin-top:4px;">${community.channelIds?.length || 0} channels · ${community.memberUids?.length || 0} members</div>
                     </div>
                     <div class="settings-section">Actions</div>
                     <div class="settings-item" onclick="window.SoroApp.addChannelToCommunity('${communityId}')">
-                        <span>
-                            <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg>
-                            Add Channel
-                        </span>
+                        <span><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg> Add Channel</span>
                     </div>
                     <div class="settings-item danger-text" onclick="window.SoroApp.leaveCommunity('${communityId}')">
-                        <span>
-                            <svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-x"/></svg>
-                            Leave Community
-                        </span>
+                        <span><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-x"/></svg> Leave Community</span>
                     </div>
                     <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
                 `;
@@ -2990,7 +2725,6 @@
             },
 
             async addChannelToCommunity(communityId) {
-                // Get all groups where user is admin
                 const groupsQuery = query(
                     collection(db, 'chats'),
                     where('type', '==', 'group'),
@@ -3043,13 +2777,11 @@
                 this.loadCommunities();
             },
 
-            // ==================== GROUP SETTINGS ====================
             openGroupSettings() {
                 if (!this.currentChatData || this.currentChatData.type !== 'group') return;
 
                 const chat = this.currentChatData;
                 const isAdmin = chat.adminUids && chat.adminUids.includes(this.currentUser.uid);
-                const isOwner = chat.ownerUid === this.currentUser.uid;
 
                 const modal = document.getElementById('modal-overlay');
                 const content = document.getElementById('modal-content');
@@ -3059,26 +2791,18 @@
                     <div style="text-align:center;margin-bottom:16px;">
                         <div class="avatar avatar-lg" style="background:linear-gradient(135deg,#5A7A8A,#4A6A7A);margin:0 auto 8px;font-size:28px;">${(chat.groupName || 'G').charAt(0).toUpperCase()}</div>
                         <div style="font-weight:600;color:var(--text-in)">${U.escapeHtml(chat.groupName || 'Group')}</div>
-                        <div style="font-size:12px;color:var(--terracotta)">${chat.participants ? chat.participants.length : 0} members</div>
                     </div>
-                    <div class="settings-section">Group Info</div>
-                    <div class="settings-item" onclick="window.SoroApp.editGroupName()"><span>Group Name</span><span class="settings-value">${U.escapeHtml(chat.groupName || '')}</span></div>
-                    <div class="settings-item" onclick="window.SoroApp.editGroupDescription()"><span>Description</span><span class="settings-value">${U.escapeHtml(chat.groupDescription || '')}</span></div>
                 `;
 
                 if (isAdmin) {
                     html += `
                         <div class="settings-section">Settings</div>
-                        <div class="settings-item" onclick="window.SoroApp.toggleSlowMode()"><span>Slow Mode</span><span class="settings-value">${chat.slowMode ? chat.slowMode + 's' : 'Off'}</span></div>
-                        <div class="settings-item" onclick="window.SoroApp.toggleMute()"><span>Mute Group</span><div class="toggle ${chat.isMuted && chat.isMuted[this.currentUser.uid] ? 'on' : ''}"></div></div>
-                        <div class="settings-item" onclick="window.SoroApp.sendBroadcast()"><span>Send Broadcast</span></div>
                         <div class="settings-item" onclick="window.SoroApp.manageMembers()"><span>Manage Members</span></div>
                     `;
                 }
 
                 html += `
                     <div class="settings-section">Actions</div>
-                    <div class="settings-item" onclick="window.SoroApp.archiveGroup()"><span>Archive Group</span></div>
                     <div class="settings-item danger-text" onclick="window.SoroApp.exitGroup()"><span>Exit Group</span></div>
                     <div class="modal-actions"><button class="btn btn-secondary" onclick="document.getElementById('modal-overlay').classList.remove('open')">Close</button></div>
                 `;
@@ -3087,181 +2811,31 @@
                 modal.classList.add('open');
             },
 
-            async editGroupName() {
-                const chat = this.currentChatData;
-                const newName = prompt('Enter new group name:', chat.groupName);
-                if (newName && newName.trim()) {
-                    await updateDoc(doc(db, 'chats', chat.id), { groupName: newName.trim() });
-                    chat.groupName = newName.trim();
-                    document.getElementById('chat-title').textContent = newName.trim();
-                    U.showToast('Group name updated');
-                    this.openGroupSettings();
-                }
-            },
-
-            async editGroupDescription() {
-                const chat = this.currentChatData;
-                const newDesc = prompt('Enter new description:', chat.groupDescription);
-                if (newDesc !== null) {
-                    await updateDoc(doc(db, 'chats', chat.id), { groupDescription: newDesc.trim() });
-                    chat.groupDescription = newDesc.trim();
-                    U.showToast('Description updated');
-                    this.openGroupSettings();
-                }
-            },
-
-            async toggleSlowMode() {
-                const chat = this.currentChatData;
-                const options = [0, 10, 30, 60, 300];
-                const currentIndex = options.indexOf(chat.slowMode || 0);
-                const nextValue = options[(currentIndex + 1) % options.length];
-                await updateDoc(doc(db, 'chats', chat.id), { slowMode: nextValue });
-                chat.slowMode = nextValue;
-                U.showToast(`Slow mode: ${nextValue === 0 ? 'Off' : nextValue + 's'}`);
-                this.openGroupSettings();
-            },
-
-            async toggleMute() {
-                const chat = this.currentChatData;
-                const isMuted = chat.isMuted && chat.isMuted[this.currentUser.uid] ? true : false;
-                const updateData = {};
-                updateData[`isMuted.${this.currentUser.uid}`] = !isMuted;
-                await updateDoc(doc(db, 'chats', chat.id), updateData);
-                if (!chat.isMuted) chat.isMuted = {};
-                chat.isMuted[this.currentUser.uid] = !isMuted;
-                U.showToast(isMuted ? 'Group unmuted' : 'Group muted');
-                this.openGroupSettings();
-            },
-
-            async sendBroadcast() {
-                const message = prompt('Enter broadcast message:');
-                if (message && message.trim()) {
-                    await addDoc(collection(db, 'chats', this.currentChatId, 'messages'), {
-                        senderId: this.currentUser.uid,
-                        type: 'system',
-                        text: message.trim(),
-                        isBroadcast: true,
-                        timestamp: serverTimestamp(),
-                        readBy: [this.currentUser.uid]
-                    });
-                    U.showToast('Broadcast sent');
-                    document.getElementById('modal-overlay').classList.remove('open');
-                }
-            },
-
             async manageMembers() {
                 const chat = this.currentChatData;
                 let membersHTML = '';
-                const promises = [];
 
-                chat.participants.forEach(uid => {
-                    promises.push(
-                        getDoc(doc(db, 'users', uid)).then((userDoc) => {
-                            if (userDoc.exists()) {
-                                const user = userDoc.data();
-                                const role = uid === chat.ownerUid ? 'Owner' :
-                                    (chat.adminUids && chat.adminUids.indexOf(uid) !== -1 ? 'Admin' : 'Member');
-                                membersHTML += `
-                                    <div class="settings-item">
-                                        <div style="display:flex;align-items:center;gap:10px;">
-                                            <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                                            <div><div>${U.escapeHtml(user.displayName)}</div><div style="font-size:10px;color:var(--admin-badge)">${role}</div></div>
-                                        </div>
-                                        ${uid !== this.currentUser.uid && (this.currentUser.uid === chat.ownerUid || chat.adminUids && chat.adminUids.includes(this.currentUser.uid)) ? 
-                                            `<button class="btn btn-secondary" style="padding:4px 10px;font-size:11px" onclick="window.SoroApp.removeMember('${uid}')">Remove</button>` : ''}
-                                    </div>
-                                `;
-                            }
-                        })
-                    );
-                });
-
-                await Promise.all(promises);
-
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Manage Members</h3>
-                    ${membersHTML}
-                    <div class="settings-item" onclick="window.SoroApp.addMembers()"><div style="color:var(--accent);display:flex;align-items:center;gap:6px;"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#icon-plus"/></svg> Add Members</div></div>
-                    <div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openGroupSettings()">Back</button></div>
-                `;
-            },
-
-            async removeMember(uid) {
-                if (!confirm('Remove this member from the group?')) return;
-                const chat = this.currentChatData;
-                const newParticipants = chat.participants.filter(id => id !== uid);
-                const newAdmins = chat.adminUids ? chat.adminUids.filter(id => id !== uid) : [];
-
-                await updateDoc(doc(db, 'chats', chat.id), {
-                    participants: newParticipants,
-                    adminUids: newAdmins
-                });
-                chat.participants = newParticipants;
-                chat.adminUids = newAdmins;
-                U.showToast('Member removed');
-                this.manageMembers();
-            },
-
-            async addMembers() {
-                const usersQuery = query(
-                    collection(db, 'users'),
-                    where('uid', '!=', this.currentUser.uid)
-                );
-                const snapshot = await getDocs(usersQuery);
-
-                let userListHTML = '';
-                snapshot.forEach(doc => {
-                    const user = doc.data();
-                    if (this.currentChatData.participants.includes(doc.id)) return;
-                    const isBlocked = (this.userData.blockedUsers || []).includes(doc.id);
-                    if (isBlocked) return;
-                    userListHTML += `
-                        <div class="contact-check" onclick="this.classList.toggle('selected'); this.querySelector('input').checked = !this.querySelector('input').checked">
-                            <input type="checkbox" value="${doc.id}">
-                            <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
-                            <span>${U.escapeHtml(user.displayName)}</span>
-                        </div>
-                    `;
-                });
-
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <h3>Add Members</h3>
-                    <div style="max-height:300px;overflow-y:auto">${userListHTML}</div>
-                    <div class="modal-actions">
-                        <button class="btn btn-secondary" onclick="window.SoroApp.manageMembers()">Cancel</button>
-                        <button class="btn btn-primary" onclick="window.SoroApp.confirmAddMembers()">Add Selected</button>
-                    </div>
-                `;
-            },
-
-            async confirmAddMembers() {
-                const selected = document.querySelectorAll('#modal-content input:checked');
-                if (selected.length === 0) {
-                    U.showToast('Select at least one person');
-                    return;
+                for (const uid of chat.participants) {
+                    const userDoc = await getDoc(doc(db, 'users', uid));
+                    if (userDoc.exists()) {
+                        const user = userDoc.data();
+                        membersHTML += `
+                            <div class="settings-item">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <div class="avatar avatar-sm" style="background:${this.getAvatarStyle(user.displayName)};width:36px;height:36px;font-size:14px;">${user.displayName.charAt(0).toUpperCase()}</div>
+                                    <span>${U.escapeHtml(user.displayName)}</span>
+                                </div>
+                            </div>
+                        `;
+                    }
                 }
 
-                const chat = this.currentChatData;
-                const newMembers = Array.from(selected).map(cb => cb.value);
-                const updatedParticipants = chat.participants.concat(newMembers);
-
-                await updateDoc(doc(db, 'chats', chat.id), { participants: updatedParticipants });
-                chat.participants = updatedParticipants;
-                U.showToast(newMembers.length + ' member(s) added');
-                this.manageMembers();
-            },
-
-            async archiveGroup() {
-                if (!confirm('Archive this group?')) return;
-                const updateData = {};
-                updateData[`isArchived.${this.currentUser.uid}`] = true;
-                await updateDoc(doc(db, 'chats', this.currentChatId), updateData);
-                document.getElementById('modal-overlay').classList.remove('open');
-                this.closeChat();
-                this.showScreen('chats');
-                U.showToast('Group archived');
+                const content = document.getElementById('modal-content');
+                content.innerHTML = `
+                    <h3>Members</h3>
+                    ${membersHTML}
+                    <div class="modal-actions"><button class="btn btn-secondary" onclick="window.SoroApp.openGroupSettings()">Back</button></div>
+                `;
             },
 
             async exitGroup() {
@@ -3269,21 +2843,14 @@
                 const chat = this.currentChatData;
                 const userId = this.currentUser.uid;
                 const newParticipants = chat.participants.filter(uid => uid !== userId);
-                let updateData = { participants: newParticipants };
 
-                if (chat.ownerUid === userId && newParticipants.length > 0) {
-                    const newOwner = (chat.adminUids || []).find(uid => uid !== userId) || newParticipants[0];
-                    updateData.ownerUid = newOwner;
-                }
-
-                await updateDoc(doc(db, 'chats', chat.id), updateData);
+                await updateDoc(doc(db, 'chats', chat.id), { participants: newParticipants });
                 document.getElementById('modal-overlay').classList.remove('open');
                 this.closeChat();
                 this.showScreen('chats');
                 U.showToast('You left the group');
             },
 
-            // ==================== SETTINGS ====================
             loadSettings() {
                 const user = this.userData;
                 if (!user) return;
@@ -3428,7 +2995,7 @@
                     <div class="settings-item">
                         <div style="display:flex;align-items:center;gap:10px;">
                             <svg class="icon" viewBox="0 0 24 24"><use href="#icon-device"/></svg>
-                            <div><div style="font-weight:600">Current Device</div><div style="font-size:10px;opacity:0.5">${navigator.userAgent.substring(0, 50)}...</div></div>
+                            <div><div style="font-weight:600">Current Device</div></div>
                         </div>
                         <span style="color:var(--online);font-size:11px;">Current</span>
                     </div>
@@ -3464,7 +3031,6 @@
             }
         };
 
-        // Start the app
         document.getElementById('loading-status').textContent = 'Starting app...';
         SoroApp.init();
     </script>
