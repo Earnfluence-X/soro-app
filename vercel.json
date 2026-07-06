@@ -1,9 +1,6 @@
 {
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
+  "buildCommand": "echo 'Static site - no build needed'",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/(.*)", "destination": "/api/index.js" }
   ],
@@ -13,6 +10,12 @@
       "headers": [
         { "key": "Service-Worker-Allowed", "value": "/" },
         { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
     }
   ]
